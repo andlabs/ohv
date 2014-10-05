@@ -7,7 +7,6 @@ import (
 	"strings"
 	"sort"
 	"github.com/andlabs/ohv/mshi"
-//	"github.com/davecheney/profile"
 )
 
 type MSHI struct {
@@ -146,25 +145,4 @@ func (m *MSHITopic) Children() []Topic {
 func (m *MSHITopic) Less(t Topic) bool {
 	tt := t.(*MSHITopic)
 	return m.asset.Order < tt.asset.Order
-}
-
-func walk(t Topic, level int) {
-	println(strings.Repeat(" ", level) + t.Name())
-	for _, c := range t.Children() {
-		walk(c, level + 1)
-	}
-}
-
-func xmain() {
-//	defer profile.Start(profile.CPUProfile).Stop()
-	m, err := OpenMSHI(os.Args[1])
-	if err != nil { panic(err) }
-	println("books:")
-	for _, b := range m.Books() {
-		walk(b, 0)
-	}
-	println("orphans:")
-	for _, o := range m.Orphans() {
-		walk(o, 1)
-	}
 }

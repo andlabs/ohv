@@ -42,9 +42,3 @@ func NewMainWindow() *MainWindow {
 
 	return m
 }
-
-func main() {
-	gtk.Init(nil, nil)
-	NewMainWindow().window.ShowAll()
-	gtk.Main()
-}
