@@ -100,7 +100,7 @@ func ReadTailData(r io.ReadSeeker) (td *TailData, err error) {
 		return nil, err
 	}
 	skip -= n
-	if skip >= 0 {
+	if skip > 0 {
 		_, err := r.Seek(int64(skip), 1)
 		if err != nil {
 			return nil, err
