@@ -36,7 +36,25 @@ func OpenMSHI(dir string) (*MSHI, error) {
 	m.dir = dir
 
 	// first read all indices
-	err := filepath.Walk(m.dir, func(path string, info os.FileInfo, err error) error {
+	err := m.readAllIndices()
+	if err != nil {
+		return nil, err
+	}
+
+	// then produce a map that goes from ID -> topic
+	m.collectTopics()
+
+	// now figure out the hierarchy, books, and orphans
+	m.buildHierarchy()
+
+	// now sort all children
+	m.sortAllChildren()
+
+	return m, nil
+}
+
+func (m *MSHI) readAllIndices() error {
+	return filepath.Walk(m.dir, func(path string, info os.FileInfo, err error) error {
 		if err != nil {
 			return err
 		}
@@ -65,11 +83,9 @@ func OpenMSHI(dir string) (*MSHI, error) {
 		m.assets = append(m.assets, a)
 		return nil
 	})
-	if err != nil {
-		return nil, err
-	}
+}
 
-	// then produce a map that goes from ID -> topic
+func (m *MSHI) collectTopics() {
 	// TODO deal with versions sensibly
 	m.topics = make(map[string]*MSHITopic)
 	for container, aa := range m.assets {
@@ -83,8 +99,9 @@ func OpenMSHI(dir string) (*MSHI, error) {
 			}
 		}
 	}
+}
 
-	// now figure out the hierarchy, books, and orphans
+func (m *MSHI) buildHierarchy() {
 	all := make([]*MSHITopic, 0, len(m.topics))
 	for _, v := range m.topics {
 		all = append(all, v)
@@ -107,13 +124,12 @@ func OpenMSHI(dir string) (*MSHI, error) {
 	for _, v := range all {
 		m.orphans = append(m.orphans, v)
 	}
+}
 
-	// now sort all children
+func (m *MSHI) sortAllChildren() {
 	for _, t := range m.topics {
 		sort.Sort(TopicSorter(t.children))
 	}
-
-	return m, nil
 }
 
 type MSHITopic struct {
