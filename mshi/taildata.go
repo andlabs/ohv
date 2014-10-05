@@ -1,5 +1,5 @@
 // 4 october 2014
-package main
+package mshi
 
 type TailData struct {
 	Version			string

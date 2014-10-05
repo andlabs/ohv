@@ -1,10 +1,12 @@
 // 4 october 2014
-package main
+package mshi
 
 import (
 //	"fmt"
 	"os"
 	"encoding/json"
+	"flag"
+	"testing"
 )
 
 func dumpJSON(td interface{}) {
@@ -15,7 +17,8 @@ func dumpJSON(td interface{}) {
 	os.Stdout.Write(b)
 }
 
-func main() {
+// TODO figure out TestMain() semantics
+func TestDo(t *testing.T) {
 	ff, err := os.Open(os.Args[1])
 	if err != nil {
 		panic(err)

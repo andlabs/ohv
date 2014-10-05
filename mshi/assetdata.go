@@ -1,5 +1,5 @@
 // 5 october 2014
-package main
+package mshi
 
 type AssetData struct {
 	Index				int
