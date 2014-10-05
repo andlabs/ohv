@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<generator>
+	<package-name>webkit2</package-name>
+	<gir-path>/usr/share/gir-1.0/WebKit2-3.0.gir</gir-path>
+	<external-package name="gobject">
+		<gir-path>/usr/share/gir-1.0/GObject-2.0.gir</gir-path>
+		<import>github.com/reusee/ggir/gobject</import>
+	</external-package>
+	<external-package name="gtk">
+		<gir-path>/usr/share/gir-1.0/Gtk-3.0.gir</gir-path>
+		<import>github.com/reusee/ggir/gtk</import>
+	</external-package>
+	<include>webkit2/webkit2.h</include>
+	<pkg-config>webkitgtk2-3.0</pkg-config>
+</generator>
