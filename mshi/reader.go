@@ -220,10 +220,11 @@ func (f *File) readOffsetArray(offset CLS, data CLS) []uint32 {
 	if data.Count == 0 {
 		return nil
 	}
-	n := data.Count / f.TailData.OffsetInterval
-	if data.Count % f.TailData.OffsetInterval != 0 {
-		n++
-	}
+	// TODO HOW WAS THIS SUPPOSED TO WORK
+	n := data.Count;// / f.TailData.OffsetInterval
+//	if data.Count % f.TailData.OffsetInterval != 0 {
+//		n++
+//	}
 	list := make([]uint32, n)
 	f.seek(offset.StartPos)
 	postv1 := f.versionGreaterEqual("1.1.0.0")
