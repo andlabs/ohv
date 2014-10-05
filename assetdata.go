@@ -1,11 +1,6 @@
 // 5 october 2014
 package main
 
-import (
-	"io"
-	"encoding/binary"
-)
-
 type AssetData struct {
 	Index				int
 	ContainerPath			uint32
@@ -31,132 +26,62 @@ type AssetData struct {
 }
 
 // TODO adorn errors
-func (td *TailData) ReadAssetData(r io.ReadSeeker, index int) (a *AssetData, err error) {
+func (f *File) readAssetData(index int) (a *AssetData) {
 	var i uint32
 
 	a = new(AssetData)
-	skip := 0
-	if versionGreaterEqual(td.FileVersion, "1.1.0.0") {
-		_, err = read7BitEncodedInt(r, &i)
-		if err != nil {
-			return nil, err
-		}
-		skip = int(i)
-	}
+	f.readSkip()
 	a.Index = index
-	n, err := read7BitEncodedInt(r, &a.ContainerPath)
-	if err != nil {
-		return nil, err
+	a.ContainerPath = f.read7BitEncodedInt()
+	a.EntryName = f.readString()
+	a.CompressedDataOffset = f.read7BitEncodedInt()
+	a.CompressedSize = f.read7BitEncodedInt()
+	a.UncompressedSize = f.read7BitEncodedInt()
+	a.CompressionMethod = f.readu16()
+	a.Locale = f.readString()
+	a.Title = f.readString()
+	a.ID = f.readString()
+	a.Version = f.read7BitEncodedInt()
+	a.ParentID = f.readString()
+	a.Order = f.read7BitEncodedInt()
+	a.ContentFilter = f.readString()
+	a.ContentType = f.readString()
+	a.Description = f.readString()
+	if f.versionGreaterEqual("2.0.0.0") {
+		a.Category = f.readString()
 	}
-	skip -= n
-	n, err = readString(r, &a.EntryName)
-	if err != nil {
-		return nil, err
+	if f.versionGreaterEqual(, "2.0.0.3") {
+		a.DisplayVersion = f.readString()
 	}
-	skip -= n
-	n, err = read7BitEncodedInt(r, &a.CompressedDataOffset)
-	if err != nil {
-		return nil, err
+	if f.versionGreaterEqual(, "2.0.0.5") {
+		a.ParentVersion = f.read7BitEncodedInt()
+		a.ParentLocale = f.readString()
 	}
-	skip -= n
-	n, err = read7BitEncodedInt(r, &a.CompressedSize)
-	if err != nil {
-		return nil, err
+	if f.versionGreaterEqual("2.0.0.6") {
+		a.F1KeywordCount = f.read7BitEncodedInt()
 	}
-	skip -= n
-	n, err = read7BitEncodedInt(r, &a.UncompressedSize)
-	if err != nil {
-		return nil, err
+	f.doSkip()
+	if f.err != nil {
+		return nil
 	}
-	skip -= n
-	err = binary.Read(r, binary.LittleEndian, &a.CompressionMethod)
-	if err != nil {
-		return nil, err
+	return a
+}
+
+// TODO isolate core?
+// TODO adorn errors?
+func (f *File) ReadAssetDatas() (a []*AssetData) {
+	list := f.readOffsetArray(td.AssetDataOffset, td.AssetDataData)
+	if f.err != nil {
+		return nil
 	}
-	skip -= 2
-	n, err = readString(r, &a.Locale)
-	if err != nil {
-		return nil, err
+	realOffset := f.realOffset(list, td.AssetDataData)
+	f.seek(realOffset, 0)
+	a = make([]*AssetData, len(list))
+	for i := 0; i < len(list); i++ {
+		a[i] := f.readAssetData(i)
 	}
-	skip -= n
-	n, err = readString(r, &a.Title)
-	if err != nil {
-		return nil, err
+	if f.err != nil {
+		return nil
 	}
-	skip -= n
-	n, err = readString(r, &a.ID)
-	if err != nil {
-		return nil, err
-	}
-	skip -= n
-	n, err = read7BitEncodedInt(r, &a.Version)
-	if err != nil {
-		return nil, err
-	}
-	skip -= n
-	n, err = readString(r, &a.ParentID)
-	if err != nil {
-		return nil, err
-	}
-	skip -= n
-	n, err = read7BitEncodedInt(r, &a.Order)
-	if err != nil {
-		return nil, err
-	}
-	skip -= n
-	n, err = readString(r, &a.ContentFilter)
-	if err != nil {
-		return nil, err
-	}
-	skip -= n
-	n, err = readString(r, &a.ContentType)
-	if err != nil {
-		return nil, err
-	}
-	skip -= n
-	n, err = readString(r, &a.Description)
-	if err != nil {
-		return nil, err
-	}
-	skip -= n
-	if versionGreaterEqual(td.FileVersion, "2.0.0.0") {
-		n, err = readString(r, &a.Category)
-		if err != nil {
-			return nil, err
-		}
-		skip -= n
-	}
-	if versionGreaterEqual(td.FileVersion, "2.0.0.3") {
-		n, err = readString(r, &a.DisplayVersion)
-		if err != nil {
-			return nil, err
-		}
-		skip -= n
-	}
-	if versionGreaterEqual(td.FileVersion, "2.0.0.5") {
-		n, err = read7BitEncodedInt(r, &a.ParentVersion)
-		if err != nil {
-			return nil, err
-		}
-		skip -= n
-		n, err = readString(r, &a.ParentLocale)
-		if err != nil {
-			return nil, err
-		}
-		skip -= n
-	}
-	if versionGreaterEqual(td.FileVersion, "2.0.0.6") {
-		n, err = read7BitEncodedInt(r, &a.F1KeywordCount)
-		if err != nil {
-			return nil, err
-		}
-		skip -= n
-	}
-	if skip > 0 {
-		_, err := r.Seek(int64(skip), 1)
-		if err != nil {
-			return nil, err
-		}
-	}
-	return a, nil
+	return a
 }

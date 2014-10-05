@@ -13,41 +13,39 @@ type ContainerPath struct {
 }
 
 // TODO adorn errors
-func (td *TailData) ReadContainerPath(r io.ReadSeeker, index int) (c *ContainerPath, err error) {
+func (f *File) readContainerPath(index int) (c *ContainerPath) {
 	var i uint32
 
 	c = new(ContainerPath)
-	skip := 0
-	if versionGreaterEqual(td.FileVersion, "1.1.0.0") {
-		_, err = read7BitEncodedInt(r, &i)
-		if err != nil {
-			return nil, err
-		}
-		skip = int(i)
-	}
+	f.readSkip()
 	c.Index = index
-	n, err := readString(r, &c.Filename)
-	if err != nil {
-		return nil, err
+	c.Filename = f.readString()
+	c.Path = f.readString()
+	if f.versionGreaterEqual("1.0.0.20430") {
+		c.Vendor = f.readString()
 	}
-	skip -= n
-	n, err = readString(r, &c.Path)
-	if err != nil {
-		return nil, err
+	f.doSkip()
+	if f.err != nil {
+		return nil
 	}
-	skip -= n
-	if versionGreaterEqual(td.FileVersion, "1.0.0.20430") {
-		n, err = readString(r, &c.Vendor)
-		if err != nil {
-			return nil, err
-		}
-		skip -= n
+	return c
+}
+
+// TODO isolate core?
+// TODO adorn errors?
+func (f *File) ReadContainerPaths() (c []*ContainerPath) {
+	list := f.readOffsetArray(td.ContainerPathOffset, td.ContainerPathData)
+	if f.err != nil {
+		return nil
 	}
-	if skip > 0 {
-		_, err := r.Seek(int64(skip), 1)
-		if err != nil {
-			return nil, err
-		}
+	realOffset := f.realOffset(list, td.ContainerPathData)
+	f.seek(realOffset, 0)
+	c = make([]*ContainerPath, len(list))
+	for i := 0; i < len(list); i++ {
+		c[i] := f.readContainerPath(i)
 	}
-	return c, nil
+	if f.err != nil {
+		return nil
+	}
+	return c
 }

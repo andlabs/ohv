@@ -38,6 +38,24 @@ func (f *File) seek(offset int64, whence int) {
 	_, f.err = f.r.Seek(offset, whence)
 }
 
+func (f *File) readu16() uint16 {
+	var p [2]byte
+
+	if f.err != nil {
+		return 0
+	}
+	n, err := f.r.Read(p)
+	if err != nil {
+		f.err = err
+		return 0
+	} else if n != 2 {
+		f.err = io.ErrUnexpectedEOF
+		return 0
+	}
+	f.skip -= 2
+	return binary.LittleEndian.Uint16(p)
+}
+
 func (f *File) readu32() uint32 {
 	var p [4]byte
 
@@ -186,7 +204,7 @@ func versionGreaterEqual(against string) bool {
 }
 
 // TODO adorn error messages?
-func (f *File) ReadOffsetArray(offset CLS, data CLS) []uint32 {
+func (f *File) readOffsetArray(offset CLS, data CLS) []uint32 {
 	var err error
 
 	if f.err != nil {
