@@ -23,7 +23,8 @@ type File struct {
 func Open(r io.ReadSeeker) *File {
 	f := new(File)
 	f.r = r
-	f.readTailData()
+	// TODO avoid need for assignment
+	f.TailData = f.readTailData()
 	return f
 }
 
