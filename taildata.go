@@ -107,6 +107,11 @@ func ReadTailData(r io.ReadSeeker) (td *TailData, err error) {
 			return nil, err
 		}
 	}
+	// skip length of stats array
+	err = binary.Read(r, binary.LittleEndian, &i)
+	if err != nil {
+		return nil, err
+	}
 	if versionGreaterEqual(td.FileVersion, "2.0.0.0") {
 		err = binary.Read(r, le, &td.AssetEntryOffset)
 		if err != nil {

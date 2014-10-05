@@ -16,7 +16,7 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-
+return
 	list, err := td.ReadOffsetArray(f, td.ContainerPathData)
 	if err != nil {
 		panic(err)
