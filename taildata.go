@@ -1,13 +1,6 @@
 // 4 october 2014
 package main
 
-import (
-	"io"
-	"encoding/binary"
-	"strings"
-	"strconv"
-)
-
 type TailData struct {
 	Version			string
 	FileVersion		string
@@ -45,179 +38,46 @@ type CLS struct {
 	StartPos	uint32
 }
 
-// TODO eliminate
-var le = binary.LittleEndian
-
 // TODO adorn error messages?
-func ReadTailData(r io.ReadSeeker) (td *TailData, err error) {
+func (f *File) readTailData() (td *TailData) {
 	var tdoff, i uint32
 
 	td = new(TailData)
-	_, err = r.Seek(-8, 2)
-	if err != nil {
-		return nil, err
+	f.seek(-8, 2)
+	tdoff = f.readu32()
+	f.seek(tdoff, 0)
+	td.Version = f.readString()
+	td.FileVersion = f.readString()
+	f.version = td.FileVersion		//  needed by f.readSkip() and some things below
+	f.readSkip()
+	td.OffsetInterval = f.readu32()
+	td.Product = f.readString()
+	td.ProductVersion = f.readString()
+	td.ProductLocale = f.readString()
+	f.doSkip()
+	f.readu32()	// skip length of stats array
+	if f.versionGreaterEqual("2.0.0.0") {
+		td.AssetEntryOffset = f.readCLS()
+		td.AssetEntryData = f.readCLS()
 	}
-	err = binary.Read(r, binary.LittleEndian, &tdoff)
-	if err != nil {
-		return nil, err
+	if f.versionGreaterEqual("1.0.21123.0") {
+		td.SearchTerm = f.readODL()
 	}
-	_, err = r.Seek(int64(tdoff), 0)
-	if err != nil {
-		return nil, err
+	td.TOCRootData = f.readCLS()
+	td.ContentType = f.readODL()
+	td.ContentFilter = f.readODL()
+	td.Category = f.readODL()
+	td.Parent = f.readODL()
+	td.Content = f.readODL()
+	td.Keyword = f.readODL()
+	td.F1 = f.readODL()
+	td.AssetID = f.readODL()
+	td.AssetDataOffset = f.readCLS()
+	td.AssetDataData = f.readCLS()
+	td.ContainerPathOffset = f.readCLS()
+	td.ContainerPathData = f.readCLS()
+	if f.err != nil {
+		return nil
 	}
-	_, err = readString(r, &td.Version)
-	if err != nil {
-		return nil, err
-	}
-	_, err = readString(r, &td.FileVersion)
-	if err != nil {
-		return nil, err
-	}
-	skip := 0
-	if versionGreaterEqual(td.FileVersion, "1.1.0.0") {
-		_, err = read7BitEncodedInt(r, &i)
-		if err != nil {
-			return nil, err
-		}
-		skip = int(i)
-	}
-	err = binary.Read(r, binary.LittleEndian, &td.OffsetInterval)
-	if err != nil {
-		return nil, err
-	}
-	skip -= 4
-	n, err := readString(r, &td.Product)
-	if err != nil {
-		return nil, err
-	}
-	skip -= n
-	n, err = readString(r, &td.ProductVersion)
-	if err != nil {
-		return nil, err
-	}
-	skip -= n
-	n, err = readString(r, &td.ProductLocale)
-	if err != nil {
-		return nil, err
-	}
-	skip -= n
-	if skip > 0 {
-		_, err := r.Seek(int64(skip), 1)
-		if err != nil {
-			return nil, err
-		}
-	}
-	// skip length of stats array
-	err = binary.Read(r, binary.LittleEndian, &i)
-	if err != nil {
-		return nil, err
-	}
-	if versionGreaterEqual(td.FileVersion, "2.0.0.0") {
-		err = binary.Read(r, le, &td.AssetEntryOffset)
-		if err != nil {
-			return nil, err
-		}
-		err = binary.Read(r, le, &td.AssetEntryData)
-		if err != nil {
-			return nil, err
-		}
-	}
-	if versionGreaterEqual(td.FileVersion, "1.0.21123.0") {
-		err = binary.Read(r, le, &td.SearchTerm)
-		if err != nil {
-			return nil, err
-		}
-	}
-	err = binary.Read(r, le, &td.TOCRootData)
-	if err != nil {
-		return nil, err
-	}
-	err = binary.Read(r, le, &td.ContentType)
-	if err != nil {
-		return nil, err
-	}
-	err = binary.Read(r, le, &td.ContentFilter)
-	if err != nil {
-		return nil, err
-	}
-	err = binary.Read(r, le, &td.Category)
-	if err != nil {
-		return nil, err
-	}
-	err = binary.Read(r, le, &td.Parent)
-	if err != nil {
-		return nil, err
-	}
-	err = binary.Read(r, le, &td.Content)
-	if err != nil {
-		return nil, err
-	}
-	err = binary.Read(r, le, &td.Keyword)
-	if err != nil {
-		return nil, err
-	}
-	err = binary.Read(r, le, &td.F1)
-	if err != nil {
-		return nil, err
-	}
-	err = binary.Read(r, le, &td.AssetID)
-	if err != nil {
-		return nil, err
-	}
-	err = binary.Read(r, le, &td.AssetDataOffset)
-	if err != nil {
-		return nil, err
-	}
-	err = binary.Read(r, le, &td.AssetDataData)
-	if err != nil {
-		return nil, err
-	}
-	err = binary.Read(r, le, &td.ContainerPathOffset)
-	if err != nil {
-		return nil, err
-	}
-	err = binary.Read(r, le, &td.ContainerPathData)
-	if err != nil {
-		return nil, err
-	}
-	return td, nil
-}
-
-// TODO return error?
-func versionGreaterEqual(ver string, against string) bool {
-	var err error
-
-	vparts := strings.Split(ver, ".")
-	aparts := strings.Split(against, ".")
-	if len(vparts) != len(aparts) {
-		panic("vparts and aparts have different lengths in versionGreaterEqual()")
-	}
-	vints := make([]int, len(vparts))
-	for i, v := range vparts {
-		vints[i], err = strconv.Atoi(v)
-		if err != nil {
-			panic(err)
-		}
-	}
-	aints := make([]int, len(aparts))
-	for i, a := range vparts {
-		aints[i], err = strconv.Atoi(a)
-		if err != nil {
-			panic(err)
-		}
-	}
-	for i := 0; i < len(vints); i++ {
-		if vints[i] > aints[i] {
-			// versions are greater
-			return true
-		} else if vints[i] == aints[i] {
-			// parts are the same so far...
-			continue
-		} else {
-			// versions are less
-			return false
-		}
-	}
-	// versions match
-	return true
+	return td
 }
