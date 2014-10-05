@@ -103,27 +103,17 @@ func (m *MSHI) collectTopics() {
 }
 
 func (m *MSHI) buildHierarchy() {
-	all := make([]*MSHITopic, 0, len(m.topics))
 	for _, v := range m.topics {
-		all = append(all, v)
-	}
-	i := 0
-	for i < len(all) {
-		if all[i].asset.ParentID == "-1" {		// is top-level
-			m.books = append(m.books, all[i])
-			all = append(all[:i], all[i + 1:]...)
+		if v.asset.ParentID == "-1" {		// is top-level
+			m.books = append(m.books, v)
 			continue
 		}
-		parent, ok := m.topics[all[i].asset.ParentID]
+		parent, ok := m.topics[v.asset.ParentID]
 		if ok {			// has parent
-			parent.children = append(parent.children, all[i])
-			all = append(all[:i], all[i + 1:]...)
+			parent.children = append(parent.children, v)
 			continue
 		}
-		i++		// parent elsewhere or missing
-	}
-	for _, v := range all {
-		m.orphans = append(m.orphans, v)
+		m.orphans = append(m.orphans, v)			// parent elsewhere or missing
 	}
 }
 
