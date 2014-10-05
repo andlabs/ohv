@@ -29,7 +29,7 @@ the taildata is of the form
 where lstring is
 
 	byte		length
-	[]char	data		TODO encoding
+	[]char	data, UTF-8
 
 statArray is actually a structure of the form
 
