@@ -4,7 +4,16 @@ package main
 import (
 	"fmt"
 	"os"
+	"encoding/json"
 )
+
+func dumpJSON(td *TailData) {
+	b, err := json.MarshalIndent(td, "", "\t")
+	if err != nil {
+		panic(err)
+	}
+	os.Stdout.Write(b)
+}
 
 func main() {
 	f, err := os.Open(os.Args[1])
@@ -16,6 +25,7 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
+dumpJSON(td)
 return
 	list, err := td.ReadOffsetArray(f, td.ContainerPathData)
 	if err != nil {
