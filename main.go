@@ -43,4 +43,22 @@ func main() {
 		}
 		dumpJSON(c)
 	}
+
+	list, err = td.ReadOffsetArray(f, td.AssetDataOffset, td.AssetDataData)
+	if err != nil {
+		panic(err)
+	}
+	fmt.Printf("%x\n", list)
+	realOffset = td.RealOffset(list, td.AssetDataData)
+	_, err = f.Seek(realOffset, 0)
+	if err != nil {
+		panic(err)
+	}
+	for i := 0; i < len(list); i++ {
+		a, err := td.ReadAssetData(f, i)
+		if err != nil {
+			panic(err)
+		}
+		dumpJSON(a)
+	}
 }
