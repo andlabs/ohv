@@ -45,6 +45,7 @@ type CLS struct {
 	StartPos	uint32
 }
 
+// TODO eliminate
 var le = binary.LittleEndian
 
 // TODO adorn error messages?
@@ -56,7 +57,7 @@ func ReadTailData(r io.ReadSeeker) (td *TailData, err error) {
 	if err != nil {
 		return nil, err
 	}
-	err = binary.Read(r, le, &tdoff)
+	err = binary.Read(r, binary.LittleEndian, &tdoff)
 	if err != nil {
 		return nil, err
 	}

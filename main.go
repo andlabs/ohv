@@ -2,8 +2,8 @@
 package main
 
 import (
+	"fmt"
 	"os"
-	"encoding/json"
 )
 
 func main() {
@@ -16,9 +16,10 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	b, err := json.MarshalIndent(td, "", "\t")
+
+	list, err := td.ReadOffsetArray(f, td.ContainerPathData)
 	if err != nil {
 		panic(err)
 	}
-	os.Stdout.Write(b)
+	fmt.Printf("%x\n", list)
 }
