@@ -184,24 +184,22 @@ func ReadTailData(r io.ReadSeeker) (td *TailData, err error) {
 }
 
 func readString(r io.Reader, out *string) (int, error) {
-	var n [1]byte
+	var length uint32
 
-	q, err := r.Read(n[:])
+	n, err := read7BitEncodedInt(r, &length)
 	if err != nil {
 		return 0, err
-	} else if q != 1 {			// TODO premature
-		return 0, io.EOF
 	}
-	b := make([]byte, n[0])
-	q, err = r.Read(b)
+	b := make([]byte, length)
+	q, err := r.Read(b)
 	if err != nil {
 		return 0, err
-	} else if q != int(n[0]) {		// TODO premature
+	} else if q != len(b) {		// TODO premature
 		return 0, io.EOF
 	}
 	// don't worry, the string is supposed to be UTF-8
 	*out = string(b)
-	return int(n[0]) + len(b), nil
+	return n + len(b), nil
 }
 
 func read7BitEncodedInt(r io.Reader, out *uint32) (int, error) {
