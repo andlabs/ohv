@@ -1,0 +1,79 @@
+3 october 2014
+
+the last 12 bytes of the file are of the form
+
+	u32le	crc32
+	u32le	tailDataOffset
+	u32le	tailDataSize
+
+the offset to the tail data is at the beginning of the file
+
+the crc32 is of the whole file minus these last 12 bytes if fileVersion below >= 2.0.0.1
+
+the taildata is of the form
+
+	lstring	version
+	lstring	fileVersion
+	if fileVersion >= 1.1.0.0
+		int7bitencoded		sizeNext
+	chunk1:
+		u32le	offsetInterval
+		lstring	product
+		lstring	productVersion
+		lstring	productLocale
+	if fileVersion >= 1.1.0.0
+		skip sizeNext - sizeof chunk1 bytes
+	u32le	statArrayLength
+	u32le[]	statArrayReversed
+
+where lstring is
+
+	byte		length
+	[]char	data		TODO encoding
+
+statArray is actually a structure of the form
+
+	if fileVersion >= 2.0.0.0
+		CLS		assetEntryOffset
+		CLS		assetEntryData
+	if fileVersion >= 1.0.21123.0
+		ODL		searchTerm
+	CLS		tocRootData
+	ODL		contentType
+	ODL		contentFilter
+	ODL		category
+	ODL		parent
+	ODL		content
+	ODL		keyword
+	ODL		f1
+	ODL		assetID
+	CLS		assetDataOffset
+	CLS		assetDataData
+	CLS		containerPathOffset
+	CLS		containerPathData
+
+where CLS is
+
+	u32le	count
+	u32le	length
+	u32le	startPos
+
+and ODL is
+
+	CLS		offset
+	CLS		data
+	CLS		location
+
+A CLS represents an array of items independently of the item type. How this works is simple:
+
+	a) the segment in the binary is from startPos to startPos+length
+	b) the number of items actually present is count / offsetInterval
+	c) if count % offsetInterval != 0, there is one more item (or in other words, always round up)
+	d) if fileVersion < 1.1.0.0, the array is just a list of T offsets where
+		if this is the TOC Root list, T = int7bitencoded
+		else T = u32le
+	e) otherwise, each data entry is the following structure:
+		int7bitencoded		bytesToSkip
+		int7bitencoded		offset
+		[skip bytesToSkip - sizeof offset bytes]
+
