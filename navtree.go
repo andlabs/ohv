@@ -32,7 +32,7 @@ func navtreePathValid(path *C.GtkTreePath) C.gboolean {
 	}
 	t := Library[n[0]]
 	for _, i := range n[1:] {
-		if i > len(t.Children()) {
+		if i >= len(t.Children()) {
 			return C.FALSE
 		}
 		t = t.Children()[i]

@@ -229,7 +229,13 @@ void newModel(void *treeview)
 {
 	GtkTreeModel *tm;
 	GtkTreeView *tv = GTK_TREE_VIEW(treeview);
+	GtkTreeViewColumn *tc;
+	GtkCellRenderer *r;
 
 	tm = (GtkTreeModel *) g_object_new(navtreeModel_get_type(), NULL);
 	gtk_tree_view_set_model(tv, tm);
+	r = gtk_cell_renderer_text_new();
+	tc = gtk_tree_view_column_new_with_attributes("Topics", r, "text", 0, NULL);
+	gtk_tree_view_append_column(tv, tc);
+	gtk_tree_view_set_headers_visible(tv, FALSE);
 }
