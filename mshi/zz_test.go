@@ -19,7 +19,7 @@ func dumpJSON(td interface{}) {
 
 // TODO figure out TestMain() semantics
 func TestDo(t *testing.T) {
-	ff, err := os.Open(os.Args[1])
+	ff, err := os.Open(flag.Arg(0))
 	if err != nil {
 		panic(err)
 	}
