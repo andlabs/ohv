@@ -11,5 +11,5 @@
 		<import>github.com/reusee/ggir/gtk</import>
 	</external-package>
 	<include>webkit2/webkit2.h</include>
-	<pkg-config>webkitgtk2-3.0</pkg-config>
+	<pkg-config>webkit2gtk-3.0</pkg-config>
 </generator>

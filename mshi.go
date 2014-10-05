@@ -155,7 +155,7 @@ func walk(t Topic, level int) {
 	}
 }
 
-func main() {
+func xmain() {
 //	defer profile.Start(profile.CPUProfile).Stop()
 	m, err := OpenMSHI(os.Args[1])
 	if err != nil { panic(err) }

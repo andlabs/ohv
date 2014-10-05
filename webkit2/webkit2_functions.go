@@ -3,7 +3,7 @@ package webkit2
 /*
 #include <webkit2/webkit2.h>
 #include <stdlib.h>
-#cgo pkg-config: webkitgtk2-3.0
+#cgo pkg-config: webkit2gtk-3.0
 */
 import "C"
 
