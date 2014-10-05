@@ -3,14 +3,9 @@ package main
 
 type HelpSource interface {
 	Name() string
-	Books() []Book
+	Books() []Topic
 	Orphans() []Topic
 //	SharedAssets() []Asset
-}
-
-type Book interface {
-	Name() string
-	Members() []Topic
 }
 
 type Topic interface {

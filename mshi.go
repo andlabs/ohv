@@ -5,6 +5,7 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+	"sort"
 	"github.com/andlabs/ohv/mshi"
 )
 
@@ -13,7 +14,7 @@ type MSHI struct {
 	containers	[][]*mshi.ContainerPath
 	assets		[][]*mshi.AssetData
 	topics		map[string]*MSHITopic
-	books		[]Book
+	books		[]Topic
 	orphans		[]Topic
 }
 
@@ -21,7 +22,7 @@ func (m *MSHI) Name() string {
 	return "All Microsoft Help Viewer-format documentation"
 }
 
-func (m *MSHI) Books() []Book {
+func (m *MSHI) Books() []Topic {
 	return m.books
 }
 
@@ -68,6 +69,7 @@ func OpenMSHI(dir string) (*MSHI, error) {
 		return nil, err
 	}
 
+	// then produce a map that goes from ID -> topic
 	// TODO deal with versions sensibly
 	m.topics = make(map[string]*MSHITopic)
 	for container, aa := range m.assets {
@@ -80,6 +82,35 @@ func OpenMSHI(dir string) (*MSHI, error) {
 				asset:		a,
 			}
 		}
+	}
+
+	// now figure out the hierarchy, books, and orphans
+	all := make([]*MSHITopic, 0, len(m.topics))
+	for _, v := range m.topics {
+		all = append(all, v)
+	}
+	i := 0
+	for i < len(all) {
+		if all[i].asset.ParentID == "-1" {		// is top-level
+			m.books = append(m.books, all[i])
+			all = append(all[:i], all[i + 1:]...)
+			continue
+		}
+		parent, ok := m.topics[all[i].asset.ParentID]
+		if ok {			// has parent
+			parent.children = append(parent.children, all[i])
+			all = append(all[:i], all[i + 1:]...)
+			continue
+		}
+		i++		// parent elsewhere or missing
+	}
+	for _, v := range all {
+		m.orphans = append(m.orphans, v)
+	}
+
+	// now sort all children
+	for _, t := range m.topics {
+		sort.Sort(TopicSorter(t.children))
 	}
 
 	return m, nil
@@ -112,7 +143,9 @@ func (m *MSHITopic) Less(t Topic) bool {
 func main() {
 	m, err := OpenMSHI(os.Args[1])
 	if err != nil { panic(err) }
-	for _, t := range m.topics {
-		println(t.asset.CompressionMethod)
+	println("books:")
+	for _, b := range m.Books() {
+		println(b.Name())
 	}
+	println("orphans:", len(m.Orphans()))
 }
