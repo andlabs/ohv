@@ -7,7 +7,7 @@ import (
 	"encoding/json"
 )
 
-func dumpJSON(td *TailData) {
+func dumpJSON(td interface{}) {
 	b, err := json.MarshalIndent(td, "", "\t")
 	if err != nil {
 		panic(err)
@@ -25,11 +25,22 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-dumpJSON(td)
-return
-	list, err := td.ReadOffsetArray(f, td.ContainerPathData)
+
+	list, err := td.ReadOffsetArray(f, td.ContainerPathOffset, td.ContainerPathData)
 	if err != nil {
 		panic(err)
 	}
 	fmt.Printf("%x\n", list)
+	realOffset := td.RealOffset(list, td.ContainerPathData)
+	_, err = f.Seek(realOffset, 0)
+	if err != nil {
+		panic(err)
+	}
+	for i := 0; i < len(list); i++ {
+		c, err := td.ReadContainerPath(f, i)
+		if err != nil {
+			panic(err)
+		}
+		dumpJSON(c)
+	}
 }

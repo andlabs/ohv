@@ -7,18 +7,18 @@ import (
 )
 
 // TODO adorn error messages?
-func (td *TailData) ReadOffsetArray(r io.ReadSeeker, cls CLS) ([]uint32, error) {
+func (td *TailData) ReadOffsetArray(r io.ReadSeeker, offset CLS, data CLS) ([]uint32, error) {
 	var err error
 
-	if cls.Count == 0 {
+	if data.Count == 0 {
 		return nil, nil
 	}
-	n := cls.Count / td.OffsetInterval
-	if cls.Count % td.OffsetInterval != 0 {
+	n := data.Count / td.OffsetInterval
+	if data.Count % td.OffsetInterval != 0 {
 		n++
 	}
 	list := make([]uint32, n)
-	_, err = r.Seek(int64(cls.StartPos), 0)
+	_, err = r.Seek(int64(offset.StartPos), 0)
 	if err != nil {
 		return nil, err
 	}
@@ -49,4 +49,11 @@ func (td *TailData) ReadOffsetArray(r io.ReadSeeker, cls CLS) ([]uint32, error) 
 		}
 	}
 	return list, nil
+}
+
+func (td *TailData) RealOffset(offsets []uint32, cls CLS) int64 {
+	if !versionGreaterEqual(td.FileVersion, "1.1.0.0") {
+		return int64(offsets[0])
+	}
+	return int64(offsets[0] + cls.StartPos)
 }

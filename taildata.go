@@ -29,7 +29,7 @@ type TailData struct {
 	AssetID			ODL
 	AssetDataOffset	CLS
 	AssetDataData		CLS
-	ContainerPathOffset	CLS
+	ContainerPathOffset	CLS		// TODO rename
 	ContainerPathData	CLS
 }
 
