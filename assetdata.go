@@ -27,8 +27,6 @@ type AssetData struct {
 
 // TODO adorn errors
 func (f *File) readAssetData(index int) (a *AssetData) {
-	var i uint32
-
 	a = new(AssetData)
 	f.readSkip()
 	a.Index = index
@@ -50,10 +48,10 @@ func (f *File) readAssetData(index int) (a *AssetData) {
 	if f.versionGreaterEqual("2.0.0.0") {
 		a.Category = f.readString()
 	}
-	if f.versionGreaterEqual(, "2.0.0.3") {
+	if f.versionGreaterEqual("2.0.0.3") {
 		a.DisplayVersion = f.readString()
 	}
-	if f.versionGreaterEqual(, "2.0.0.5") {
+	if f.versionGreaterEqual("2.0.0.5") {
 		a.ParentVersion = f.read7BitEncodedInt()
 		a.ParentLocale = f.readString()
 	}
@@ -70,15 +68,15 @@ func (f *File) readAssetData(index int) (a *AssetData) {
 // TODO isolate core?
 // TODO adorn errors?
 func (f *File) ReadAssetDatas() (a []*AssetData) {
-	list := f.readOffsetArray(td.AssetDataOffset, td.AssetDataData)
+	list := f.readOffsetArray(f.TailData.AssetDataOffset, f.TailData.AssetDataData)
 	if f.err != nil {
 		return nil
 	}
-	realOffset := f.realOffset(list, td.AssetDataData)
-	f.seek(realOffset, 0)
+	realOffset := f.realOffset(list, f.TailData.AssetDataData)
+	f.seek(realOffset)
 	a = make([]*AssetData, len(list))
 	for i := 0; i < len(list); i++ {
-		a[i] := f.readAssetData(i)
+		a[i] = f.readAssetData(i)
 	}
 	if f.err != nil {
 		return nil

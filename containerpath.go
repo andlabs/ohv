@@ -1,10 +1,6 @@
 // 5 october 2014
 package main
 
-import (
-	"io"
-)
-
 type ContainerPath struct {
 	Index	int
 	Filename	string
@@ -14,8 +10,6 @@ type ContainerPath struct {
 
 // TODO adorn errors
 func (f *File) readContainerPath(index int) (c *ContainerPath) {
-	var i uint32
-
 	c = new(ContainerPath)
 	f.readSkip()
 	c.Index = index
@@ -34,15 +28,15 @@ func (f *File) readContainerPath(index int) (c *ContainerPath) {
 // TODO isolate core?
 // TODO adorn errors?
 func (f *File) ReadContainerPaths() (c []*ContainerPath) {
-	list := f.readOffsetArray(td.ContainerPathOffset, td.ContainerPathData)
+	list := f.readOffsetArray(f.TailData.ContainerPathOffset, f.TailData.ContainerPathData)
 	if f.err != nil {
 		return nil
 	}
-	realOffset := f.realOffset(list, td.ContainerPathData)
-	f.seek(realOffset, 0)
+	realOffset := f.realOffset(list, f.TailData.ContainerPathData)
+	f.seek(realOffset)
 	c = make([]*ContainerPath, len(list))
 	for i := 0; i < len(list); i++ {
-		c[i] := f.readContainerPath(i)
+		c[i] = f.readContainerPath(i)
 	}
 	if f.err != nil {
 		return nil

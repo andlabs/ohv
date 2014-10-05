@@ -40,12 +40,10 @@ type CLS struct {
 
 // TODO adorn error messages?
 func (f *File) readTailData() (td *TailData) {
-	var tdoff, i uint32
-
 	td = new(TailData)
-	f.seek(-8, 2)
-	tdoff = f.readu32()
-	f.seek(tdoff, 0)
+	f.seekfull(-8, 2)
+	tdoff := f.readu32()
+	f.seek(tdoff)
 	td.Version = f.readString()
 	td.FileVersion = f.readString()
 	f.version = td.FileVersion		//  needed by f.readSkip() and some things below

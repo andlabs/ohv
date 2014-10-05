@@ -27,11 +27,19 @@ func Open(r io.ReadSeeker) *File {
 	return f
 }
 
-func Error() error {
+// TODO rename to Error()? (see what stdlib does)
+func (f *File) Err() error {
 	return f.err
 }
 
-func (f *File) seek(offset int64, whence int) {
+func (f *File) seek(offset uint32) {
+	if f.err != nil {
+		return
+	}
+	_, f.err = f.r.Seek(int64(offset), 0)
+}
+
+func (f *File) seekfull(offset int64, whence int) {
 	if f.err != nil {
 		return
 	}
@@ -44,7 +52,7 @@ func (f *File) readu16() uint16 {
 	if f.err != nil {
 		return 0
 	}
-	n, err := f.r.Read(p)
+	n, err := f.r.Read(p[:])
 	if err != nil {
 		f.err = err
 		return 0
@@ -53,7 +61,7 @@ func (f *File) readu16() uint16 {
 		return 0
 	}
 	f.skip -= 2
-	return binary.LittleEndian.Uint16(p)
+	return binary.LittleEndian.Uint16(p[:])
 }
 
 func (f *File) readu32() uint32 {
@@ -62,7 +70,7 @@ func (f *File) readu32() uint32 {
 	if f.err != nil {
 		return 0
 	}
-	n, err := f.r.Read(p)
+	n, err := f.r.Read(p[:])
 	if err != nil {
 		f.err = err
 		return 0
@@ -71,7 +79,7 @@ func (f *File) readu32() uint32 {
 		return 0
 	}
 	f.skip -= 4
-	return binary.LittleEndian.Uint32(p)
+	return binary.LittleEndian.Uint32(p[:])
 }
 
 func (f *File) readSkip() {
@@ -89,7 +97,7 @@ func (f *File) doSkip() {
 		return
 	}
 	if f.skip > 0 {
-		_, f.err = r.Seek(int64(f.skip), 1)
+		_, f.err = f.r.Seek(int64(f.skip), 1)
 	}
 	f.skip = 0
 }
@@ -117,7 +125,7 @@ func (f *File) readString() string {
 		return ""
 	}
 	p := make([]byte, length)
-	n, err := r.Read(p)
+	n, err := f.r.Read(p)
 	if err != nil {
 		f.err = err
 		return ""
@@ -139,7 +147,7 @@ func (f *File) read7BitEncodedInt() uint32 {
 	out := uint32(0)
 	shift := uint32(0)
 	for {
-		q, err := r.Read(n[:])
+		q, err := f.r.Read(n[:])
 		if err != nil {
 			f.err = err
 			return 0
@@ -157,13 +165,13 @@ func (f *File) read7BitEncodedInt() uint32 {
 	return out
 }
 
-func versionGreaterEqual(against string) bool {
+func (f *File) versionGreaterEqual(against string) bool {
 	var err error
 
 	if f.err != nil {
 		return false
 	}
-	vparts := strings.Split(f.FileVersion, ".")
+	vparts := strings.Split(f.version, ".")
 	aparts := strings.Split(against, ".")
 	if len(vparts) != len(aparts) {
 		f.err = errors.New("vparts and aparts have different lengths in File.versionGreaterEqual()")
@@ -205,20 +213,18 @@ func versionGreaterEqual(against string) bool {
 
 // TODO adorn error messages?
 func (f *File) readOffsetArray(offset CLS, data CLS) []uint32 {
-	var err error
-
 	if f.err != nil {
 		return nil
 	}
 	if data.Count == 0 {
 		return nil
 	}
-	n := data.Count / td.OffsetInterval
-	if data.Count % td.OffsetInterval != 0 {
+	n := data.Count / f.TailData.OffsetInterval
+	if data.Count % f.TailData.OffsetInterval != 0 {
 		n++
 	}
 	list := make([]uint32, n)
-	f.seek(offset.StartPos, 0)
+	f.seek(offset.StartPos)
 	postv1 := f.versionGreaterEqual("1.1.0.0")
 	for i := uint32(0); i < n; i++ {
 		if postv1 {
