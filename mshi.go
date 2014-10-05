@@ -7,6 +7,7 @@ import (
 	"strings"
 	"sort"
 	"github.com/andlabs/ohv/mshi"
+//	"github.com/davecheney/profile"
 )
 
 type MSHI struct {
@@ -157,6 +158,7 @@ func (m *MSHITopic) Less(t Topic) bool {
 }
 
 func main() {
+//	defer profile.Start(profile.CPUProfile).Stop()
 	m, err := OpenMSHI(os.Args[1])
 	if err != nil { panic(err) }
 	println("books:")
