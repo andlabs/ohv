@@ -103,6 +103,7 @@ func (m *MSHI) collectTopics() {
 }
 
 func (m *MSHI) buildHierarchy() {
+	// TODO are parents case-insensitive?
 	for _, v := range m.topics {
 		if v.asset.ParentID == "-1" {		// is top-level
 			m.books = append(m.books, v)
@@ -147,13 +148,23 @@ func (m *MSHITopic) Less(t Topic) bool {
 	return m.asset.Order < tt.asset.Order
 }
 
+func walk(t Topic, level int) {
+	println(strings.Repeat(" ", level) + t.Name())
+	for _, c := range t.Children() {
+		walk(c, level + 1)
+	}
+}
+
 func main() {
 //	defer profile.Start(profile.CPUProfile).Stop()
 	m, err := OpenMSHI(os.Args[1])
 	if err != nil { panic(err) }
 	println("books:")
 	for _, b := range m.Books() {
-		println(b.Name())
+		walk(b, 0)
 	}
-	println("orphans:", len(m.Orphans()))
+	println("orphans:")
+	for _, o := range m.Orphans() {
+		walk(o, 1)
+	}
 }
