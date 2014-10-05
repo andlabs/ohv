@@ -81,12 +81,12 @@ func ReadTailData(r io.ReadSeeker) (td *TailData, err error) {
 		}
 		skip = int(i)
 	}
-	n, err := read7BitEncodedInt(r, &td.OffsetInterval)
+	err = binary.Read(r, binary.LittleEndian, &td.OffsetInterval)
 	if err != nil {
 		return nil, err
 	}
-	skip -= int(n)
-	n, err = readString(r, &td.Product)
+	skip -= 4
+	n, err := readString(r, &td.Product)
 	if err != nil {
 		return nil, err
 	}
