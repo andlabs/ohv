@@ -5,8 +5,6 @@ import (
 	// ...
 )
 
-// #cgo pkg-config: gtk+-3.0
-// #cgo CFLAGS: --std=c99
 // #include "gtk_unix.h"
 import "C"
 

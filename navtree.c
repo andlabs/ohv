@@ -177,3 +177,59 @@ gboolean navtree_iter_parent(GtkTreeModel *model, GtkTreeIter *iter, GtkTreeIter
 	}
 	return TRUE;
 }
+
+static void navtreeModel_initGtkTreeModel(GtkTreeModelIface *interface);
+
+G_DEFINE_TYPE_WITH_CODE(navtreeModel, navtreeModel, G_TYPE_OBJECT,
+	G_IMPLEMENT_INTERFACE(GTK_TYPE_TREE_MODEL, navtreeModel_initGtkTreeModel))
+
+static void navtreeModel_init(navtreeModel *t)
+{
+	// do nothing
+}
+
+static void navtreeModel_dispose(GObject *obj)
+{
+	G_OBJECT_CLASS(navtreeModel_parent_class)->dispose(obj);
+}
+
+static void navtreeModel_finalize(GObject *obj)
+{
+	G_OBJECT_CLASS(navtreeModel_parent_class)->finalize(obj);
+}
+
+static void navtreeModel_initGtkTreeModel(GtkTreeModelIface *interface)
+{
+	// don't chain; we have nothing to chain to
+#define DEF(x) interface->x = navtree_ ## x;
+	DEF(get_flags)
+	DEF(get_n_columns)
+	DEF(get_column_type)
+	DEF(get_iter)
+	DEF(get_path)
+	DEF(get_value)
+	DEF(iter_next)
+	DEF(iter_previous)
+	DEF(iter_children)
+	DEF(iter_has_child)
+	DEF(iter_n_children)
+	DEF(iter_nth_child)
+	DEF(iter_parent)
+	// no need for ref_node and unref_node
+	// TODO provide them anyway?
+}
+
+static void navtreeModel_class_init(navtreeModelClass *class)
+{
+	G_OBJECT_CLASS(class)->dispose = navtreeModel_dispose;
+	G_OBJECT_CLASS(class)->finalize = navtreeModel_finalize;
+}
+
+void newModel(void *treeview)
+{
+	GtkTreeModel *tm;
+	GtkTreeView *tv = GTK_TREE_VIEW(treeview);
+
+	tm = (GtkTreeModel *) g_object_new(navtreeModel_get_type(), NULL);
+	gtk_tree_view_set_model(tv, tm);
+}

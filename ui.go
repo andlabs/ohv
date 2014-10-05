@@ -6,6 +6,11 @@ import (
 	"github.com/andlabs/ohv/webkit2"
 )
 
+// #cgo pkg-config: gtk+-3.0
+// #cgo CFLAGS: --std=c99
+// #include "gtk_unix.h"
+import "C"
+
 type MainWindow struct {
 	window	*gtk.Window
 	paned	*gtk.Paned
@@ -25,6 +30,7 @@ func NewMainWindow() *MainWindow {
 	m.window.Add(m.paned);
 
 	m.navtree = gtk.TreeViewNew()
+	C.newModel(m.navtree.CPointer)
 // see ggir bug #1
 /*	m.navscroll = gtk.ScrolledWindowNew(nil, nil)
 	m.navscroll.SetShadowType(gtk.SHADOW_IN)
