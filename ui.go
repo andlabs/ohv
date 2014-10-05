@@ -2,6 +2,7 @@
 package main
 
 import (
+	"unsafe"
 	"github.com/reusee/ggir/gtk"
 	"github.com/andlabs/ohv/webkit2"
 )
@@ -31,12 +32,12 @@ func NewMainWindow() *MainWindow {
 
 	m.navtree = gtk.TreeViewNew()
 	C.newModel(m.navtree.CPointer)
-// see ggir bug #1
-/*	m.navscroll = gtk.ScrolledWindowNew(nil, nil)
+	// see ggir bug #1
+	m.navscroll = gtk.NewScrolledWindowFromCPointer(unsafe.Pointer(C.gtk_scrolled_window_new(nil, nil)))
 	m.navscroll.SetShadowType(gtk.SHADOW_IN)
 	m.navscroll.Add(m.navtree)
 	m.paned.Add1(m.navscroll)
-*/	m.paned.Add1(m.navtree)
+
 	m.browser = webkit2.WebViewNew()
 	m.paned.Add2(m.browser)
 
