@@ -2,29 +2,24 @@
 package main
 
 import (
-	"os"
-	"github.com/reusee/ggir/gtk"
-//	"github.com/davecheney/profile"
+	"runtime"
 )
 
-var Library []Topic
-
-func LoadLibraries() {
-//	defer profile.Start(profile.CPUProfile).Stop()
-	m, err := OpenMSHI(os.Args[1])
-	if err != nil {
-		// TODO
-		panic(err)
-	}
-	Library = append(Library, m.Books()...)
-}
+// #include "gtk_unix.h"
+import "C"
 
 var m *MainWindow		// keep on heap
 
 func main() {
-	gtk.Init(nil, nil)
 	LoadLibraries()
-	m = NewMainWindow()
-	m.Show()
-	gtk.Main()
+	quit := make(chan struct{})
+	go func() {
+		runtime.LockOSThread()
+		C.gtk_init(nil, nil)
+		m = NewMainWindow()
+		m.Show()
+		C.gtk_main()
+		quit <- struct{}{}
+	}()
+	<-quit
 }
