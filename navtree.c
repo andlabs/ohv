@@ -140,7 +140,7 @@ gboolean navtree_iter_nth_child(GtkTreeModel *model, GtkTreeIter *iter, GtkTreeI
 		return FALSE;
 	}
 	if (parent == NULL) {
-		if (navtreeBookCount() < n) {
+		if (n >= navtreeBookCount()) {
 			iter->stamp = BAD_STAMP;
 			return FALSE;
 		}
