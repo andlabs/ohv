@@ -67,7 +67,7 @@ func mainWindowDoFollowLink(data unsafe.Pointer, curl *C.char) {
 			i++
 		}
 		if i >= C.gint(len(children)) {
-			panic("parent without known child in xxxx()")
+			panic("parent without known child in TODO()")
 		}
 		C.gtk_tree_path_prepend_index(path, i)
 		t = p
