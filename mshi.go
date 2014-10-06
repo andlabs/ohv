@@ -116,6 +116,7 @@ func (m *MSHI) buildHierarchy() {
 		parent, ok := m.topics[v.asset.ParentID]
 		if ok {			// has parent
 			parent.children = append(parent.children, v)
+			v.parent = parent
 			continue
 		}
 		m.orphans = append(m.orphans, v)			// parent elsewhere or missing
@@ -132,6 +133,7 @@ type MSHITopic struct {
 	dir			string
 	containers	[]*mshi.ContainerPath
 	asset			*mshi.AssetData
+	parent		Topic
 	children		[]Topic
 }
 
@@ -166,6 +168,10 @@ func (m *MSHITopic) Prepare() (string, error) {
 		return "", err
 	}
 	return string(b), nil
+}
+
+func (m *MSHITopic) Parent() Topic {
+	return m.parent
 }
 
 func (m *MSHITopic) Children() []Topic {

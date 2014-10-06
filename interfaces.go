@@ -11,6 +11,7 @@ type HelpSource interface {
 type Topic interface {
 	Name() string
 	Prepare() (string, error)
+	Parent() Topic
 	Children() []Topic
 	Less(t Topic) bool
 }
