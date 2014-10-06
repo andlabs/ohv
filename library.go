@@ -26,13 +26,24 @@ func (t TopicSorter) Len() int { return len(t) }
 func (t TopicSorter) Less(i, j int) bool { return t[i].Less(t[j]) }
 func (t TopicSorter) Swap(i, j int) { t[i], t[j] = t[j], t[i] }
 
-var Library []Topic
+var (
+	Library []Topic
+	Sources map[Topic]HelpSource
+)
 
-func LoadLibraries() {
+func LoadMSHILibrary() {
 	m, err := OpenMSHI(os.Args[1])
 	if err != nil {
 		// TODO
 		panic(err)
 	}
-	Library = append(Library, m.Books()...)
+	for _, b := range m.Books() {
+		Library = append(Library, b)
+		Sources[b] = m
+	}
+}
+
+func LoadLibraries() {
+	Sources = make(map[Topic]HelpSource)
+	LoadMSHILibrary()
 }

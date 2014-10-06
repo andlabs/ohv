@@ -2,6 +2,7 @@
 package main
 
 import (
+	"net/url"
 	"unsafe"
 )
 
@@ -12,6 +13,7 @@ import "C"
 
 type MainWindow struct {
 	mw		*C.MainWindow
+	current	Topic
 }
 
 func NewMainWindow() *MainWindow {
@@ -28,7 +30,8 @@ func (m *MainWindow) Show() {
 func mainWindowDoNavigateTo(data unsafe.Pointer, model *C.GtkTreeModel, iter *C.GtkTreeIter) {
 	m := (*MainWindow)(data)
 	t := navtreeTopic(C.gtk_tree_model_get_path(model, iter))
-	s, err := t.Prepare()
+	m.current = t
+	s, err := m.current.Prepare()
 	if err != nil {
 		// TODO
 		println(err)
@@ -37,4 +40,15 @@ func mainWindowDoNavigateTo(data unsafe.Pointer, model *C.GtkTreeModel, iter *C.
 	cs := (*C.gchar)(unsafe.Pointer(C.CString(s)))
 	defer C.free(unsafe.Pointer(cs))
 	C.webkit_web_view_load_html(m.mw.browser, cs, nil)
+}
+
+//export mainWindowDoMSXHELP
+func mainWindowDoMSXHELP(data unsafe.Pointer, curl *C.char) {
+//	m := (*MainWindow)(data)
+	u, err := url.Parse(C.GoString(curl))
+	if err != nil {
+		// TODO
+		panic(err)
+	}
+	println(u.Query().Get("Id"))
 }
