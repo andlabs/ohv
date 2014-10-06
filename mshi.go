@@ -6,6 +6,10 @@ import (
 	"path/filepath"
 	"strings"
 	"sort"
+	"io"
+	"archive/zip"
+	"compress/flate"
+	"io/ioutil"
 	"github.com/andlabs/ohv/mshi"
 )
 
@@ -94,6 +98,7 @@ func (m *MSHI) collectTopics() {
 				continue
 			}
 			m.topics[a.ID] = &MSHITopic{
+				dir:			m.dir,
 				containers:	m.containers[container],
 				asset:		a,
 			}
@@ -124,6 +129,7 @@ func (m *MSHI) sortAllChildren() {
 }
 
 type MSHITopic struct {
+	dir			string
 	containers	[]*mshi.ContainerPath
 	asset			*mshi.AssetData
 	children		[]Topic
@@ -133,9 +139,33 @@ func (m *MSHITopic) Name() string {
 	return m.asset.Title
 }
 
+// TODO adorn errors
 func (m *MSHITopic) Prepare() (string, error) {
-	// TODO
-	return "", nil
+	var r io.Reader
+
+	src, err := os.Open(filepath.Join(m.dir, m.containers[m.asset.ContainerPath].Filename))
+	if err != nil {
+		return "", err
+	}
+	defer src.Close()
+	_, err = src.Seek(int64(m.asset.CompressedDataOffset), 0)
+	if err != nil {
+		return "", err
+	}
+	r = io.LimitReader(src, int64(m.asset.CompressedSize))
+	switch m.asset.CompressionMethod {
+	case zip.Store:
+		// do nothing
+	case zip.Deflate:
+		r = flate.NewReader(r)
+	default:
+		return "", zip.ErrAlgorithm
+	}
+	b, err := ioutil.ReadAll(r)
+	if err != nil {
+		return "", err
+	}
+	return string(b), nil
 }
 
 func (m *MSHITopic) Children() []Topic {

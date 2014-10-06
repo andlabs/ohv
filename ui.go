@@ -17,6 +17,7 @@ type MainWindow struct {
 	paned	*gtk.Paned
 	navtree	*gtk.TreeView
 	navscroll	*gtk.ScrolledWindow
+	navsel	*gtk.TreeSelection
 	browser	*webkit2.WebView
 }
 
@@ -37,6 +38,25 @@ func NewMainWindow() *MainWindow {
 	m.navscroll.SetShadowType(gtk.SHADOW_IN)
 	m.navscroll.Add(m.navtree)
 	m.paned.Add1(m.navscroll)
+
+	// TODO verify function signature
+	m.navsel = m.navtree.GetSelection()
+	m.navsel.Connect("changed", func () {
+		xmodel, xiter, selected := m.navsel.GetSelected()
+		if !selected {
+			return
+		}
+		model := (*C.GtkTreeModel)(unsafe.Pointer(xmodel))
+		iter := *(*C.GtkTreeIter)(unsafe.Pointer(&xiter))
+		t := navtreeTopic(C.gtk_tree_model_get_path(model, &iter))
+		s, err := t.Prepare()
+		if err != nil {
+			// TODO
+			println(err)
+			return
+		}
+		m.browser.LoadHtml(s, "")
+	})
 
 	m.browser = webkit2.WebViewNew()
 	m.paned.Add2(m.browser)
