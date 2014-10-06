@@ -42,16 +42,9 @@ func navtreePathValid(path *C.GtkTreePath) C.gboolean {
 
 //export navtreeItemName
 func navtreeItemName(path *C.GtkTreePath) *C.char {
-	n := pathToSlice(path)
-	if n[0] >= len(Library) {
+	t := navtreeTopic(path)
+	if t == nil {
 		return nil
-	}
-	t := Library[n[0]]
-	for _, i := range n[1:] {
-		if i >= len(t.Children()) {
-			return nil
-		}
-		t = t.Children()[i]
 	}
 	return C.CString(t.Name())		// freed on the C side
 }
