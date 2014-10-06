@@ -63,16 +63,9 @@ func navtreeBookCount() C.gint {
 
 //export navtreeChildCount
 func navtreeChildCount(path *C.GtkTreePath) C.gint {
-	n := pathToSlice(path)
-	if n[0] >= len(Library) {
+	t := navtreeTopic(path)
+	if t == nil {
 		return 0
-	}
-	t := Library[n[0]]
-	for _, i := range n[1:] {
-		if i >= len(t.Children()) {
-			return 0
-		}
-		t = t.Children()[i]
 	}
 	return C.gint(len(t.Children()))
 }
