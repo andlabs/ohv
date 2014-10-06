@@ -24,11 +24,16 @@ type MainWindow struct {
 func NewMainWindow() *MainWindow {
 	m := new(MainWindow)
 
+	// the default sizes and positions here are from my devhelp config
+
 	m.window = gtk.WindowNew(gtk.WINDOW_TOPLEVEL)
 	m.window.SetTitle("ohv")
 	m.window.Connect("destroy", gtk.MainQuit)
+	m.window.SetDefaultSize(1095, 546)
+	m.window.Move(100, 100)
 
 	m.paned = gtk.PanedNew(gtk.ORIENTATION_HORIZONTAL)
+	m.paned.SetPosition(250);
 	m.window.Add(m.paned);
 
 	m.navtree = gtk.TreeViewNew()
