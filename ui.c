@@ -3,6 +3,16 @@
 #include "gtk_unix.h"
 #include "_cgo_export.h"
 
+static void mainWindowNavigateTo(GtkTreeSelection *sel, gpointer data)
+{
+	GtkTreeModel *model;
+	GtkTreeIter iter;
+
+	if (gtk_tree_selection_get_selected(sel, &model, &iter) == FALSE)		// nothing selected
+		return;
+	mainWindowDoNavigateTo((void *) data, model, &iter);
+}
+
 MainWindow *newMainWindow(void *gomw)
 {
 	MainWindow *m;
@@ -34,8 +44,6 @@ MainWindow *newMainWindow(void *gomw)
 
 	navsel = gtk_tree_view_get_selection(GTK_TREE_VIEW(m->navtree));
 	g_signal_connect(navsel, "changed", G_CALLBACK(mainWindowNavigateTo), (gpointer) gomw);
-
-	gtk_widget_show_all(m->window);
 
 	return m;
 }

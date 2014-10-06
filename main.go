@@ -19,10 +19,12 @@ func LoadLibraries() {
 	Library = append(Library, m.Books()...)
 }
 
+var m *MainWindow		// keep on heap
 
 func main() {
 	gtk.Init(nil, nil)
 	LoadLibraries()
-	NewMainWindow()
+	m = NewMainWindow()
+	m.Show()
 	gtk.Main()
 }
