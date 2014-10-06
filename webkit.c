@@ -12,7 +12,7 @@ static void webViewLoadResource(WebKitWebView *wv, WebKitWebResource *resource, 
 
 static void webViewLoadMSXHELP(WebKitURISchemeRequest *request, gpointer data)
 {
-	mainWindowDoMSXHELP((void *) data, (char *) webkit_uri_scheme_request_get_uri(request));
+	mainWindowDoFollowLink((void *) data, (char *) webkit_uri_scheme_request_get_uri(request));
 }
 
 WebKitWebView *newWebView(void *gomw)

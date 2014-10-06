@@ -2,6 +2,7 @@
 package main
 
 import (
+	"net/url"
 	"os"
 )
 
@@ -10,6 +11,7 @@ type HelpSource interface {
 	Books() []Topic
 	Orphans() []Topic
 //	SharedAssets() []Asset
+	Lookup(url *url.URL) Topic
 }
 
 type Topic interface {
@@ -17,6 +19,7 @@ type Topic interface {
 	Prepare() (string, error)
 	Parent() Topic
 	Children() []Topic
+	Source() HelpSource
 	Less(t Topic) bool
 }
 
@@ -26,10 +29,7 @@ func (t TopicSorter) Len() int { return len(t) }
 func (t TopicSorter) Less(i, j int) bool { return t[i].Less(t[j]) }
 func (t TopicSorter) Swap(i, j int) { t[i], t[j] = t[j], t[i] }
 
-var (
-	Library []Topic
-	Sources map[Topic]HelpSource
-)
+var Library []Topic
 
 func LoadMSHILibrary() {
 	m, err := OpenMSHI(os.Args[1])
@@ -39,11 +39,9 @@ func LoadMSHILibrary() {
 	}
 	for _, b := range m.Books() {
 		Library = append(Library, b)
-		Sources[b] = m
 	}
 }
 
 func LoadLibraries() {
-	Sources = make(map[Topic]HelpSource)
 	LoadMSHILibrary()
 }

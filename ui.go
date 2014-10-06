@@ -42,13 +42,43 @@ func mainWindowDoNavigateTo(data unsafe.Pointer, model *C.GtkTreeModel, iter *C.
 	C.webkit_web_view_load_html(m.mw.browser, cs, nil)
 }
 
-//export mainWindowDoMSXHELP
-func mainWindowDoMSXHELP(data unsafe.Pointer, curl *C.char) {
-//	m := (*MainWindow)(data)
+//export mainWindowDoFollowLink
+func mainWindowDoFollowLink(data unsafe.Pointer, curl *C.char) {
+	m := (*MainWindow)(data)
 	u, err := url.Parse(C.GoString(curl))
 	if err != nil {
 		// TODO
 		panic(err)
 	}
-	println(u.Query().Get("Id"))
+	t := m.current.Source().Lookup(u)
+	path := C.gtk_tree_path_new()
+	defer C.gtk_tree_path_free(path)
+	for t != nil {
+		p := t.Parent()
+		children := Library
+		if p != nil {
+			children = p.Children()
+		}
+		i := C.gint(0)
+		for _, c := range children {
+			if c == t {
+				break
+			}
+			i++
+		}
+		if i >= C.gint(len(children)) {
+			panic("parent without known child in xxxx()")
+		}
+		C.gtk_tree_path_prepend_index(path, i)
+		t = p
+	}
+	// without the following line, the selection change won't work (this has always been the case :/ )
+	C.gtk_tree_view_expand_to_path((*C.GtkTreeView)(unsafe.Pointer(m.mw.navtree)), path)
+	// but don't expand the row itself
+	C.gtk_tree_view_collapse_row((*C.GtkTreeView)(unsafe.Pointer(m.mw.navtree)), path)
+	// and we need to scroll there too
+	C.gtk_tree_view_scroll_to_cell((*C.GtkTreeView)(unsafe.Pointer(m.mw.navtree)), path, nil,
+		C.FALSE, 0, 0)		// TODO change to TRUE?
+	// and FINALLY make the change
+	C.gtk_tree_selection_select_path(m.mw.navsel, path)
 }

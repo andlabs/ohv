@@ -16,7 +16,6 @@ static void mainWindowNavigateTo(GtkTreeSelection *sel, gpointer data)
 MainWindow *newMainWindow(void *gomw)
 {
 	MainWindow *m;
-	GtkTreeSelection *navsel;
 
 	m = g_new(MainWindow, 1);
 
@@ -42,8 +41,8 @@ MainWindow *newMainWindow(void *gomw)
 	m->browser = newWebView(gomw);
 	gtk_paned_add2(GTK_PANED(m->paned), GTK_WIDGET(m->browser));
 
-	navsel = gtk_tree_view_get_selection(GTK_TREE_VIEW(m->navtree));
-	g_signal_connect(navsel, "changed", G_CALLBACK(mainWindowNavigateTo), (gpointer) gomw);
+	m->navsel = gtk_tree_view_get_selection(GTK_TREE_VIEW(m->navtree));
+	g_signal_connect(m->navsel, "changed", G_CALLBACK(mainWindowNavigateTo), (gpointer) gomw);
 
 	return m;
 }

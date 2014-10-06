@@ -26,8 +26,8 @@ struct MainWindow {
 	GtkWidget *paned;
 	GtkWidget *navtree;
 	GtkWidget *navscroll;
+	GtkTreeSelection *navsel;
 	WebKitWebView *browser;
-	void *gomw;		// for the selection changed signal
 };
 MainWindow *newMainWindow(void *);
 

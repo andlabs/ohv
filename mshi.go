@@ -2,6 +2,7 @@
 package main
 
 import (
+	"net/url"
 	"os"
 	"path/filepath"
 	"strings"
@@ -17,7 +18,7 @@ type MSHI struct {
 	dir			string
 	containers	[][]*mshi.ContainerPath
 	assets		[][]*mshi.AssetData
-	topics		map[string]*MSHITopic
+	topics		map[string]*MSHITopic		// maps asset IDs; these are case-insensitive, so are stored here lowercase
 	books		[]Topic
 	orphans		[]Topic
 }
@@ -32,6 +33,12 @@ func (m *MSHI) Books() []Topic {
 
 func (m *MSHI) Orphans() []Topic {
 	return m.orphans
+}
+
+func (m *MSHI) Lookup(url *url.URL) Topic {
+	id := url.Query().Get("Id")
+	id = strings.ToLower(id)
+	return m.topics[id]
 }
 
 // TODO adorn errors
@@ -97,10 +104,11 @@ func (m *MSHI) collectTopics() {
 			if m.topics[a.ID] != nil && m.topics[a.ID].asset.Version > a.Version {
 				continue
 			}
-			m.topics[a.ID] = &MSHITopic{
+			m.topics[strings.ToLower(a.ID)] = &MSHITopic{
 				dir:			m.dir,
 				containers:	m.containers[container],
 				asset:		a,
+				source:		m,
 			}
 		}
 	}
@@ -113,7 +121,7 @@ func (m *MSHI) buildHierarchy() {
 			m.books = append(m.books, v)
 			continue
 		}
-		parent, ok := m.topics[v.asset.ParentID]
+		parent, ok := m.topics[strings.ToLower(v.asset.ParentID)]
 		if ok {			// has parent
 			parent.children = append(parent.children, v)
 			v.parent = parent
@@ -135,6 +143,7 @@ type MSHITopic struct {
 	asset			*mshi.AssetData
 	parent		Topic
 	children		[]Topic
+	source		HelpSource
 }
 
 func (m *MSHITopic) Name() string {
@@ -176,6 +185,10 @@ func (m *MSHITopic) Parent() Topic {
 
 func (m *MSHITopic) Children() []Topic {
 	return m.children
+}
+
+func (m *MSHITopic) Source() HelpSource {
+	return m.source
 }
 
 func (m *MSHITopic) Less(t Topic) bool {
