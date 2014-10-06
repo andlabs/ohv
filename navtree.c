@@ -225,10 +225,9 @@ static void navtreeModel_class_init(navtreeModelClass *class)
 	G_OBJECT_CLASS(class)->finalize = navtreeModel_finalize;
 }
 
-void newModel(void *treeview)
+void navtreeSetupTreeView(GtkTreeView *tv)
 {
 	GtkTreeModel *tm;
-	GtkTreeView *tv = GTK_TREE_VIEW(treeview);
 	GtkTreeViewColumn *tc;
 	GtkCellRenderer *r;
 
