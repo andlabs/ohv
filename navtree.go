@@ -23,6 +23,60 @@ func pathToSlice(path *C.GtkTreePath) []int {
 	return n
 }
 
+//export navtreePathValid
+func navtreePathValid(path *C.GtkTreePath) C.gboolean {
+	// TODO merge with all of the below
+	n := pathToSlice(path)
+	if n[0] >= len(Library) {
+		return C.FALSE
+	}
+	t := Library[n[0]]
+	for _, i := range n[1:] {
+		if i >= len(t.Children()) {
+			return C.FALSE
+		}
+		t = t.Children()[i]
+	}
+	return C.TRUE
+}
+
+//export navtreeItemName
+func navtreeItemName(path *C.GtkTreePath) *C.char {
+	n := pathToSlice(path)
+	if n[0] >= len(Library) {
+		return nil
+	}
+	t := Library[n[0]]
+	for _, i := range n[1:] {
+		if i >= len(t.Children()) {
+			return nil
+		}
+		t = t.Children()[i]
+	}
+	return C.CString(t.Name())		// freed on the C side
+}
+
+//export navtreeBookCount
+func navtreeBookCount() C.gint {
+	return C.gint(len(Library))
+}
+
+//export navtreeChildCount
+func navtreeChildCount(path *C.GtkTreePath) C.gint {
+	n := pathToSlice(path)
+	if n[0] >= len(Library) {
+		return 0
+	}
+	t := Library[n[0]]
+	for _, i := range n[1:] {
+		if i >= len(t.Children()) {
+			return 0
+		}
+		t = t.Children()[i]
+	}
+	return C.gint(len(t.Children()))
+}
+
 func navtreeTopic(path *C.GtkTreePath) Topic {
 	n := pathToSlice(path)
 	if n[0] >= len(Library) {
@@ -36,35 +90,4 @@ func navtreeTopic(path *C.GtkTreePath) Topic {
 		t = t.Children()[i]
 	}
 	return t
-}
-
-//export navtreePathValid
-func navtreePathValid(path *C.GtkTreePath) C.gboolean {
-	if navtreeTopic(path) != nil {
-		return C.FALSE
-	}
-	return C.TRUE
-}
-
-//export navtreeItemName
-func navtreeItemName(path *C.GtkTreePath) *C.char {
-	t := navtreeTopic(path)
-	if t == nil {
-		return nil
-	}
-	return C.CString(t.Name())		// freed on the C side
-}
-
-//export navtreeBookCount
-func navtreeBookCount() C.gint {
-	return C.gint(len(Library))
-}
-
-//export navtreeChildCount
-func navtreeChildCount(path *C.GtkTreePath) C.gint {
-	t := navtreeTopic(path)
-	if t == nil {
-		return 0
-	}
-	return C.gint(len(t.Children()))
 }
