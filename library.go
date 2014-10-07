@@ -5,7 +5,6 @@ import (
 	"net/url"
 	"os"
 	"path/filepath"
-"encoding/json"
 )
 
 type HelpSource interface {
@@ -58,18 +57,18 @@ func LoadAppleLibraries(dir string) {
 		if err != nil {
 			return err
 		}
-		b, err := json.MarshalIndent(a.nodes, "", "\t")
-		if err != nil { panic(err) }
-		os.Stdout.Write(b); return filepath.SkipDir
+		for _, b := range a.Books() {
+			Library = append(Library, b)
+		}
+		return filepath.SkipDir
 	})
 	if err != nil {
 		// TODO
 		panic(err)
 	}
-os.Exit(0)
 }
 
 func LoadLibraries() {
-//	LoadMSHILibrary(os.Args[1])
+	LoadMSHILibrary(os.Args[1])
 	LoadAppleLibraries(os.Args[1])
 }

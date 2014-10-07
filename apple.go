@@ -4,7 +4,8 @@ package main
 import (
 	"path/filepath"
 	"net/url"
-"strings"
+	"strings"
+	"sort"
 	"github.com/jmoiron/sqlx"
 	_ "github.com/mattn/go-sqlite3"
 )
@@ -13,8 +14,11 @@ import (
 const appleAllInfo = `
 SELECT znode.z_pk, znode.zkname, znodeurl.zpath, znodeurl.zanchor, zorderedsubnode.zparent, zorderedsubnode.zorder
 	FROM znode
-		LEFT JOIN znodeurl ON znode.z_pk = znodeurl.znode
-		LEFT JOIN zorderedsubnode ON znode.z_pk = zorderedsubnode.znode;
+		LEFT JOIN znodeurl
+			ON znode.z_pk = znodeurl.znode
+		LEFT JOIN zorderedsubnode
+			ON znode.z_pk = zorderedsubnode.znode
+			AND znode.zprimaryparent = zorderedsubnode.zparent;
 `
 
 type appleNode struct {
@@ -33,7 +37,7 @@ type Apple struct {
 	nodes	[]appleNode
 	topics	map[int64]*AppleTopic
 	books	[]Topic
-	// TODO orphans
+	orphans	[]Topic
 }
 
 func (a *Apple) Name() string {
@@ -45,8 +49,7 @@ func (a *Apple) Books() []Topic {
 }
 
 func (a *Apple) Orphans() []Topic {
-	// TODO
-	return nil
+	return a.orphans
 }
 
 func (a *Apple) Lookup(url *url.URL) Topic {
@@ -66,7 +69,7 @@ func OpenApple(dir string) (*Apple, error) {
 		return nil, err
 	}
 	defer db.Close()
-db.MapperFunc(strings.ToUpper)//TODO this is needed for some reason
+	db.MapperFunc(strings.ToUpper)		// struct field names are uppercase
 	p, err := db.Preparex(appleAllInfo)
 	if err != nil {
 		return nil, err
@@ -80,8 +83,86 @@ db.MapperFunc(strings.ToUpper)//TODO this is needed for some reason
 		return nil, err
 	}
 
+	a.topics = make(map[int64]*AppleTopic)
+	for _, n := range a.nodes {
+		if a.topics[n.Z_PK] != nil {
+			panic("duplicate IDs")
+		}
+		topic := &AppleTopic{
+			dir:		a.dir,
+			name:	n.ZKNAME,
+			pptr:		n.ZPARENT,
+			source:	a,
+		}
+		if n.ZPATH != nil {
+			// TODO
+			topic.path = *n.ZPATH
+		}
+		if n.ZANCHOR != nil {
+			topic.anchor = *n.ZANCHOR
+		}
+		if n.ZORDER != nil {
+			// ZORDER is 1-based
+			topic.order = *n.ZORDER - 1
+		}
+		a.topics[n.Z_PK] = topic
+	}
+
+	for _, v := range a.topics {
+		if v.pptr == nil {		// is top-level
+			a.books = append(a.books, v)
+			continue
+		}
+		parent, ok := a.topics[*v.pptr]
+		if ok {			// has parent
+			parent.children = append(parent.children, v)
+			v.parent = parent
+			continue
+		}
+		a.orphans = append(a.orphans, v)			// parent elsewhere or missing
+	}
+
+	for _, t := range a.topics {
+		sort.Sort(TopicSorter(t.children))
+	}
+
 	return a, nil
 }
 
 type AppleTopic struct {
+	dir		string
+	name	string
+	path		string
+	anchor	string
+	pptr		*int64
+	order	int64
+	parent	Topic
+	children	[]Topic
+	source	HelpSource
+}
+
+func (a *AppleTopic) Name() string {
+	return a.name
+}
+
+func (a *AppleTopic) Prepare() (string, error) {
+	// TODO
+	return "", nil
+}
+
+func (a *AppleTopic) Parent() Topic {
+	return a.parent
+}
+
+func (a *AppleTopic) Children() []Topic {
+	return a.children
+}
+
+func (a *AppleTopic) Source() HelpSource {
+	return a.source
+}
+
+func (a *AppleTopic) Less(t Topic) bool {
+	tt := t.(*AppleTopic)
+	return a.order < tt.order
 }
