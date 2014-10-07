@@ -51,6 +51,7 @@ func mainWindowDoFollowLink(data unsafe.Pointer, curl *C.char) {
 		panic(err)
 	}
 	t := m.current.Source().Lookup(u)
+	// TODO change this call to return the last index separately for the below
 	path := navtreePathTo(t)
 	defer C.gtk_tree_path_free(path)
 	// without the following line, the selection change won't work (this has always been the case :/ )
