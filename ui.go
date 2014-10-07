@@ -37,9 +37,12 @@ func mainWindowDoNavigateTo(data unsafe.Pointer, model *C.GtkTreeModel, iter *C.
 		println(err)
 		return
 	}
+	// must be a valid URI
+	// TODO urlencode
+	s = "file://" + s
 	cs := (*C.gchar)(unsafe.Pointer(C.CString(s)))
 	defer C.free(unsafe.Pointer(cs))
-	C.webkit_web_view_load_html(m.mw.browser, cs, nil)
+	C.webkit_web_view_load_uri(m.mw.browser, cs)
 }
 
 //export mainWindowDoFollowLink
