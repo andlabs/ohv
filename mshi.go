@@ -10,8 +10,11 @@ import (
 	"io"
 	"archive/zip"
 	"compress/flate"
+	"bytes"
 	"io/ioutil"
+	"encoding/base64"
 	"github.com/andlabs/ohv/mshi"
+	"code.google.com/p/go.net/html"
 )
 
 type MSHI struct {
@@ -154,11 +157,13 @@ func (m *MSHITopic) Name() string {
 func (m *MSHITopic) Prepare() (string, error) {
 	var r io.Reader
 
-	src, err := os.Open(filepath.Join(m.dir, m.containers[m.asset.ContainerPath].Filename))
+	mshc := filepath.Join(m.dir, m.containers[m.asset.ContainerPath].Filename)
+
+	// first get the HTML
+	src, err := os.Open(mshc)
 	if err != nil {
 		return "", err
 	}
-	defer src.Close()
 	_, err = src.Seek(int64(m.asset.CompressedDataOffset), 0)
 	if err != nil {
 		return "", err
@@ -172,11 +177,72 @@ func (m *MSHITopic) Prepare() (string, error) {
 	default:
 		return "", zip.ErrAlgorithm
 	}
-	b, err := ioutil.ReadAll(r)
+	buf := new(bytes.Buffer)
+	_, err = io.Copy(buf, r)
 	if err != nil {
 		return "", err
 	}
-	return string(b), nil
+
+	// unfortunately WebKit2 doesn't provide a way to intercept resource loading
+	// WebKit1, however, doesn't provide a method for custom URI schemas
+	// so we have to muck with the HTML :|
+	src.Close()
+	zipfile, err := zip.OpenReader(mshc)
+	if err != nil {
+		return "", err
+	}
+	defer zipfile.Close()
+	files := make(map[string]*zip.File)
+	for _, f := range zipfile.File {
+		files[strings.ToLower(f.Name)] = f
+	}
+	already := make(map[string]string)
+	t := html.NewTokenizer(buf)
+	out := new(bytes.Buffer)
+	for {
+		tt := t.Next()
+		if tt == html.ErrorToken {
+			err := t.Err()
+			if err == io.EOF {
+				break
+			}
+			return "", err
+		}
+		tok := t.Token()
+		switch tok.Type {
+		case html.StartTagToken, html.SelfClosingTagToken:
+			if tok.Data != "img" {
+				break
+			}
+			for i, a := range tok.Attr {
+				if a.Key != "src" {
+					continue
+				}
+				filename := strings.ToLower(a.Val)
+				if already[filename] == "" {
+					f := files[filename]
+					r, err := f.Open()
+					if err != nil {
+						return "", err
+					}
+					b, err := ioutil.ReadAll(r)
+					if err != nil {
+						return "", err
+					}
+					// TODO figure out what the MIME type really is... (WebKit2 requires one to load the image properly...)
+					already[filename] = "data:image/png;base64," + base64.StdEncoding.EncodeToString(b)
+					r.Close()
+				}
+				tok.Attr[i].Val = already[filename]
+			}
+		}
+		_, err = out.WriteString(tok.String())
+		if err != nil {
+			return "", err
+		}
+	}
+
+	return out.String(), nil
 }
 
 func (m *MSHITopic) Parent() Topic {

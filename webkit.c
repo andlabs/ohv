@@ -5,11 +5,6 @@
 
 #define MSXHELP "ms-xhelp"
 
-static void webViewLoadResource(WebKitWebView *wv, WebKitWebResource *resource, WebKitURIRequest *request, gpointer data)
-{
-	printf("%s\n", webkit_uri_request_get_uri(request));
-}
-
 static void webViewLoadMSXHELP(WebKitURISchemeRequest *request, gpointer data)
 {
 	mainWindowDoFollowLink((void *) data, (char *) webkit_uri_scheme_request_get_uri(request));
@@ -27,8 +22,6 @@ WebKitWebView *newWebView(void *gomw)
 	// set up MSHI URIs
 	webkit_web_context_register_uri_scheme(webkit_web_view_get_context(wv), MSXHELP,
 		webViewLoadMSXHELP, (gpointer) gomw, NULL);
-
-	g_signal_connect(wv, "resource-load-started", G_CALLBACK(webViewLoadResource), (gpointer) gomw);
 
 	return wv;
 }
