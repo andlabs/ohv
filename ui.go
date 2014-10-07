@@ -51,27 +51,8 @@ func mainWindowDoFollowLink(data unsafe.Pointer, curl *C.char) {
 		panic(err)
 	}
 	t := m.current.Source().Lookup(u)
-	path := C.gtk_tree_path_new()
+	path := navtreePathTo(t)
 	defer C.gtk_tree_path_free(path)
-	for t != nil {
-		p := t.Parent()
-		children := Library
-		if p != nil {
-			children = p.Children()
-		}
-		i := C.gint(0)
-		for _, c := range children {
-			if c == t {
-				break
-			}
-			i++
-		}
-		if i >= C.gint(len(children)) {
-			panic("parent without known child in TODO()")
-		}
-		C.gtk_tree_path_prepend_index(path, i)
-		t = p
-	}
 	// without the following line, the selection change won't work (this has always been the case :/ )
 	C.gtk_tree_view_expand_to_path((*C.GtkTreeView)(unsafe.Pointer(m.mw.navtree)), path)
 	// but don't expand the row itself

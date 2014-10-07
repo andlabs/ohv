@@ -69,3 +69,27 @@ func navtreeChildCount(path *C.GtkTreePath) C.gint {
 	}
 	return C.gint(len(t.Children()))
 }
+
+func navtreePathTo(t Topic) *C.GtkTreePath {
+	path := C.gtk_tree_path_new()
+	for t != nil {
+		p := t.Parent()
+		children := Library
+		if p != nil {
+			children = p.Children()
+		}
+		i := C.gint(0)
+		for _, c := range children {
+			if c == t {
+				break
+			}
+			i++
+		}
+		if i >= C.gint(len(children)) {
+			panic("parent without known child in navtreePathTo()")
+		}
+		C.gtk_tree_path_prepend_index(path, i)
+		t = p
+	}
+	return path
+}
