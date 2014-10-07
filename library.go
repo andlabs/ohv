@@ -4,6 +4,7 @@ package main
 import (
 	"net/url"
 	"os"
+	"path/filepath"
 )
 
 type HelpSource interface {
@@ -31,8 +32,8 @@ func (t TopicSorter) Swap(i, j int) { t[i], t[j] = t[j], t[i] }
 
 var Library []Topic
 
-func LoadMSHILibrary() {
-	m, err := OpenMSHI(os.Args[1])
+func LoadMSHILibrary(dir string) {
+	m, err := OpenMSHI(filepath.Join(dir, "mshi"))
 	if err != nil {
 		// TODO
 		panic(err)
@@ -43,5 +44,5 @@ func LoadMSHILibrary() {
 }
 
 func LoadLibraries() {
-	LoadMSHILibrary()
+	LoadMSHILibrary(os.Args[1])
 }
