@@ -89,7 +89,7 @@ func OpenApple(dir string) (*Apple, error) {
 			panic("duplicate IDs")
 		}
 		topic := &AppleTopic{
-			dir:		a.dir,
+			dir:		a.dircr,		// note: not a.dir
 			name:	n.ZKNAME,
 			pptr:		n.ZPARENT,
 			source:	a,
@@ -146,8 +146,10 @@ func (a *AppleTopic) Name() string {
 }
 
 func (a *AppleTopic) Prepare() (string, error) {
-	// TODO
-	return "", nil
+	// TODO anchors
+	// TODO cache real path
+	// TODO hide top bar
+	return filepath.Join(a.dir, "Documents", a.path), nil
 }
 
 func (a *AppleTopic) Parent() Topic {

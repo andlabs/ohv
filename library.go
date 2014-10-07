@@ -69,6 +69,12 @@ func LoadAppleLibraries(dir string) {
 }
 
 func LoadLibraries() {
-	LoadMSHILibrary(os.Args[1])
-	LoadAppleLibraries(os.Args[1])
+	// all directories /must/ be absolute
+	dir, err := filepath.Abs(os.Args[1])
+	if err != nil {
+		// TODO
+		panic(err)
+	}
+	LoadMSHILibrary(dir)
+	LoadAppleLibraries(dir)
 }
