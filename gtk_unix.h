@@ -24,6 +24,8 @@ typedef struct MainWindow MainWindow;
 struct MainWindow {
 	GtkWidget *window;
 	GtkWidget *paned;
+	GtkWidget *box;
+	GtkWidget *search;
 	GtkWidget *navtree;
 	GtkWidget *navscroll;
 	GtkTreeSelection *navsel;
