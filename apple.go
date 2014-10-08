@@ -147,10 +147,12 @@ func (a *AppleTopic) Name() string {
 
 func (a *AppleTopic) Prepare() (*Prepared, error) {
 	// TODO anchors
-	// TODO cache real path
-	// TODO hide top bar
+	// TODO cache real paths
+	cssdir := filepath.Join(a.dir, "Documents", "Resources", "1014", "CSS")
 	return &Prepared{
-		Path:		filepath.Join(a.dir, "Documents", a.path),
+		Path:			filepath.Join(a.dir, "Documents", a.path),
+		CSSPath:		filepath.Join(cssdir, "xcode5.css"),
+		CSSBaseDir:	cssdir,
 	}, nil
 }
 
