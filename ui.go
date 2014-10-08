@@ -31,15 +31,15 @@ func mainWindowDoNavigateTo(data unsafe.Pointer, model *C.GtkTreeModel, iter *C.
 	m := (*MainWindow)(data)
 	t := navtreeTopic(C.gtk_tree_model_get_path(model, iter))
 	m.current = t
-	s, err := m.current.Prepare()
+	prepared, err := m.current.Prepare()
 	if err != nil {
 		// TODO
 		println(err)
 		return
 	}
-	// must be a valid URI
+	// path must be a valid URI
 	// TODO urlencode
-	s = "file://" + s
+	s := "file://" + prepared.Path
 	cs := (*C.gchar)(unsafe.Pointer(C.CString(s)))
 	defer C.free(unsafe.Pointer(cs))
 	C.webkit_web_view_load_uri(m.mw.browser, cs)

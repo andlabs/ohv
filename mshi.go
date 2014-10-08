@@ -152,24 +152,24 @@ func (m *MSHITopic) Name() string {
 }
 
 // TODO adorn errors
-func (m *MSHITopic) Prepare() (string, error) {
+func (m *MSHITopic) Prepare() (*Prepared, error) {
 	var r io.Reader
 
 	mshc := filepath.Join(m.dir, m.containers[m.asset.ContainerPath].Filename)
 
 	_, err := StartTempDir()
 	if err != nil {
-		return "", err
+		return nil, err
 	}
 
 	// first get the HTML
 	src, err := os.Open(mshc)
 	if err != nil {
-		return "", err
+		return nil, err
 	}
 	_, err = src.Seek(int64(m.asset.CompressedDataOffset), 0)
 	if err != nil {
-		return "", err
+		return nil, err
 	}
 	r = io.LimitReader(src, int64(m.asset.CompressedSize))
 	switch m.asset.CompressionMethod {
@@ -178,7 +178,7 @@ func (m *MSHITopic) Prepare() (string, error) {
 	case zip.Deflate:
 		r = flate.NewReader(r)
 	default:
-		return "", zip.ErrAlgorithm
+		return nil, zip.ErrAlgorithm
 	}
 	// we need to use two buffers here because reading from a bytes.Buffer removes those bytes :(
 	// TODO use the file instead
@@ -187,20 +187,20 @@ func (m *MSHITopic) Prepare() (string, error) {
 	multi := io.MultiWriter(filebuf, htmlbuf)
 	_, err = io.Copy(multi, r)
 	if err != nil {
-		return "", err
+		return nil, err
 	}
 
 	// now generate the temporary HTML file
 	htmlfile, err := TempFile("topic.html", filebuf)
 	if err != nil {
-		return "", err
+		return nil, err
 	}
 
 	// now we need to extract the images
 	src.Close()
 	zipfile, err := zip.OpenReader(mshc)
 	if err != nil {
-		return "", err
+		return nil, err
 	}
 	defer zipfile.Close()
 	files := make(map[string]*zip.File)
@@ -215,7 +215,7 @@ func (m *MSHITopic) Prepare() (string, error) {
 			if err == io.EOF {
 				break
 			}
-			return "", err
+			return nil, err
 		}
 		tok := t.Token()
 		switch tok.Type {
@@ -230,19 +230,21 @@ func (m *MSHITopic) Prepare() (string, error) {
 				filename := strings.ToLower(a.Val)
 				r, err := files[filename].Open()
 				if err != nil {
-					return "", err
+					return nil, err
 				}
 				// note our use of a.Val here
 				_, err = TempFile(a.Val, r)
 				if err != nil {
-					return "", err
+					return nil, err
 				}
 				r.Close()
 			}
 		}
 	}
 
-	return htmlfile, nil
+	return &Prepared{
+		Path:		htmlfile,
+	}, nil
 }
 
 func (m *MSHITopic) Parent() Topic {

@@ -145,11 +145,13 @@ func (a *AppleTopic) Name() string {
 	return a.name
 }
 
-func (a *AppleTopic) Prepare() (string, error) {
+func (a *AppleTopic) Prepare() (*Prepared, error) {
 	// TODO anchors
 	// TODO cache real path
 	// TODO hide top bar
-	return filepath.Join(a.dir, "Documents", a.path), nil
+	return &Prepared{
+		Path:		filepath.Join(a.dir, "Documents", a.path),
+	}, nil
 }
 
 func (a *AppleTopic) Parent() Topic {

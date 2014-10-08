@@ -17,11 +17,17 @@ type HelpSource interface {
 
 type Topic interface {
 	Name() string
-	Prepare() (string, error)
+	Prepare() (*Prepared, error)
 	Parent() Topic
 	Children() []Topic
 	Source() HelpSource
 	Less(t Topic) bool
+}
+
+type Prepared struct {
+	Path			string
+	CSSPath		string
+	CSSBaseDir	string
 }
 
 type TopicSorter []Topic
