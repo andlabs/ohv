@@ -102,6 +102,7 @@ func (m *MSHI) collectTopics() {
 	m.topics = make(map[string]*MSHITopic)
 	for container, aa := range m.assets {
 		for _, a := range aa {
+			// TODO strings.ToLower() this?
 			if m.topics[a.ID] != nil && m.topics[a.ID].asset.Version > a.Version {
 				continue
 			}
