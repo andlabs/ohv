@@ -1,3 +1,5 @@
+// +build ignore
+
 // 7 october 2014
 package main
 

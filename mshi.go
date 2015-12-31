@@ -12,7 +12,7 @@ import (
 	"compress/flate"
 	"bytes"
 	"github.com/andlabs/ohv/mshi"
-	"code.google.com/p/go.net/html"
+	"golang.org/x/net/html"
 )
 
 type MSHI struct {
