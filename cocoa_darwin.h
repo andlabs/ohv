@@ -17,4 +17,9 @@ extern intmax_t indexArrayIndex(indexArray, intmax_t);
 extern void indexArrayPrepend(indexArray, intmax_t);
 extern goid newNavtree(void);
 
+// main.m
+extern void initUIThread(void);
+extern void runUIThread(void);
+extern void stopUIThread(void);
+
 #endif

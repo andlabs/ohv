@@ -1,7 +1,7 @@
 // 31 december 2015
-#include <Cocoa/Cocoa.h>
-#include "cocoa_darwin.h"
-#include "_cgo_export.h"
+#import <Cocoa/Cocoa.h>
+#import "cocoa_darwin.h"
+#import "_cgo_export.h"
 
 indexArray newIndexArray(void)
 {

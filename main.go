@@ -5,20 +5,20 @@ import (
 	"runtime"
 )
 
-// #include "gtk_unix.h"
+// #include "cocoa_darwin.h"
 import "C"
 
-var m *MainWindow		// keep on heap
+var m *MainWindow		// keep on heap (TODO really needed?)
 
 func main() {
 	LoadLibraries()
 	quit := make(chan struct{})
 	go func() {
 		runtime.LockOSThread()
-		C.gtk_init(nil, nil)
+		C.initUIThread()
 		m = NewMainWindow()
 		m.Show()
-		C.gtk_main()
+		C.runUIThread()
 		quit <- struct{}{}
 	}()
 	<-quit
