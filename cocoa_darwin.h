@@ -16,10 +16,16 @@ extern intmax_t indexArrayLen(indexArray);
 extern intmax_t indexArrayIndex(indexArray, intmax_t);
 extern void indexArrayPrepend(indexArray, intmax_t);
 extern goid newNavtree(void);
+extern void navtreeSelect(goid, indexArray);
 
 // main.m
 extern void initUIThread(void);
 extern void runUIThread(void);
 extern void stopUIThread(void);
+
+// ui.m
+extern goid newWindow(void);
+extern goid newSearchField(void);
+extern void layoutWindow(goid, goid, goid, goid);
 
 #endif

@@ -149,3 +149,16 @@ goid newNavtree(void)
 
 	return sv;
 }
+
+void navtreeSelect(goid navtree, indexArray ia)
+{
+	NSOutlineView *ov = (NSOutlineView *) navtree;
+	id item = (id) ia;
+	NSInteger row;
+
+	[ov expandItem:item];
+	row = [ov rowForItem:item];
+	[ov scrollRowToVisible:row];
+	[ov selectRowIndexes:[NSIndexSet indexSetWithIndex:row] byExtendingSelection:NO];
+	// TODO invoke delegate manually?
+}
