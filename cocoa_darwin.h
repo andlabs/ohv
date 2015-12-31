@@ -30,4 +30,7 @@ extern void windowShow(goid);
 extern goid newSearchField(void);
 extern void layoutWindow(goid, goid, goid, goid);
 
+// webkit.m
+extern goid newWebView(void);
+
 #endif

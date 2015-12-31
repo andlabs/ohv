@@ -28,8 +28,7 @@ func NewWindow() *Window {
 	w.w = C.newWindow()
 	w.sf = C.newSearchField()
 	w.navtree = C.newNavTree()
-	// TODO
-	w.browser = C.newSearchField()
+	w.browser = C.newWebView()
 
 	goids[w.w] = w
 	goids[w.sf] = w
