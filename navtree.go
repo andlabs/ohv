@@ -6,25 +6,19 @@ import (
 	"unsafe"
 )
 
-// #include "gtk_unix.h"
+// #include "cocoa_darwin.h"
 import "C"
 
-func pathToSlice(path *C.GtkTreePath) []int {
-	var slice reflect.SliceHeader
-
-	slice.Data = uintptr(unsafe.Pointer(C.gtk_tree_path_get_indices(path)))
-	slice.Len = int(C.gtk_tree_path_get_depth(path))
-	slice.Cap = slice.Len
-	s := (*[]C.gint)(unsafe.Pointer(&slice))
-	n := make([]int, len(*s))
-	for i := 0; i < len(*s); i++ {
-		n[i] = int((*s)[i])
+func indexArrayToSlice(ia C.indexArray) []int {
+	n := make([]int, C.indexArrayLen(ia))
+	for i := 0; i < len(n); i++ {
+		n[i] = int(C.indexArrayIndex(ia, C.intmax_t(i))
 	}
 	return n
 }
 
-func navtreeTopic(path *C.GtkTreePath) Topic {
-	n := pathToSlice(path)
+func navtreeTopic(ia C.indexArray) Topic {
+	n := indexArrayToSlice(ia)
 	if n[0] >= len(Library) {
 		return nil
 	}
@@ -39,17 +33,17 @@ func navtreeTopic(path *C.GtkTreePath) Topic {
 }
 
 //export navtreePathValid
-func navtreePathValid(path *C.GtkTreePath) C.gboolean {
-	t := navtreeTopic(path)
+func navtreePathValid(ia C.indexArray) C.int {
+	t := navtreeTopic(ia)
 	if t == nil {
-		return C.FALSE
+		return 0
 	}
-	return C.TRUE
+	return 1
 }
 
 //export navtreeItemName
-func navtreeItemName(path *C.GtkTreePath) *C.char {
-	t := navtreeTopic(path)
+func navtreeItemName(ia C.indexArray) *C.char {
+	t := navtreeTopic(ia)
 	if t == nil {
 		return nil
 	}
@@ -57,39 +51,39 @@ func navtreeItemName(path *C.GtkTreePath) *C.char {
 }
 
 //export navtreeBookCount
-func navtreeBookCount() C.gint {
-	return C.gint(len(Library))
+func navtreeBookCount() C.intmax_t {
+	return C.intmax_t(len(Library))
 }
 
 //export navtreeChildCount
-func navtreeChildCount(path *C.GtkTreePath) C.gint {
-	t := navtreeTopic(path)
+func navtreeChildCount(ia C.indexArray) C.intmax_t {
+	t := navtreeTopic(ia)
 	if t == nil {
 		return 0
 	}
-	return C.gint(len(t.Children()))
+	return C.intmax_t(len(t.Children()))
 }
 
-func navtreePathTo(t Topic) *C.GtkTreePath {
-	path := C.gtk_tree_path_new()
+func navtreePathTo(t Topic) C.indexArray {
+	ia := C.newIndexArray()
 	for t != nil {
 		p := t.Parent()
 		children := Library
 		if p != nil {
 			children = p.Children()
 		}
-		i := C.gint(0)
+		i := C.intmax_t(0)
 		for _, c := range children {
 			if c == t {
 				break
 			}
 			i++
 		}
-		if i >= C.gint(len(children)) {
+		if i >= C.intmax_t(len(children)) {
 			panic("parent without known child in navtreePathTo()")
 		}
-		C.gtk_tree_path_prepend_index(path, i)
+		C.indexArrayPrepend(ia, i)
 		t = p
 	}
-	return path
+	return ia
 }
