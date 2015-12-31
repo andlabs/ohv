@@ -45,10 +45,10 @@ void indexArrayPrepend(indexArray ia, intmax_t index)
 	[arr insertObject:[NSNumber numberWithInteger:index] atIndex:0];
 }
 
-@interface navtreeDataSource : NSObject<xxx>
+@interface navtreeDataSource : NSObject<NSOutlineViewDataSource>
 @end
 
-@implementatation navtreeDataSource
+@implementation navtreeDataSource
 
 - (id)outlineView:(NSOutlineView *)outlineView child:(NSInteger)index ofItem:(id)item
 {
@@ -73,7 +73,7 @@ void indexArrayPrepend(indexArray ia, intmax_t index)
 	NSString *str;
 
 	text = navtreeItemName((indexArray) item);
-	str = [NSString stringFromUTF8String:text];
+	str = [NSString stringWithUTF8String:text];
 	free(text);
 	return str;
 }
@@ -96,7 +96,7 @@ void indexArrayPrepend(indexArray ia, intmax_t index)
 	// TODO
 }
 
-@endif
+@end
 
 goid newNavtree(void)
 {

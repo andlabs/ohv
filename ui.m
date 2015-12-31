@@ -46,7 +46,7 @@ goid newSearchField(void)
 
 	sf = [[NSSearchField alloc] initWithFrame:NSZeroRect];
 	// TODO configure a la Interface Builder
-	[sf setFont:[NSFont systemFontOfSize:[NSFont systemFontSizeForControlSize:NSRegularControlSize]];
+	[sf setFont:[NSFont systemFontOfSize:[NSFont systemFontSizeForControlSize:NSRegularControlSize]]];
 	return sf;
 }
 

@@ -8,16 +8,14 @@ import (
 // #include "cocoa_darwin.h"
 import "C"
 
-var m *MainWindow		// keep on heap (TODO really needed?)
-
 func main() {
 	LoadLibraries()
 	quit := make(chan struct{})
 	go func() {
 		runtime.LockOSThread()
 		C.initUIThread()
-		m = NewMainWindow()
-		m.Show()
+		w := NewWindow()
+		w.Show()
 		C.runUIThread()
 		quit <- struct{}{}
 	}()

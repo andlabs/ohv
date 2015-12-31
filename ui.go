@@ -1,12 +1,14 @@
 // 5 october 2014
 package main
 
+/* TODO
 import (
 	"os"
 	"io/ioutil"
 	"net/url"
 	"unsafe"
 )
+*/
 
 // #cgo CFLAGS: -mmacosx-version-min=10.7 -DMACOSX_DEPLOYMENT_TARGET=10.7
 // #cgo LDFLAGS: -mmacosx-version-min=10.7 -lobjc -framework Foundation -framework AppKit -framework WebKit
@@ -24,10 +26,10 @@ type Window struct {
 var goids = make(map[C.goid]*Window)
 
 func NewWindow() *Window {
-	w := new(MainWindow)
+	w := new(Window)
 	w.w = C.newWindow()
 	w.sf = C.newSearchField()
-	w.navtree = C.newNavTree()
+	w.navtree = C.newNavtree()
 	w.browser = C.newWebView()
 
 	goids[w.w] = w

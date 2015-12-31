@@ -1,18 +1,13 @@
 // 5 october 2014
 package main
 
-import (
-	"reflect"
-	"unsafe"
-)
-
 // #include "cocoa_darwin.h"
 import "C"
 
 func indexArrayToSlice(ia C.indexArray) []int {
 	n := make([]int, C.indexArrayLen(ia))
 	for i := 0; i < len(n); i++ {
-		n[i] = int(C.indexArrayIndex(ia, C.intmax_t(i))
+		n[i] = int(C.indexArrayIndex(ia, C.intmax_t(i)))
 	}
 	return n
 }
