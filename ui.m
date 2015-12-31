@@ -3,6 +3,8 @@
 #import "cocoa_darwin.h"
 #import "_cgo_export.h"
 
+// the default sizes and positions here are from my devhelp config
+
 @interface windowDelegate : NSObject<NSWindowDelegate>
 @end
 
@@ -72,6 +74,7 @@ void layoutWindow(goid window, goid search, goid navtree, goid browser)
 	[splitView setVertical:NO];
 	[splitView addSubview:leftside];
 	[splitView addSubview:page];
+	[splitView setPosition:250 ofDividerAtIndex:0];
 
 	contentView = [w contentView];
 	[contentView addSubview:splitView];
