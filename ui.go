@@ -8,26 +8,50 @@ import (
 	"unsafe"
 )
 
-// #cgo pkg-config: gtk+-3.0 webkit2gtk-3.0
-// #cgo CFLAGS: --std=c99
-// #include "gtk_unix.h"
+// #cgo CFLAGS: -mmacosx-version-min=10.7 -DMACOSX_DEPLOYMENT_TARGET=10.7
+// #cgo LDFLAGS: -mmacosx-version-min=10.7 -lobjc -framework Foundation -framework AppKit -framework WebKit
+// #include "cocoa_darwin.h"
 import "C"
 
-type MainWindow struct {
-	mw		*C.MainWindow
+type Window struct {
+	w		C.goid
+	sf		C.goid
+	navtree	C.goid
+	browser	C.goid
 	current	Topic
 }
 
-func NewMainWindow() *MainWindow {
-	m := new(MainWindow)
-	m.mw = C.newMainWindow(unsafe.Pointer(m))
-	return m
+var goids = make(map[C.goid]*Window)
+
+func NewWindow() *Window {
+	w := new(MainWindow)
+	w.w = C.newWindow()
+	w.sf = C.newSearchField()
+	w.navtree = C.newNavTree()
+	// TODO
+	w.browser = C.newSearchField()
+
+	goids[w.w] = w
+	goids[w.sf] = w
+	goids[w.navtree] = w
+	goids[w.browser] = w
+
+	C.navtreeBegin(w.navtree)
+
+	return w
 }
 
-func (m *MainWindow) Show() {
-	C.gtk_widget_show_all(m.mw.window)
+func (w *Window) Show() {
+	C.windowShow(w.w)
 }
 
+//export uiOnWindowClosing
+func uiOnWindowClosing(win C.goid) C.int {
+	C.stopUIThread()
+	return 1
+}
+
+/* TODO
 //export mainWindowDoNavigateTo
 func mainWindowDoNavigateTo(data unsafe.Pointer, model *C.GtkTreeModel, iter *C.GtkTreeIter) {
 	m := (*MainWindow)(data)
@@ -67,7 +91,9 @@ func mainWindowDoNavigateTo(data unsafe.Pointer, model *C.GtkTreeModel, iter *C.
 	}
 	C.webkit_web_view_load_uri(m.mw.browser, cs)
 }
+*/
 
+/* TODO
 //export mainWindowDoFollowLink
 func mainWindowDoFollowLink(data unsafe.Pointer, curl *C.char) {
 	m := (*MainWindow)(data)
@@ -90,3 +116,4 @@ func mainWindowDoFollowLink(data unsafe.Pointer, curl *C.char) {
 	// and FINALLY make the change
 	C.gtk_tree_selection_select_path(m.mw.navsel, path)
 }
+*/

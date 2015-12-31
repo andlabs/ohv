@@ -33,6 +33,13 @@ goid newWindow(void)
 	return w;
 }
 
+void windowShow(goid win)
+{
+	NSWindow *w = (NSWindow *) win;
+
+	[w makeKeyAndOrderFront:nil];
+}
+
 goid newSearchField(void)
 {
 	NSSearchField *sf;

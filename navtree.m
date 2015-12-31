@@ -136,9 +136,8 @@ goid newNavtree(void)
 
 	// TODO autoresizing style?
 
-	// and set up the data source and delegate, which will get the ball rolling
-	[ov setDataSource:[navtreeDataSource new]];
-	[ov setDelegate:[navtreeDelegate new]];
+	// don't set up the data source and delegate just yet; wait until the Go side is ready to process events
+	// we actually do the setup in navtreeBegin()
 
 	sv = [[NSScrollView alloc] initWithFrame:NSZeroRect];
 	// TODO
@@ -150,11 +149,25 @@ goid newNavtree(void)
 	return sv;
 }
 
+void navtreeBegin(goid navtree)
+{
+	NSScrollView *sv = (NSScrollView *) navtree;
+	NSOutlineView *ov;
+
+	ov = [sv documentView];
+
+	[ov setDataSource:[navtreeDataSource new]];
+	[ov setDelegate:[navtreeDelegate new]];
+}
+
 void navtreeSelect(goid navtree, indexArray ia)
 {
-	NSOutlineView *ov = (NSOutlineView *) navtree;
+	NSScrollView *sv = (NSScrollView *) navtree;
+	NSOutlineView *ov;
 	id item = (id) ia;
 	NSInteger row;
+
+	ov = [sv documentView];
 
 	[ov expandItem:item];
 	row = [ov rowForItem:item];
