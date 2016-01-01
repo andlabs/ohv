@@ -129,6 +129,7 @@ goid newNavtree(void)
 	[column setEditable:NO];
 	[column setDataCell:cell];
 	[ov addTableColumn:column];
+	[ov setOutlineTableColumn:column];
 
 	// TODO type select?
 
