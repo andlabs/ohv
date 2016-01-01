@@ -10,7 +10,8 @@ class AppDelegate : NSObject, NSApplicationDelegate {
 	@IBOutlet weak var webview: WebView!
 
 	func applicationDidFinishLaunching(note: NSNotification) {
-		// Insert code here to initialize your application
+		LoadLibraries()
+		navtree.reloadData()
 	}
 
 	func applicationWillTerminate(note: NSNotification) {
