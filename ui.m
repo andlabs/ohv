@@ -78,7 +78,7 @@ void layoutWindow(goid window, goid search, goid navtree, goid browser)
 
 	splitView = [[NSSplitView alloc] initWithFrame:NSZeroRect];
 	// TODO configure like Interface Builder
-	[splitView setVertical:NO];
+	[splitView setVertical:YES];		// this is the direction the splitter itself is parallel to
 	[splitView addSubview:leftside];
 	[splitView addSubview:page];
 	[splitView setPosition:250 ofDividerAtIndex:0];

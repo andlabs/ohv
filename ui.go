@@ -11,8 +11,7 @@ import (
 */
 
 // #cgo CFLAGS: -mmacosx-version-min=10.7 -DMACOSX_DEPLOYMENT_TARGET=10.7
-// #cgo LDFLAGS: -mmacosx-version-min=10.7 -lobjc -framework Foundation -framework AppKit -lpthread
-// /* DO NOT LINK AGAINST WEBKIT! WE MUST LOAD IT DYNAMICALLY; SEE MAIN.M */
+// #cgo LDFLAGS: -mmacosx-version-min=10.7 -lobjc -framework Foundation -framework AppKit -framework WebKit -lpthread
 // #include "cocoa_darwin.h"
 import "C"
 
@@ -32,6 +31,8 @@ func NewWindow() *Window {
 	w.sf = C.newSearchField()
 	w.navtree = C.newNavtree()
 	w.browser = C.newWebView()
+
+	C.layoutWindow(w.w, w.sf, w.navtree, w.browser)
 
 	goids[w.w] = w
 	goids[w.sf] = w
