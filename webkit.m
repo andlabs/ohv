@@ -1,8 +1,11 @@
 // 6 october 2014
 #import <Cocoa/Cocoa.h>
-#import <WebKit/WebKit.h>
+// we can't use any WebKit classes directly; linker errors will arise
+// see main.m for details
 #import "cocoa_darwin.h"
 #import "_cgo_export.h"
+
+static Class webViewClass = Nil;
 
 #define MSXHELP "ms-xhelp"
 
@@ -16,10 +19,13 @@ static void webViewLoadMSXHELP(WebKitURISchemeRequest *request, gpointer data)
 goid newWebView(void)
 {
 	NSScrollView *sv;
-	WebView *wv;
+	id wv;
+
+	if (webViewClass == nil)
+		webViewClass = NSClassFromString(@"WebView");
 
 	// TODO verify against Interface Builder
-	wv = [[WebView alloc] initWithFrame:NSZeroRect frameName:nil groupName:nil];
+	wv = [[webViewClass alloc] initWithFrame:NSZeroRect frameName:nil groupName:nil];
 	[wv setShouldCloseWithWindow:YES];
 
 	// no cache
