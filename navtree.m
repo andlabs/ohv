@@ -144,6 +144,7 @@ goid newNavtree(void)
 	// TODO
 	[sv setHasHorizontalScroller:YES];
 	[sv setHasVerticalScroller:YES];
+	[sv setBorderType:NSBezelBorder];
 
 	[sv setDocumentView:ov];
 
