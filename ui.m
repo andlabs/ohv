@@ -72,7 +72,8 @@ void layoutWindow(goid window, goid search, goid navtree, goid browser)
 	NSSplitView *splitView;
 	NSView *leftside;
 
-	leftside = [[NSView alloc] initWithFrame:NSZeroRect];
+	// the weird rect is to make sure the split view starts in the right position, because setPosition:ofDividerAtIndex: doesn't
+	leftside = [[NSView alloc] initWithFrame:NSMakeRect(0, 0, 250, 0)];
 	[leftside addSubview:sf];
 	[leftside addSubview:sv];
 
@@ -81,7 +82,6 @@ void layoutWindow(goid window, goid search, goid navtree, goid browser)
 	[splitView setVertical:YES];		// this is the direction the splitter itself is parallel to
 	[splitView addSubview:leftside];
 	[splitView addSubview:page];
-	[splitView setPosition:250 ofDividerAtIndex:0];
 
 	contentView = [w contentView];
 	[contentView addSubview:splitView];
