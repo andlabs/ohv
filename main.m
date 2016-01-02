@@ -1,7 +1,7 @@
 // 31 december 2015
 #import <Cocoa/Cocoa.h>
 #import <pthread.h>
-#import <dlfcn.h>
+#import "mach_override.h"
 #import "cocoa_darwin.h"
 
 @interface ohvApplication : NSApplication
@@ -21,7 +21,10 @@ static ohvApplication *app;
 // bypass main thread restrictions
 extern void _CFRunLoopSetCurrent(CFRunLoopRef);
 extern pthread_t _CFMainPThread;
-static void *webkit;
+static int fakepthreadmain(void)
+{
+	return 1;
+}
 
 void initUIThread(void)
 {
@@ -31,11 +34,9 @@ void initUIThread(void)
 	_CFMainPThread = pthread_self();
 
 	// whoops, that isn't enough for WebKit
-	// it keeps track of the main thread on its own, so having the loader load it for us will bypass this entirely
-	// so unfortunately, we MUST load it manually :(
-	webkit = dlopen("/System/Library/Frameworks/WebKit.framework/WebKit", RTLD_NOW);
-	if (webkit == NULL) {
-		NSLog(@"%s", dlerror());
+	// it uses pthread_main_np(); let's override it
+	if (mach_override_ptr(pthread_main_np, fakepthreadmain, NULL) != err_none) {
+		NSLog(@"it failed");
 		abort();
 	}
 

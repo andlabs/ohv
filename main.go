@@ -9,10 +9,15 @@ import (
 import "C"
 
 func main() {
-	runtime.LockOSThread()
-	C.initUIThread()
 	LoadLibraries()
-	w := NewWindow()
-	w.Show()
-	C.runUIThread()
+	quit := make(chan struct{})
+	go func() {
+		runtime.LockOSThread()
+		C.initUIThread()
+		w := NewWindow()
+		w.Show()
+		C.runUIThread()
+		quit <- struct{}{}
+	}()
+	<-quit
 }
