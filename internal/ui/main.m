@@ -38,11 +38,9 @@
 
 - (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)app
 {
-	if (shouldQuit()) {
-		canQuit = YES;
+	if (shouldQuit())
 		// this will call terminate:, which is the same as uiQuit()
 		return NSTerminateNow;
-	}
 	return NSTerminateCancel;
 }
 

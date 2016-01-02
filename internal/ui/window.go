@@ -48,15 +48,15 @@ func (w *Window) Show() {
 
 func (w *Window) SetChild(c Control) {
 	if w.child != nil {
-		C.windowUnsetChild(w.id, w.child.Handle())
+		C.windowUnsetChild(w.id, toid(w.child.Handle()))
 	}
 	w.child = c
 	if w.child != nil {
-		C.windowSetChild(w.id, w.child.Handle())
+		C.windowSetChild(w.id, toid(w.child.Handle()))
 	}
 }
 
-func (w *Window) OnClosing(f func()) {
+func (w *Window) OnClosing(f func() bool) {
 	w.onClosing = f
 }
 

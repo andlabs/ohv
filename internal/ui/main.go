@@ -4,6 +4,7 @@ package ui
 import (
 	"fmt"
 	"runtime"
+	"sync"
 )
 
 // #cgo CFLAGS: -mmacosx-version-min=10.7 -DMACOSX_DEPLOYMENT_TARGET=10.7
@@ -85,7 +86,7 @@ func OnShouldQuit(f func() bool) {
 }
 
 //export shouldQuit
-func shouldQuit(unused unsafe.Pointer) C.int {
+func shouldQuit() C.int {
 	if shouldQuitFunc == nil {
 		return 0
 	}

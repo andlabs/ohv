@@ -80,6 +80,6 @@ void windowUnsetChild(id ww, id cc)
 	NSView *contentView;
 
 	contentView = [w contentView];
-	[contentView removeAllConstraints];
+	[contentView removeConstraints:[contentView constraints]];
 	[c removeFromSuperview];
 }

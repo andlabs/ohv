@@ -8,7 +8,7 @@
 #include <objc/objc-runtime.h>
 
 // main.m
-extern void initUIThread(void);
+extern const char *initUIThread(void);
 extern void runUIThread(void);
 extern void stopUIThread(void);
 extern void queueUIThread(uintptr_t);
