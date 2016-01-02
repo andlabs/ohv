@@ -115,6 +115,8 @@ class Apple : NSObject, HelpSource {
 	
 	var Name: String {
 		get {
+			// TODO
+//			return "Apple documentation collection " + filepath.Base(a.dir)
 			return "Apple"
 		}
 	}

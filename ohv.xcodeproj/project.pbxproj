@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		5F3465F2A1DFE71032E41827 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 020926EF3254A2F3BFD48605 /* libPods.a */; };
+		9A26EA1D1C38199800DB1706 /* MSHI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A26EA1C1C38199800DB1706 /* MSHI.swift */; };
 		9A44C17C1C370B0F0009B565 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A44C17B1C370B0F0009B565 /* AppDelegate.swift */; };
 		9A44C17E1C370B0F0009B565 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9A44C17D1C370B0F0009B565 /* Assets.xcassets */; };
 		9A44C1811C370B0F0009B565 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A44C17F1C370B0F0009B565 /* MainMenu.xib */; };
@@ -22,6 +23,7 @@
 		020926EF3254A2F3BFD48605 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		67932FC60603ADA10FF23743 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		7706656CE2A780F3DC5A1F3E /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		9A26EA1C1C38199800DB1706 /* MSHI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MSHI.swift; sourceTree = "<group>"; };
 		9A44C1781C370B0F0009B565 /* ohv.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ohv.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A44C17B1C370B0F0009B565 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9A44C17D1C370B0F0009B565 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -72,6 +74,7 @@
 			children = (
 				9A44C17B1C370B0F0009B565 /* AppDelegate.swift */,
 				9A578E3E1C3731D300478339 /* Apple.swift */,
+				9A26EA1C1C38199800DB1706 /* MSHI.swift */,
 				9A76414E1C375E4F0031FBCE /* Navtree.swift */,
 				9A578E3C1C37204A00478339 /* Library.swift */,
 				9A44C17D1C370B0F0009B565 /* Assets.xcassets */,
@@ -221,6 +224,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9A26EA1D1C38199800DB1706 /* MSHI.swift in Sources */,
 				9A578E3F1C3731D300478339 /* Apple.swift in Sources */,
 				9A76414F1C375E4F0031FBCE /* Navtree.swift in Sources */,
 				9A44C17C1C370B0F0009B565 /* AppDelegate.swift in Sources */,
