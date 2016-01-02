@@ -25,8 +25,12 @@ class navtreeDataSource : NSObject, NSOutlineViewDataSource {
 }
 
 class navtreeDelegate : NSObject, NSOutlineViewDelegate {
+	var appDelegate: AppDelegate?
+		
 	func outlineViewSelectionDidChange(note: NSNotification) {
-		// TODO
+		let ov = note.object as! NSOutlineView
+		let topic = ov.itemAtRow(ov.selectedRow) as! Topic
+		appDelegate?.navigate(topic)
 	}
 	
 	func outlineView(outlineView: NSOutlineView, viewForTableColumn tableColumn: NSTableColumn?, item: AnyObject) -> NSView? {

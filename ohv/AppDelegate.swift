@@ -14,6 +14,7 @@ class AppDelegate : NSObject, NSApplicationDelegate {
 	var strongDelegate = navtreeDelegate()
 	
 	func applicationDidFinishLaunching(note: NSNotification) {
+		strongDelegate.appDelegate = self
 		do {
 			try LoadLibraries()
 		} catch let err {
@@ -24,6 +25,22 @@ class AppDelegate : NSObject, NSApplicationDelegate {
 		navtree.reloadData()
 	}
 
+	func navigate(topic: Topic) {
+		do {
+			let prepared = try topic.Prepare()
+			self.webview.mainFrame.loadRequest(NSURLRequest(
+				URL: NSURL.fileURLWithPath(prepared.Path),
+				cachePolicy: NSURLRequestCachePolicy.ReloadIgnoringCacheData,
+				timeoutInterval: NSTimeInterval.infinity))
+		} catch let err as NSError {
+			// TODO customize this
+			let alert = NSAlert(error: err)
+			alert.beginSheetModalForWindow(self.window, completionHandler: {(response) -> Void in
+				// do nothing
+			})
+		}
+	}
+	
 	func applicationWillTerminate(note: NSNotification) {
 		// Insert code here to tear down your application
 	}

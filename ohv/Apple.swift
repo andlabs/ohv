@@ -107,7 +107,7 @@ class Apple : NSObject, HelpSource {
 		
 		// finally get everything into sorted order
 		for (_, topic) in a.topics {
-			SortBooks(topic.Children)
+			topic.Children = SortBooks(topic.Children)
 		}
 		
 		return a
