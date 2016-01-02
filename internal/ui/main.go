@@ -9,7 +9,7 @@ import (
 
 // #cgo CFLAGS: -mmacosx-version-min=10.7 -DMACOSX_DEPLOYMENT_TARGET=10.7
 // #cgo LDFLAGS: -mmacosx-version-min=10.7 -lobjc -framework Foundation -framework AppKit -framework WebKit -lpthread
-// #include "cocoa_darwin.h"
+// #include "ui.h"
 import "C"
 
 func Main(f func()) error {

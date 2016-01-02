@@ -2,7 +2,7 @@
 
 package ui
 
-// #include "cocoa_darwin.h"
+// #include "ui.h"
 // static inline uintptr_t fromid(id x)
 // {
 // 	return (uintptr_t) x;

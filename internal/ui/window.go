@@ -1,7 +1,7 @@
 // 2 january 2016
 package ui
 
-// #include "cocoa_darwin.h"
+// #include "ui.h"
 import "C"
 
 var windows = make(map[C.id]*Window)

@@ -1,9 +1,5 @@
 // 31 december 2015
-#import <Cocoa/Cocoa.h>
-#import <pthread.h>
-#import "mach_override.h"
-#import "cocoa_darwin.h"
-#import "_cgo_export.h"
+#import "uipriv.h"
 
 @interface ohvApplication : NSApplication
 @end

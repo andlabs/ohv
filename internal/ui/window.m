@@ -1,7 +1,5 @@
 // 2 january 2016
-#import <Cocoa/Cocoa.h>
-#import "cocoa_darwin.h"
-#import "_cgo_export.h"
+#import "uipriv.h"
 
 @interface windowDelegate : NSObject<NSWindowDelegate>
 @end
@@ -70,7 +68,8 @@ void windowSetChild(id ww, id cc)
 	NSView *contentView;
 
 	contentView = [w contentView];
-	// TODO
+	[contentView addSubview:child];
+	layoutSingleView(contentView, child, 0);
 }
 
 void windowUnsetChild(id ww, id cc)
