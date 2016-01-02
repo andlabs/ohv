@@ -102,7 +102,7 @@ void layoutWindow(goid window, goid search, goid navtree, goid browser)
 	addConstraint(contentView, @"H:|[split]|", views);
 	addConstraint(contentView, @"V:|[split]|", views);
 	addConstraint(leftside, @"H:|[sf]|", views);
-	addConstraint(leftside, @"H:|[sf]|", views);
+	addConstraint(leftside, @"H:|[sv]|", views);
 	addConstraint(leftside, @"V:|[sf][sv]|", views);
 
 	// TODO is views autoreleased?
