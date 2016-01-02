@@ -7,67 +7,168 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0EF8E9AA652DBE2745A7D5C8CD2E3BDE /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = 475630B9EDA128A2FEA091C9D63AED3F /* FMDatabasePool.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		0F8A8E0D6FAEBF758E0B4D620335F094 /* FMDatabasePool.h in Headers */ = {isa = PBXBuildFile; fileRef = 5696C1F124500924CE065F8CEA33F978 /* FMDatabasePool.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		282081E035E7A843068E8BCC2E07C217 /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = B42D69CD99479A04B6A708D9A1817E54 /* FMDatabaseQueue.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		313531CEDA0294311D87B4F4C3F073F4 /* FMDB.h in Headers */ = {isa = PBXBuildFile; fileRef = CC2AA98E70EF15C6F8A88750F2680320 /* FMDB.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		3D0F69C4CA35EB6A1F686BA88B19B4F6 /* FMDB-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 6258E712F1089BFF63A6B28B87669F03 /* FMDB-dummy.m */; };
-		7694189E8F38BD4AE543625D855E6C55 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CA6EBC2E57D96052268211209D6AA52 /* Cocoa.framework */; };
-		A350C5704A1F233DAD830E081E00F8C1 /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = F0F71FF0833DB53F536450483211F7CD /* FMDatabaseAdditions.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		A4524A1DF4BD3DEC5A5B5B1513654A4D /* Pods-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 272643F56613CA0D336AE3DBF19DC404 /* Pods-dummy.m */; };
-		B418C9BDCF8C6BAC2E3942F157BB6D4C /* FMDatabaseAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = B007C91029361327653F7DCE2E7599C0 /* FMDatabaseAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		CA027706DD6805766F1F4EC548E72440 /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = B3B2DE6BA720930EA5A25DEAD9804D47 /* FMDatabase.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		D0C5FF5485EAA2CDA03E9796B407697A /* FMDatabaseQueue.h in Headers */ = {isa = PBXBuildFile; fileRef = AD57EB2E148CBB0484960AFCFB4C7588 /* FMDatabaseQueue.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D0D5FFE53407F16C9CD3D0ECF43ACE93 /* FMDatabase.h in Headers */ = {isa = PBXBuildFile; fileRef = 990191AC5970F54BD454007D4FC0B2C3 /* FMDatabase.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		DEFA3504695E9DFDE1177DAB22884470 /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = B00FE45DA7886136FAD44633735B4DE3 /* FMResultSet.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		F977B243321331B58666E9284634101A /* FMResultSet.h in Headers */ = {isa = PBXBuildFile; fileRef = FA296DC0E25687826F8CB594F359BD14 /* FMResultSet.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		FFBAFD6927D5D14B2BE93E7810E14C36 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CA6EBC2E57D96052268211209D6AA52 /* Cocoa.framework */; };
+		0C1826023C9DA2BF6318EDB1A6F7C84E /* ZKCDTrailer64.m in Sources */ = {isa = PBXBuildFile; fileRef = 68A59DB575D9C6342379C425122D2D29 /* ZKCDTrailer64.m */; };
+		0EF8E9AA652DBE2745A7D5C8CD2E3BDE /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = 80EBE71F497AA9CA066E4D6A2297EB86 /* FMDatabasePool.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		0F8A8E0D6FAEBF758E0B4D620335F094 /* FMDatabasePool.h in Headers */ = {isa = PBXBuildFile; fileRef = A22978E0F92666AF259D827FF4DD2D8D /* FMDatabasePool.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		0FA44310310D102147281B5CD0DC07EB /* NSFileHandle+ZKAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = A18513CBBDE26C5B9E4EFF0D33686742 /* NSFileHandle+ZKAdditions.m */; };
+		193C29DA4AF81153601B595FCC8215D6 /* ZKDefs.h in Headers */ = {isa = PBXBuildFile; fileRef = 04F122DB57A515489C5A18A41DFF84F6 /* ZKDefs.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1E2B63ACD9106B7698518329ACAB9A54 /* ZKCDTrailer.m in Sources */ = {isa = PBXBuildFile; fileRef = F285054A173E51A30BE5DB602D500721 /* ZKCDTrailer.m */; };
+		2079304FDCCB9D8492690E5F5A07135F /* ZipKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 505F8A101572B563882D3E44AB2F3204 /* ZipKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		282081E035E7A843068E8BCC2E07C217 /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AC67BDE7ADF10FE6452F4C65955B6E0 /* FMDatabaseQueue.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		29F785A7E92EC66A1A8E20DA52B5ACE2 /* GMAppleDouble+ZKAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = FC5662B1880EF96B09132A0A5471435E /* GMAppleDouble+ZKAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		31006773312D693B58D172EFC1D22E22 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A921FF82A09EC6BC956041DA06A091E /* Foundation.framework */; };
+		313531CEDA0294311D87B4F4C3F073F4 /* FMDB.h in Headers */ = {isa = PBXBuildFile; fileRef = 71E6B88CD2E55645B088F61B74934202 /* FMDB.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		332C5509CB7A130A5D6F43CE93635554 /* ZKArchive.h in Headers */ = {isa = PBXBuildFile; fileRef = B85F61F3D9E696B5BD0DC90FC850CC2F /* ZKArchive.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D0F69C4CA35EB6A1F686BA88B19B4F6 /* FMDB-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = D520343619FC35937D3066FBCC5A397D /* FMDB-dummy.m */; };
+		417256847726DEEFEFD6C43DBC8C4BFF /* NSFileManager+ZKAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = E81EBAFD703B9C40DA1F41C6B6DA0427 /* NSFileManager+ZKAdditions.m */; };
+		4A65CBB348F6C2B84E71270AE29B255D /* ZipKit-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 557CFA0A949E355DC24692AF136C5D9A /* ZipKit-dummy.m */; };
+		4FEBD625216EE19A71D7F04D0D4A9BB1 /* NSDictionary+ZKAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = B91DFA2731EFE6A99DA607BDACC051BD /* NSDictionary+ZKAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		511151C127BEAC66C2C3D3F3ED49A6BA /* ZKLog.m in Sources */ = {isa = PBXBuildFile; fileRef = AA6143051EBB2EBD0C63A657286A5836 /* ZKLog.m */; };
+		53CF40FB9C13821F3805324C6B019AB5 /* ZKLog.h in Headers */ = {isa = PBXBuildFile; fileRef = 01CA3EE5A00082154D3787AF025B1E5E /* ZKLog.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		57686D65056A7F1B31933998A747053D /* ZKLFHeader.h in Headers */ = {isa = PBXBuildFile; fileRef = 568BBA49932219BAC6B0169C1A159FA6 /* ZKLFHeader.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		59EE567E248BCCF096815132CDCBCF58 /* NSDate+ZKAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = E69EBEBED083BAB34C3902E6950157B7 /* NSDate+ZKAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5CF1B15068B6D542A9EAA3E5FB33CEF8 /* NSDate+ZKAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 99CA8AC75AA84410CC17448660B48C0E /* NSDate+ZKAdditions.m */; };
+		5E14F382704102AAE0863FFB2CA85DB7 /* GMAppleDouble.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EEA2B1A4A331128ACE35DB40009BABA /* GMAppleDouble.m */; };
+		61798B1C39B52943BF5C7666ECDFE41F /* NSFileManager+ZKAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = F7BBD2967DD60725D4FE926F88A8CF4F /* NSFileManager+ZKAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		742F4A47BDC3E4283004EC4837E967F3 /* ZKFileArchive.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C69366FCC6C42F441E0323DED54CC66 /* ZKFileArchive.m */; };
+		7461EA410834C8B43FDE048A7D31BB5F /* ZKCDTrailer64.h in Headers */ = {isa = PBXBuildFile; fileRef = 534072B71158DA6EACBF9AEC18518AF4 /* ZKCDTrailer64.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7C1FCDBB0E4490380CB4385E520B9764 /* NSString+ZKAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = FA6101C026ADB54FAF23FDD086170990 /* NSString+ZKAdditions.m */; };
+		869970F7822E2A00D003509635967F63 /* Pods-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 272643F56613CA0D336AE3DBF19DC404 /* Pods-dummy.m */; };
+		8A36A24A464170CA6D49AD90CD3F5EC3 /* NSFileHandle+ZKAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 38370BF1A6760FF93140B03050BFC546 /* NSFileHandle+ZKAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8D09C858929C94461DF0BFB185904722 /* GMAppleDouble+ZKAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DB035355008631E55846E1F66237F6B /* GMAppleDouble+ZKAdditions.m */; };
+		8FFB85C64040F220895100563F63DB11 /* NSDictionary+ZKAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 84169D5F35FED91E89C261529EB6F632 /* NSDictionary+ZKAdditions.m */; };
+		A350C5704A1F233DAD830E081E00F8C1 /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 07D209D100B99EF3876DEE2395A1B86C /* FMDatabaseAdditions.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		A4D646AC30A5486F4D495887EE57B220 /* ZKLFHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = C14C5DF782EEDA442904EEABD1B780DD /* ZKLFHeader.m */; };
+		A56FF22DA43F7E742CA78B20459AD083 /* ZKCDHeader.h in Headers */ = {isa = PBXBuildFile; fileRef = 56091BEB94ADB84347D8C545601E48AC /* ZKCDHeader.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A6A0059DF26B93EDC73B9023318CDC2C /* ZKFileArchive.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C4291C590B89D46876F3D2E297857B3 /* ZKFileArchive.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A6BA01F2C9CFEF90D20EC971B35EAE6E /* NSData+ZKAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 93971C164A152B85635CC66E876EB9AC /* NSData+ZKAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B1F10968FB06065BE9B2FED6EF9E10DF /* ZKDefs.m in Sources */ = {isa = PBXBuildFile; fileRef = 78789A6777A05260B4FA25BDAC96ADFC /* ZKDefs.m */; };
+		B418C9BDCF8C6BAC2E3942F157BB6D4C /* FMDatabaseAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = D2DAF68FC3BB312E9C51DA9A2F1DECD3 /* FMDatabaseAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BC011869F7A5C36B76E0716545D26579 /* NSString+ZKAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = CB122CF62BB78B620B6280482C5AD2DD /* NSString+ZKAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BD70DC76F3557B288E14D9702AE20A8C /* NSData+ZKAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = C37FE949F25BD36EAFC7546573480B79 /* NSData+ZKAdditions.m */; };
+		C54C6731D41C3C684B7C09B183F14D02 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 321422C00745BE7E3954DF24FB5C3EFB /* Cocoa.framework */; };
+		CA027706DD6805766F1F4EC548E72440 /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 4664BE97B420C4DADED3925A6F06A4FD /* FMDatabase.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		CAE049F126D2858DBE6E748D7EB1FAF4 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB577EC51F8F0B78901E7073BB36B340 /* CoreServices.framework */; };
+		CFA9209634DD227D696C269B7FF4A197 /* ZKCDTrailer64Locator.m in Sources */ = {isa = PBXBuildFile; fileRef = 516C423C4CFD83BBC4E4466EBD0C8669 /* ZKCDTrailer64Locator.m */; };
+		D0C5FF5485EAA2CDA03E9796B407697A /* FMDatabaseQueue.h in Headers */ = {isa = PBXBuildFile; fileRef = DB18D08476FAB084AAD5AC8EF1E4EB57 /* FMDatabaseQueue.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D0D5FFE53407F16C9CD3D0ECF43ACE93 /* FMDatabase.h in Headers */ = {isa = PBXBuildFile; fileRef = BD4494E3ABEEEFC5A466DE2780D2EB46 /* FMDatabase.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D2FE78DEAADF266A7BE17791A5E37565 /* ZKCDTrailer.h in Headers */ = {isa = PBXBuildFile; fileRef = E5BD51EEB7A6DCD9501956FDE75B605E /* ZKCDTrailer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D46A773033CF86D72564F34A9B8844F0 /* ZKDataArchive.m in Sources */ = {isa = PBXBuildFile; fileRef = A52041C78671D09A11D85509848E12B4 /* ZKDataArchive.m */; };
+		D4DE669EA4D94A69F37577D6DFBD91BF /* ZKCDTrailer64Locator.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D582065C051619F533B13FC3668D949 /* ZKCDTrailer64Locator.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D4F11B545C65610442D31D97645BE0EE /* ZKCDHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = B81A5284B8573D4F7B775B43F7B42914 /* ZKCDHeader.m */; };
+		DEFA3504695E9DFDE1177DAB22884470 /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = CF6716B52CA467A1503E254E92791458 /* FMResultSet.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		E2265B8C5F75582F3CB5E2DD9B1A1701 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 321422C00745BE7E3954DF24FB5C3EFB /* Cocoa.framework */; };
+		F67A86813E55A1C320C1B958F2465C83 /* GMAppleDouble.h in Headers */ = {isa = PBXBuildFile; fileRef = 4422E4124B76F03426CDA4C7136CD23C /* GMAppleDouble.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F920CACBBFBE08A7C244DC5137A5E03B /* ZKArchive.m in Sources */ = {isa = PBXBuildFile; fileRef = F539A824B2168D1A9999F1C2A1F9F163 /* ZKArchive.m */; };
+		F977B243321331B58666E9284634101A /* FMResultSet.h in Headers */ = {isa = PBXBuildFile; fileRef = 79A4DA10D50434CDD14091D240EFBC8B /* FMResultSet.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		FD0884F510D18FE9E25AB67608730F30 /* ZKDataArchive.h in Headers */ = {isa = PBXBuildFile; fileRef = E6198AE11533526D8F8A51B60C25A847 /* ZKDataArchive.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		FFBAFD6927D5D14B2BE93E7810E14C36 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 321422C00745BE7E3954DF24FB5C3EFB /* Cocoa.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		A06AB1643FA0EA023EF72341CB59BE89 /* PBXContainerItemProxy */ = {
+		8A1D7E8DB195508CA78A075D23845438 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 9F12FB4A63E20F601CFB2E64A65B57C1;
 			remoteInfo = FMDB;
 		};
+		A334A6B48E24ADEDA79FD1D0E9176410 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8744D4E889AA13B0C913C0ED1B4A9508;
+			remoteInfo = ZipKit;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		01CA3EE5A00082154D3787AF025B1E5E /* ZKLog.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ZKLog.h; path = ZipKit/ZKLog.h; sourceTree = "<group>"; };
+		04F122DB57A515489C5A18A41DFF84F6 /* ZKDefs.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ZKDefs.h; path = ZipKit/ZKDefs.h; sourceTree = "<group>"; };
+		07D209D100B99EF3876DEE2395A1B86C /* FMDatabaseAdditions.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FMDatabaseAdditions.m; path = src/fmdb/FMDatabaseAdditions.m; sourceTree = "<group>"; };
 		10834806BD7B412BC24F347361FA2C8E /* Pods-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-acknowledgements.plist"; sourceTree = "<group>"; };
-		1CA6EBC2E57D96052268211209D6AA52 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk/System/Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
 		272643F56613CA0D336AE3DBF19DC404 /* Pods-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-dummy.m"; sourceTree = "<group>"; };
+		2A921FF82A09EC6BC956041DA06A091E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		321422C00745BE7E3954DF24FB5C3EFB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk/System/Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
+		36F416891CE7464EDFB6177688F9BB3A /* ZipKit.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = ZipKit.xcconfig; sourceTree = "<group>"; };
 		37DB56D75062CC75FCB0966E1C6E8A8E /* Pods-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-acknowledgements.markdown"; sourceTree = "<group>"; };
-		3FF6CC2D423559E28AE3F55AFFA4CA33 /* libFMDB.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libFMDB.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		475630B9EDA128A2FEA091C9D63AED3F /* FMDatabasePool.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FMDatabasePool.m; path = src/fmdb/FMDatabasePool.m; sourceTree = "<group>"; };
+		38370BF1A6760FF93140B03050BFC546 /* NSFileHandle+ZKAdditions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSFileHandle+ZKAdditions.h"; path = "ZipKit/NSFileHandle+ZKAdditions.h"; sourceTree = "<group>"; };
+		4422E4124B76F03426CDA4C7136CD23C /* GMAppleDouble.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GMAppleDouble.h; path = ZipKit/MacFUSE/GMAppleDouble.h; sourceTree = "<group>"; };
+		4664BE97B420C4DADED3925A6F06A4FD /* FMDatabase.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FMDatabase.m; path = src/fmdb/FMDatabase.m; sourceTree = "<group>"; };
+		4C4291C590B89D46876F3D2E297857B3 /* ZKFileArchive.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ZKFileArchive.h; path = ZipKit/ZKFileArchive.h; sourceTree = "<group>"; };
 		4E762F23EC34ED4A6FF3312D84E33A40 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Pods.debug.xcconfig; sourceTree = "<group>"; };
-		5696C1F124500924CE065F8CEA33F978 /* FMDatabasePool.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FMDatabasePool.h; path = src/fmdb/FMDatabasePool.h; sourceTree = "<group>"; };
-		6258E712F1089BFF63A6B28B87669F03 /* FMDB-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "FMDB-dummy.m"; sourceTree = "<group>"; };
+		505F8A101572B563882D3E44AB2F3204 /* ZipKit.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ZipKit.h; path = ZipKit/ZipKit.h; sourceTree = "<group>"; };
+		516C423C4CFD83BBC4E4466EBD0C8669 /* ZKCDTrailer64Locator.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = ZKCDTrailer64Locator.m; path = ZipKit/ZKCDTrailer64Locator.m; sourceTree = "<group>"; };
+		534072B71158DA6EACBF9AEC18518AF4 /* ZKCDTrailer64.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ZKCDTrailer64.h; path = ZipKit/ZKCDTrailer64.h; sourceTree = "<group>"; };
+		557CFA0A949E355DC24692AF136C5D9A /* ZipKit-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "ZipKit-dummy.m"; sourceTree = "<group>"; };
+		56091BEB94ADB84347D8C545601E48AC /* ZKCDHeader.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ZKCDHeader.h; path = ZipKit/ZKCDHeader.h; sourceTree = "<group>"; };
+		568BBA49932219BAC6B0169C1A159FA6 /* ZKLFHeader.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ZKLFHeader.h; path = ZipKit/ZKLFHeader.h; sourceTree = "<group>"; };
+		5C69366FCC6C42F441E0323DED54CC66 /* ZKFileArchive.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = ZKFileArchive.m; path = ZipKit/ZKFileArchive.m; sourceTree = "<group>"; };
+		5DB035355008631E55846E1F66237F6B /* GMAppleDouble+ZKAdditions.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "GMAppleDouble+ZKAdditions.m"; path = "ZipKit/GMAppleDouble+ZKAdditions.m"; sourceTree = "<group>"; };
+		5EEA2B1A4A331128ACE35DB40009BABA /* GMAppleDouble.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = GMAppleDouble.m; path = ZipKit/MacFUSE/GMAppleDouble.m; sourceTree = "<group>"; };
+		60208DCC389285CD64D08A8E108D9599 /* FMDB.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = FMDB.xcconfig; sourceTree = "<group>"; };
+		68A59DB575D9C6342379C425122D2D29 /* ZKCDTrailer64.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = ZKCDTrailer64.m; path = ZipKit/ZKCDTrailer64.m; sourceTree = "<group>"; };
 		6911BECA35E7518D864239B7E898EEF3 /* Pods-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-frameworks.sh"; sourceTree = "<group>"; };
+		6AC67BDE7ADF10FE6452F4C65955B6E0 /* FMDatabaseQueue.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FMDatabaseQueue.m; path = src/fmdb/FMDatabaseQueue.m; sourceTree = "<group>"; };
+		6D582065C051619F533B13FC3668D949 /* ZKCDTrailer64Locator.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ZKCDTrailer64Locator.h; path = ZipKit/ZKCDTrailer64Locator.h; sourceTree = "<group>"; };
+		71E6B88CD2E55645B088F61B74934202 /* FMDB.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FMDB.h; path = src/fmdb/FMDB.h; sourceTree = "<group>"; };
+		744210B0FF437A5D4B837AF8822D3E12 /* ZipKit-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "ZipKit-prefix.pch"; sourceTree = "<group>"; };
+		78789A6777A05260B4FA25BDAC96ADFC /* ZKDefs.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = ZKDefs.m; path = ZipKit/ZKDefs.m; sourceTree = "<group>"; };
+		79A4DA10D50434CDD14091D240EFBC8B /* FMResultSet.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FMResultSet.h; path = src/fmdb/FMResultSet.h; sourceTree = "<group>"; };
+		80EBE71F497AA9CA066E4D6A2297EB86 /* FMDatabasePool.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FMDatabasePool.m; path = src/fmdb/FMDatabasePool.m; sourceTree = "<group>"; };
+		84169D5F35FED91E89C261529EB6F632 /* NSDictionary+ZKAdditions.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSDictionary+ZKAdditions.m"; path = "ZipKit/NSDictionary+ZKAdditions.m"; sourceTree = "<group>"; };
+		86E7844BCE871C5674DC758D19D887F6 /* FMDB-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "FMDB-prefix.pch"; sourceTree = "<group>"; };
+		91B200DB727D0F59618BEF0A561B8539 /* libFMDB.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libFMDB.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		93971C164A152B85635CC66E876EB9AC /* NSData+ZKAdditions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSData+ZKAdditions.h"; path = "ZipKit/NSData+ZKAdditions.h"; sourceTree = "<group>"; };
 		98C98CDFB3F20F2925F6CD1F141BB14F /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Pods.release.xcconfig; sourceTree = "<group>"; };
-		990191AC5970F54BD454007D4FC0B2C3 /* FMDatabase.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FMDatabase.h; path = src/fmdb/FMDatabase.h; sourceTree = "<group>"; };
+		99CA8AC75AA84410CC17448660B48C0E /* NSDate+ZKAdditions.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSDate+ZKAdditions.m"; path = "ZipKit/NSDate+ZKAdditions.m"; sourceTree = "<group>"; };
+		A18513CBBDE26C5B9E4EFF0D33686742 /* NSFileHandle+ZKAdditions.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSFileHandle+ZKAdditions.m"; path = "ZipKit/NSFileHandle+ZKAdditions.m"; sourceTree = "<group>"; };
 		A1A36D34413696BE466E2CA0AFF194DA /* Pods-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-resources.sh"; sourceTree = "<group>"; };
-		AD57EB2E148CBB0484960AFCFB4C7588 /* FMDatabaseQueue.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FMDatabaseQueue.h; path = src/fmdb/FMDatabaseQueue.h; sourceTree = "<group>"; };
-		B007C91029361327653F7DCE2E7599C0 /* FMDatabaseAdditions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FMDatabaseAdditions.h; path = src/fmdb/FMDatabaseAdditions.h; sourceTree = "<group>"; };
-		B00FE45DA7886136FAD44633735B4DE3 /* FMResultSet.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FMResultSet.m; path = src/fmdb/FMResultSet.m; sourceTree = "<group>"; };
-		B3B2DE6BA720930EA5A25DEAD9804D47 /* FMDatabase.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FMDatabase.m; path = src/fmdb/FMDatabase.m; sourceTree = "<group>"; };
-		B42D69CD99479A04B6A708D9A1817E54 /* FMDatabaseQueue.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FMDatabaseQueue.m; path = src/fmdb/FMDatabaseQueue.m; sourceTree = "<group>"; };
+		A22978E0F92666AF259D827FF4DD2D8D /* FMDatabasePool.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FMDatabasePool.h; path = src/fmdb/FMDatabasePool.h; sourceTree = "<group>"; };
+		A52041C78671D09A11D85509848E12B4 /* ZKDataArchive.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = ZKDataArchive.m; path = ZipKit/ZKDataArchive.m; sourceTree = "<group>"; };
+		AA6143051EBB2EBD0C63A657286A5836 /* ZKLog.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = ZKLog.m; path = ZipKit/ZKLog.m; sourceTree = "<group>"; };
+		B81A5284B8573D4F7B775B43F7B42914 /* ZKCDHeader.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = ZKCDHeader.m; path = ZipKit/ZKCDHeader.m; sourceTree = "<group>"; };
+		B85F61F3D9E696B5BD0DC90FC850CC2F /* ZKArchive.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ZKArchive.h; path = ZipKit/ZKArchive.h; sourceTree = "<group>"; };
+		B91DFA2731EFE6A99DA607BDACC051BD /* NSDictionary+ZKAdditions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSDictionary+ZKAdditions.h"; path = "ZipKit/NSDictionary+ZKAdditions.h"; sourceTree = "<group>"; };
 		BA6428E9F66FD5A23C0A2E06ED26CD2F /* Podfile */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		CC2AA98E70EF15C6F8A88750F2680320 /* FMDB.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FMDB.h; path = src/fmdb/FMDB.h; sourceTree = "<group>"; };
-		D874D9C80FA1F53051632DE704321234 /* FMDB.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = FMDB.xcconfig; sourceTree = "<group>"; };
-		E0EAEEFA8AD36A2BF2DC2B73C68F5890 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		EA7F4524D2AF509C459F6B158E80820C /* FMDB-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "FMDB-prefix.pch"; sourceTree = "<group>"; };
-		F0F71FF0833DB53F536450483211F7CD /* FMDatabaseAdditions.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FMDatabaseAdditions.m; path = src/fmdb/FMDatabaseAdditions.m; sourceTree = "<group>"; };
-		FA296DC0E25687826F8CB594F359BD14 /* FMResultSet.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FMResultSet.h; path = src/fmdb/FMResultSet.h; sourceTree = "<group>"; };
+		BD4494E3ABEEEFC5A466DE2780D2EB46 /* FMDatabase.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FMDatabase.h; path = src/fmdb/FMDatabase.h; sourceTree = "<group>"; };
+		BEB164FB102630789C15B26123D2D08D /* libZipKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libZipKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		C14C5DF782EEDA442904EEABD1B780DD /* ZKLFHeader.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = ZKLFHeader.m; path = ZipKit/ZKLFHeader.m; sourceTree = "<group>"; };
+		C3465769898C5BA450F61E63A24BA897 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		C37FE949F25BD36EAFC7546573480B79 /* NSData+ZKAdditions.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSData+ZKAdditions.m"; path = "ZipKit/NSData+ZKAdditions.m"; sourceTree = "<group>"; };
+		CB122CF62BB78B620B6280482C5AD2DD /* NSString+ZKAdditions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSString+ZKAdditions.h"; path = "ZipKit/NSString+ZKAdditions.h"; sourceTree = "<group>"; };
+		CF6716B52CA467A1503E254E92791458 /* FMResultSet.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FMResultSet.m; path = src/fmdb/FMResultSet.m; sourceTree = "<group>"; };
+		D2DAF68FC3BB312E9C51DA9A2F1DECD3 /* FMDatabaseAdditions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FMDatabaseAdditions.h; path = src/fmdb/FMDatabaseAdditions.h; sourceTree = "<group>"; };
+		D520343619FC35937D3066FBCC5A397D /* FMDB-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "FMDB-dummy.m"; sourceTree = "<group>"; };
+		DB18D08476FAB084AAD5AC8EF1E4EB57 /* FMDatabaseQueue.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FMDatabaseQueue.h; path = src/fmdb/FMDatabaseQueue.h; sourceTree = "<group>"; };
+		DB577EC51F8F0B78901E7073BB36B340 /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk/System/Library/Frameworks/CoreServices.framework; sourceTree = DEVELOPER_DIR; };
+		E5BD51EEB7A6DCD9501956FDE75B605E /* ZKCDTrailer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ZKCDTrailer.h; path = ZipKit/ZKCDTrailer.h; sourceTree = "<group>"; };
+		E6198AE11533526D8F8A51B60C25A847 /* ZKDataArchive.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ZKDataArchive.h; path = ZipKit/ZKDataArchive.h; sourceTree = "<group>"; };
+		E69EBEBED083BAB34C3902E6950157B7 /* NSDate+ZKAdditions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSDate+ZKAdditions.h"; path = "ZipKit/NSDate+ZKAdditions.h"; sourceTree = "<group>"; };
+		E81EBAFD703B9C40DA1F41C6B6DA0427 /* NSFileManager+ZKAdditions.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSFileManager+ZKAdditions.m"; path = "ZipKit/NSFileManager+ZKAdditions.m"; sourceTree = "<group>"; };
+		F285054A173E51A30BE5DB602D500721 /* ZKCDTrailer.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = ZKCDTrailer.m; path = ZipKit/ZKCDTrailer.m; sourceTree = "<group>"; };
+		F539A824B2168D1A9999F1C2A1F9F163 /* ZKArchive.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = ZKArchive.m; path = ZipKit/ZKArchive.m; sourceTree = "<group>"; };
+		F7BBD2967DD60725D4FE926F88A8CF4F /* NSFileManager+ZKAdditions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSFileManager+ZKAdditions.h"; path = "ZipKit/NSFileManager+ZKAdditions.h"; sourceTree = "<group>"; };
+		FA6101C026ADB54FAF23FDD086170990 /* NSString+ZKAdditions.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSString+ZKAdditions.m"; path = "ZipKit/NSString+ZKAdditions.m"; sourceTree = "<group>"; };
+		FC5662B1880EF96B09132A0A5471435E /* GMAppleDouble+ZKAdditions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "GMAppleDouble+ZKAdditions.h"; path = "ZipKit/GMAppleDouble+ZKAdditions.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		9E2FA62120826CD8C86CA8CC26074D41 /* Frameworks */ = {
+		342375909C60AC479478FD1208F7A742 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7694189E8F38BD4AE543625D855E6C55 /* Cocoa.framework in Frameworks */,
+				C54C6731D41C3C684B7C09B183F14D02 /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5BBAC3E25AEDAA3C9E63C8047DD3B27E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E2265B8C5F75582F3CB5E2DD9B1A1701 /* Cocoa.framework in Frameworks */,
+				CAE049F126D2858DBE6E748D7EB1FAF4 /* CoreServices.framework in Frameworks */,
+				31006773312D693B58D172EFC1D22E22 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -90,42 +191,118 @@
 			name = "Targets Support Files";
 			sourceTree = "<group>";
 		};
-		05DEDDA30D455CC2728CB39024359B2D /* Support Files */ = {
+		044558AF0F115AD1E553331532BFCD31 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				D874D9C80FA1F53051632DE704321234 /* FMDB.xcconfig */,
-				6258E712F1089BFF63A6B28B87669F03 /* FMDB-dummy.m */,
-				EA7F4524D2AF509C459F6B158E80820C /* FMDB-prefix.pch */,
+				3F30120AC237B8237DBF1DB279CB9901 /* FMDB */,
+				4563874D49A70A5785A95F2EFD048455 /* ZipKit */,
 			);
-			name = "Support Files";
-			path = "../Target Support Files/FMDB";
+			name = Pods;
 			sourceTree = "<group>";
 		};
-		28C17CEF104526ACA07B6EEE217EC43E /* OS X */ = {
+		3F30120AC237B8237DBF1DB279CB9901 /* FMDB */ = {
 			isa = PBXGroup;
 			children = (
-				1CA6EBC2E57D96052268211209D6AA52 /* Cocoa.framework */,
+				C50BA14EB184538DFF1DA7D3DD670B7A /* common */,
+				69A443D3ED0E63BCA1FF3EE8A0BF7034 /* Support Files */,
+			);
+			path = FMDB;
+			sourceTree = "<group>";
+		};
+		4563874D49A70A5785A95F2EFD048455 /* ZipKit */ = {
+			isa = PBXGroup;
+			children = (
+				4422E4124B76F03426CDA4C7136CD23C /* GMAppleDouble.h */,
+				5EEA2B1A4A331128ACE35DB40009BABA /* GMAppleDouble.m */,
+				FC5662B1880EF96B09132A0A5471435E /* GMAppleDouble+ZKAdditions.h */,
+				5DB035355008631E55846E1F66237F6B /* GMAppleDouble+ZKAdditions.m */,
+				93971C164A152B85635CC66E876EB9AC /* NSData+ZKAdditions.h */,
+				C37FE949F25BD36EAFC7546573480B79 /* NSData+ZKAdditions.m */,
+				E69EBEBED083BAB34C3902E6950157B7 /* NSDate+ZKAdditions.h */,
+				99CA8AC75AA84410CC17448660B48C0E /* NSDate+ZKAdditions.m */,
+				B91DFA2731EFE6A99DA607BDACC051BD /* NSDictionary+ZKAdditions.h */,
+				84169D5F35FED91E89C261529EB6F632 /* NSDictionary+ZKAdditions.m */,
+				38370BF1A6760FF93140B03050BFC546 /* NSFileHandle+ZKAdditions.h */,
+				A18513CBBDE26C5B9E4EFF0D33686742 /* NSFileHandle+ZKAdditions.m */,
+				F7BBD2967DD60725D4FE926F88A8CF4F /* NSFileManager+ZKAdditions.h */,
+				E81EBAFD703B9C40DA1F41C6B6DA0427 /* NSFileManager+ZKAdditions.m */,
+				CB122CF62BB78B620B6280482C5AD2DD /* NSString+ZKAdditions.h */,
+				FA6101C026ADB54FAF23FDD086170990 /* NSString+ZKAdditions.m */,
+				505F8A101572B563882D3E44AB2F3204 /* ZipKit.h */,
+				B85F61F3D9E696B5BD0DC90FC850CC2F /* ZKArchive.h */,
+				F539A824B2168D1A9999F1C2A1F9F163 /* ZKArchive.m */,
+				56091BEB94ADB84347D8C545601E48AC /* ZKCDHeader.h */,
+				B81A5284B8573D4F7B775B43F7B42914 /* ZKCDHeader.m */,
+				E5BD51EEB7A6DCD9501956FDE75B605E /* ZKCDTrailer.h */,
+				F285054A173E51A30BE5DB602D500721 /* ZKCDTrailer.m */,
+				534072B71158DA6EACBF9AEC18518AF4 /* ZKCDTrailer64.h */,
+				68A59DB575D9C6342379C425122D2D29 /* ZKCDTrailer64.m */,
+				6D582065C051619F533B13FC3668D949 /* ZKCDTrailer64Locator.h */,
+				516C423C4CFD83BBC4E4466EBD0C8669 /* ZKCDTrailer64Locator.m */,
+				E6198AE11533526D8F8A51B60C25A847 /* ZKDataArchive.h */,
+				A52041C78671D09A11D85509848E12B4 /* ZKDataArchive.m */,
+				04F122DB57A515489C5A18A41DFF84F6 /* ZKDefs.h */,
+				78789A6777A05260B4FA25BDAC96ADFC /* ZKDefs.m */,
+				4C4291C590B89D46876F3D2E297857B3 /* ZKFileArchive.h */,
+				5C69366FCC6C42F441E0323DED54CC66 /* ZKFileArchive.m */,
+				568BBA49932219BAC6B0169C1A159FA6 /* ZKLFHeader.h */,
+				C14C5DF782EEDA442904EEABD1B780DD /* ZKLFHeader.m */,
+				01CA3EE5A00082154D3787AF025B1E5E /* ZKLog.h */,
+				AA6143051EBB2EBD0C63A657286A5836 /* ZKLog.m */,
+				86AC61AC9C2A1820BC589076340A4040 /* Support Files */,
+			);
+			path = ZipKit;
+			sourceTree = "<group>";
+		};
+		4D59E21995629F034BACE2F75C4B98DC /* OS X */ = {
+			isa = PBXGroup;
+			children = (
+				321422C00745BE7E3954DF24FB5C3EFB /* Cocoa.framework */,
+				DB577EC51F8F0B78901E7073BB36B340 /* CoreServices.framework */,
+				2A921FF82A09EC6BC956041DA06A091E /* Foundation.framework */,
 			);
 			name = "OS X";
 			sourceTree = "<group>";
 		};
-		39E9EE8210D861DFD82346C1F5EB7218 /* Frameworks */ = {
+		69A443D3ED0E63BCA1FF3EE8A0BF7034 /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				28C17CEF104526ACA07B6EEE217EC43E /* OS X */,
+				60208DCC389285CD64D08A8E108D9599 /* FMDB.xcconfig */,
+				D520343619FC35937D3066FBCC5A397D /* FMDB-dummy.m */,
+				86E7844BCE871C5674DC758D19D887F6 /* FMDB-prefix.pch */,
 			);
-			name = Frameworks;
+			name = "Support Files";
+			path = "../Target Support Files/FMDB";
 			sourceTree = "<group>";
 		};
 		7DB346D0F39D3F0E887471402A8071AB = {
 			isa = PBXGroup;
 			children = (
 				BA6428E9F66FD5A23C0A2E06ED26CD2F /* Podfile */,
-				39E9EE8210D861DFD82346C1F5EB7218 /* Frameworks */,
-				BFB8C92E749ED180124155E2270474D2 /* Pods */,
-				CDF1344E9E92C8417899CE037474665F /* Products */,
+				96D996393384F21972E2DD81788EE22C /* Frameworks */,
+				044558AF0F115AD1E553331532BFCD31 /* Pods */,
+				CC43D00CEF977902E41E65F3625512CA /* Products */,
 				037C0CA694176A3C0915F62C9D20B3E6 /* Targets Support Files */,
 			);
+			sourceTree = "<group>";
+		};
+		86AC61AC9C2A1820BC589076340A4040 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				36F416891CE7464EDFB6177688F9BB3A /* ZipKit.xcconfig */,
+				557CFA0A949E355DC24692AF136C5D9A /* ZipKit-dummy.m */,
+				744210B0FF437A5D4B837AF8822D3E12 /* ZipKit-prefix.pch */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/ZipKit";
+			sourceTree = "<group>";
+		};
+		96D996393384F21972E2DD81788EE22C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4D59E21995629F034BACE2F75C4B98DC /* OS X */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		B3D1D13E0C6553800746CB8FD61CF946 /* Pods */ = {
@@ -143,48 +320,32 @@
 			path = "Target Support Files/Pods";
 			sourceTree = "<group>";
 		};
-		B7377036971551BCDC2E2584548A576D /* common */ = {
+		C50BA14EB184538DFF1DA7D3DD670B7A /* common */ = {
 			isa = PBXGroup;
 			children = (
-				990191AC5970F54BD454007D4FC0B2C3 /* FMDatabase.h */,
-				B3B2DE6BA720930EA5A25DEAD9804D47 /* FMDatabase.m */,
-				B007C91029361327653F7DCE2E7599C0 /* FMDatabaseAdditions.h */,
-				F0F71FF0833DB53F536450483211F7CD /* FMDatabaseAdditions.m */,
-				5696C1F124500924CE065F8CEA33F978 /* FMDatabasePool.h */,
-				475630B9EDA128A2FEA091C9D63AED3F /* FMDatabasePool.m */,
-				AD57EB2E148CBB0484960AFCFB4C7588 /* FMDatabaseQueue.h */,
-				B42D69CD99479A04B6A708D9A1817E54 /* FMDatabaseQueue.m */,
-				CC2AA98E70EF15C6F8A88750F2680320 /* FMDB.h */,
-				FA296DC0E25687826F8CB594F359BD14 /* FMResultSet.h */,
-				B00FE45DA7886136FAD44633735B4DE3 /* FMResultSet.m */,
+				BD4494E3ABEEEFC5A466DE2780D2EB46 /* FMDatabase.h */,
+				4664BE97B420C4DADED3925A6F06A4FD /* FMDatabase.m */,
+				D2DAF68FC3BB312E9C51DA9A2F1DECD3 /* FMDatabaseAdditions.h */,
+				07D209D100B99EF3876DEE2395A1B86C /* FMDatabaseAdditions.m */,
+				A22978E0F92666AF259D827FF4DD2D8D /* FMDatabasePool.h */,
+				80EBE71F497AA9CA066E4D6A2297EB86 /* FMDatabasePool.m */,
+				DB18D08476FAB084AAD5AC8EF1E4EB57 /* FMDatabaseQueue.h */,
+				6AC67BDE7ADF10FE6452F4C65955B6E0 /* FMDatabaseQueue.m */,
+				71E6B88CD2E55645B088F61B74934202 /* FMDB.h */,
+				79A4DA10D50434CDD14091D240EFBC8B /* FMResultSet.h */,
+				CF6716B52CA467A1503E254E92791458 /* FMResultSet.m */,
 			);
 			name = common;
 			sourceTree = "<group>";
 		};
-		BFB8C92E749ED180124155E2270474D2 /* Pods */ = {
+		CC43D00CEF977902E41E65F3625512CA /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				FA26C3825570D0641AC85B4710D11744 /* FMDB */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
-		CDF1344E9E92C8417899CE037474665F /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				3FF6CC2D423559E28AE3F55AFFA4CA33 /* libFMDB.a */,
-				E0EAEEFA8AD36A2BF2DC2B73C68F5890 /* libPods.a */,
+				91B200DB727D0F59618BEF0A561B8539 /* libFMDB.a */,
+				C3465769898C5BA450F61E63A24BA897 /* libPods.a */,
+				BEB164FB102630789C15B26123D2D08D /* libZipKit.a */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		FA26C3825570D0641AC85B4710D11744 /* FMDB */ = {
-			isa = PBXGroup;
-			children = (
-				B7377036971551BCDC2E2584548A576D /* common */,
-				05DEDDA30D455CC2728CB39024359B2D /* Support Files */,
-			);
-			path = FMDB;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -203,24 +364,68 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		99B9D8A46A06F3F2317EF79FE259F8C6 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				29F785A7E92EC66A1A8E20DA52B5ACE2 /* GMAppleDouble+ZKAdditions.h in Headers */,
+				F67A86813E55A1C320C1B958F2465C83 /* GMAppleDouble.h in Headers */,
+				A6BA01F2C9CFEF90D20EC971B35EAE6E /* NSData+ZKAdditions.h in Headers */,
+				59EE567E248BCCF096815132CDCBCF58 /* NSDate+ZKAdditions.h in Headers */,
+				4FEBD625216EE19A71D7F04D0D4A9BB1 /* NSDictionary+ZKAdditions.h in Headers */,
+				8A36A24A464170CA6D49AD90CD3F5EC3 /* NSFileHandle+ZKAdditions.h in Headers */,
+				61798B1C39B52943BF5C7666ECDFE41F /* NSFileManager+ZKAdditions.h in Headers */,
+				BC011869F7A5C36B76E0716545D26579 /* NSString+ZKAdditions.h in Headers */,
+				2079304FDCCB9D8492690E5F5A07135F /* ZipKit.h in Headers */,
+				332C5509CB7A130A5D6F43CE93635554 /* ZKArchive.h in Headers */,
+				A56FF22DA43F7E742CA78B20459AD083 /* ZKCDHeader.h in Headers */,
+				D2FE78DEAADF266A7BE17791A5E37565 /* ZKCDTrailer.h in Headers */,
+				7461EA410834C8B43FDE048A7D31BB5F /* ZKCDTrailer64.h in Headers */,
+				D4DE669EA4D94A69F37577D6DFBD91BF /* ZKCDTrailer64Locator.h in Headers */,
+				FD0884F510D18FE9E25AB67608730F30 /* ZKDataArchive.h in Headers */,
+				193C29DA4AF81153601B595FCC8215D6 /* ZKDefs.h in Headers */,
+				A6A0059DF26B93EDC73B9023318CDC2C /* ZKFileArchive.h in Headers */,
+				57686D65056A7F1B31933998A747053D /* ZKLFHeader.h in Headers */,
+				53CF40FB9C13821F3805324C6B019AB5 /* ZKLog.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		1B9FA7A5421F72B261CD8F8DC49B18F2 /* Pods */ = {
+		1A35C431E4ADB661750EEB933AE2DCBF /* Pods */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 8ACB97BD5EDEF44FCE62B074055B42CF /* Build configuration list for PBXNativeTarget "Pods" */;
+			buildConfigurationList = C8329803F7245478655BC44F718D1EE4 /* Build configuration list for PBXNativeTarget "Pods" */;
 			buildPhases = (
-				0B3C39CF2CF1742494C17C860038E431 /* Sources */,
-				9E2FA62120826CD8C86CA8CC26074D41 /* Frameworks */,
+				58948D7FAC0B699C0CE47BC3683C7E10 /* Sources */,
+				342375909C60AC479478FD1208F7A742 /* Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				9F76F4C5878AB30C873059B11B19AD2F /* PBXTargetDependency */,
+				CCB72430CC1B4B358187E2EE7B3550C6 /* PBXTargetDependency */,
+				A392F2331FAE0AEF94E57E828D900C3A /* PBXTargetDependency */,
 			);
 			name = Pods;
 			productName = Pods;
-			productReference = E0EAEEFA8AD36A2BF2DC2B73C68F5890 /* libPods.a */;
+			productReference = C3465769898C5BA450F61E63A24BA897 /* libPods.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		8744D4E889AA13B0C913C0ED1B4A9508 /* ZipKit */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4F0CBED5CF7DF5185841D8CEA573050D /* Build configuration list for PBXNativeTarget "ZipKit" */;
+			buildPhases = (
+				1E64EAB630262F538CEFA0C971203E4C /* Sources */,
+				5BBAC3E25AEDAA3C9E63C8047DD3B27E /* Frameworks */,
+				99B9D8A46A06F3F2317EF79FE259F8C6 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ZipKit;
+			productName = ZipKit;
+			productReference = BEB164FB102630789C15B26123D2D08D /* libZipKit.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 		9F12FB4A63E20F601CFB2E64A65B57C1 /* FMDB */ = {
@@ -237,7 +442,7 @@
 			);
 			name = FMDB;
 			productName = FMDB;
-			productReference = 3FF6CC2D423559E28AE3F55AFFA4CA33 /* libFMDB.a */;
+			productReference = 91B200DB727D0F59618BEF0A561B8539 /* libFMDB.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 /* End PBXNativeTarget section */
@@ -257,12 +462,13 @@
 				en,
 			);
 			mainGroup = 7DB346D0F39D3F0E887471402A8071AB;
-			productRefGroup = CDF1344E9E92C8417899CE037474665F /* Products */;
+			productRefGroup = CC43D00CEF977902E41E65F3625512CA /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
 				9F12FB4A63E20F601CFB2E64A65B57C1 /* FMDB */,
-				1B9FA7A5421F72B261CD8F8DC49B18F2 /* Pods */,
+				1A35C431E4ADB661750EEB933AE2DCBF /* Pods */,
+				8744D4E889AA13B0C913C0ED1B4A9508 /* ZipKit */,
 			);
 		};
 /* End PBXProject section */
@@ -281,26 +487,77 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		0B3C39CF2CF1742494C17C860038E431 /* Sources */ = {
+		1E64EAB630262F538CEFA0C971203E4C /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A4524A1DF4BD3DEC5A5B5B1513654A4D /* Pods-dummy.m in Sources */,
+				8D09C858929C94461DF0BFB185904722 /* GMAppleDouble+ZKAdditions.m in Sources */,
+				5E14F382704102AAE0863FFB2CA85DB7 /* GMAppleDouble.m in Sources */,
+				BD70DC76F3557B288E14D9702AE20A8C /* NSData+ZKAdditions.m in Sources */,
+				5CF1B15068B6D542A9EAA3E5FB33CEF8 /* NSDate+ZKAdditions.m in Sources */,
+				8FFB85C64040F220895100563F63DB11 /* NSDictionary+ZKAdditions.m in Sources */,
+				0FA44310310D102147281B5CD0DC07EB /* NSFileHandle+ZKAdditions.m in Sources */,
+				417256847726DEEFEFD6C43DBC8C4BFF /* NSFileManager+ZKAdditions.m in Sources */,
+				7C1FCDBB0E4490380CB4385E520B9764 /* NSString+ZKAdditions.m in Sources */,
+				4A65CBB348F6C2B84E71270AE29B255D /* ZipKit-dummy.m in Sources */,
+				F920CACBBFBE08A7C244DC5137A5E03B /* ZKArchive.m in Sources */,
+				D4F11B545C65610442D31D97645BE0EE /* ZKCDHeader.m in Sources */,
+				1E2B63ACD9106B7698518329ACAB9A54 /* ZKCDTrailer.m in Sources */,
+				0C1826023C9DA2BF6318EDB1A6F7C84E /* ZKCDTrailer64.m in Sources */,
+				CFA9209634DD227D696C269B7FF4A197 /* ZKCDTrailer64Locator.m in Sources */,
+				D46A773033CF86D72564F34A9B8844F0 /* ZKDataArchive.m in Sources */,
+				B1F10968FB06065BE9B2FED6EF9E10DF /* ZKDefs.m in Sources */,
+				742F4A47BDC3E4283004EC4837E967F3 /* ZKFileArchive.m in Sources */,
+				A4D646AC30A5486F4D495887EE57B220 /* ZKLFHeader.m in Sources */,
+				511151C127BEAC66C2C3D3F3ED49A6BA /* ZKLog.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		58948D7FAC0B699C0CE47BC3683C7E10 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				869970F7822E2A00D003509635967F63 /* Pods-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		9F76F4C5878AB30C873059B11B19AD2F /* PBXTargetDependency */ = {
+		A392F2331FAE0AEF94E57E828D900C3A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = ZipKit;
+			target = 8744D4E889AA13B0C913C0ED1B4A9508 /* ZipKit */;
+			targetProxy = A334A6B48E24ADEDA79FD1D0E9176410 /* PBXContainerItemProxy */;
+		};
+		CCB72430CC1B4B358187E2EE7B3550C6 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = FMDB;
 			target = 9F12FB4A63E20F601CFB2E64A65B57C1 /* FMDB */;
-			targetProxy = A06AB1643FA0EA023EF72341CB59BE89 /* PBXContainerItemProxy */;
+			targetProxy = 8A1D7E8DB195508CA78A075D23845438 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		05851E20CB3013ECAF10472CCF6E5AF7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 36F416891CE7464EDFB6177688F9BB3A /* ZipKit.xcconfig */;
+			buildSettings = {
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				EXECUTABLE_PREFIX = lib;
+				GCC_PREFIX_HEADER = "Target Support Files/ZipKit/ZipKit-prefix.pch";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
 		10B2EE21B5D67EE2C819831CCC43832B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -342,7 +599,7 @@
 		};
 		516ECDB2293BAACAFCD56FCB986B5EFB /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D874D9C80FA1F53051632DE704321234 /* FMDB.xcconfig */;
+			baseConfigurationReference = 60208DCC389285CD64D08A8E108D9599 /* FMDB.xcconfig */;
 			buildSettings = {
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -359,16 +616,15 @@
 			};
 			name = Release;
 		};
-		5BAF3F5F3072611E7F223D128841F4FB /* Release */ = {
+		61B83233A5114CC8FE27358CD71D544A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 98C98CDFB3F20F2925F6CD1F141BB14F /* Pods.release.xcconfig */;
+			baseConfigurationReference = 4E762F23EC34ED4A6FF3312D84E33A40 /* Pods.debug.xcconfig */;
 			buildSettings = {
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				EXECUTABLE_PREFIX = lib;
 				MACH_O_TYPE = staticlib;
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
-				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_ENABLE_DEBUG_INFO = YES;
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
 				PODS_ROOT = "$(SRCROOT)";
@@ -376,7 +632,7 @@
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 			};
-			name = Release;
+			name = Debug;
 		};
 		7C07D96CC7C445E83983A6C6420BC692 /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -412,27 +668,9 @@
 			};
 			name = Release;
 		};
-		8325E50C4DDA05D9C673A019F531804B /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4E762F23EC34ED4A6FF3312D84E33A40 /* Pods.debug.xcconfig */;
-			buildSettings = {
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				EXECUTABLE_PREFIX = lib;
-				MACH_O_TYPE = staticlib;
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
-				MTL_ENABLE_DEBUG_INFO = YES;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
-				SKIP_INSTALL = YES;
-			};
-			name = Debug;
-		};
 		AFA123AA3FD9C7D5642F082201748042 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D874D9C80FA1F53051632DE704321234 /* FMDB.xcconfig */;
+			baseConfigurationReference = 60208DCC389285CD64D08A8E108D9599 /* FMDB.xcconfig */;
 			buildSettings = {
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				EXECUTABLE_PREFIX = lib;
@@ -447,6 +685,43 @@
 				SDKROOT = macosx;
 			};
 			name = Debug;
+		};
+		CEE9048C182A4D9C2A22AC1D63783323 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 36F416891CE7464EDFB6177688F9BB3A /* ZipKit.xcconfig */;
+			buildSettings = {
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				EXECUTABLE_PREFIX = lib;
+				GCC_PREFIX_HEADER = "Target Support Files/ZipKit/ZipKit-prefix.pch";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		FE37BB55D54C9D8AB672B8235DACE48F /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 98C98CDFB3F20F2925F6CD1F141BB14F /* Pods.release.xcconfig */;
+			buildSettings = {
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				EXECUTABLE_PREFIX = lib;
+				MACH_O_TYPE = staticlib;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
@@ -469,11 +744,20 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		8ACB97BD5EDEF44FCE62B074055B42CF /* Build configuration list for PBXNativeTarget "Pods" */ = {
+		4F0CBED5CF7DF5185841D8CEA573050D /* Build configuration list for PBXNativeTarget "ZipKit" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				8325E50C4DDA05D9C673A019F531804B /* Debug */,
-				5BAF3F5F3072611E7F223D128841F4FB /* Release */,
+				CEE9048C182A4D9C2A22AC1D63783323 /* Debug */,
+				05851E20CB3013ECAF10472CCF6E5AF7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C8329803F7245478655BC44F718D1EE4 /* Build configuration list for PBXNativeTarget "Pods" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				61B83233A5114CC8FE27358CD71D544A /* Debug */,
+				FE37BB55D54C9D8AB672B8235DACE48F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

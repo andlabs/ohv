@@ -4,11 +4,14 @@ PODS:
   - FMDB/common (2.5)
   - FMDB/standard (2.5):
     - FMDB/common
+  - ZipKit (1.0.3)
 
 DEPENDENCIES:
   - FMDB
+  - ZipKit
 
 SPEC CHECKSUMS:
   FMDB: 96e8f1bcc1329e269330f99770ad4285d9003e52
+  ZipKit: 594735e7ad2fd3ee7349759681a0423a1b296572
 
 COCOAPODS: 0.39.0
