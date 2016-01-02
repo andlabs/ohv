@@ -22,19 +22,19 @@ class navtreeDataSource : NSObject, NSOutlineViewDataSource {
 		let topic = item as! Topic
 		return topic.Children.count
 	}
-	
-	func outlineView(outlineView: NSOutlineView, objectValueForTableColumn tableColumn: NSTableColumn?, byItem item: AnyObject?) -> AnyObject? {
-		let result = outlineView.makeViewWithIdentifier("TopicNameView", owner: nil) as! NSTableCellView
-		let textfield = result.textField!
-		let topic = item as! Topic
-		textfield.stringValue = topic.Name
-debugPrint(topic.Name)
-		return result
-	}
 }
 
 class navtreeDelegate : NSObject, NSOutlineViewDelegate {
 	func outlineViewSelectionDidChange(note: NSNotification) {
 		// TODO
+	}
+	
+	func outlineView(outlineView: NSOutlineView, viewForTableColumn tableColumn: NSTableColumn?, item: AnyObject) -> NSView? {
+		let result = outlineView.makeViewWithIdentifier((tableColumn?.identifier)!, owner: nil) as! NSTableCellView
+		let textfield = result.textField!
+		let topic = item as! Topic
+		textfield.stringValue = topic.Name
+debugPrint("\(textfield.constraints)")
+		return result
 	}
 }
