@@ -9,12 +9,18 @@ class AppDelegate : NSObject, NSApplicationDelegate {
 	@IBOutlet weak var navtree: NSOutlineView!
 	@IBOutlet weak var webview: WebView!
 
+	// keep strong to keep alive
+	var strongDataSource = navtreeDataSource()
+	var strongDelegate = navtreeDelegate()
+	
 	func applicationDidFinishLaunching(note: NSNotification) {
 		do {
 			try LoadLibraries()
 		} catch let err {
 			fatalError("\(err)")
 		}
+		navtree.setDataSource(self.strongDataSource)
+		navtree.setDelegate(self.strongDelegate)
 		navtree.reloadData()
 	}
 

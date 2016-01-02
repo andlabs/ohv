@@ -88,6 +88,8 @@ class Apple : NSObject, HelpSource {
 		}
 
 		// now hook up parents and children and sort into books and orphans
+		// TODO make this use a method of AppleTopic and make the above all in the constructor
+		// TODO and make all the variables of AppleTopic properties
 		for (_, topic) in a.topics {
 			if !topic.hasParent {
 				a.books.append(topic)
