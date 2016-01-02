@@ -6,13 +6,13 @@ protocol HelpSource : NSObjectProtocol {
 	var Books: [Topic] { get }
 	var Orphans: [Topic] { get }
 //	var SharedAssets: [Asset] { get }
-	func Lookup(url: NSURL) -> Topic
+	func Lookup(url: NSURL) -> Topic?
 }
 
 protocol Topic : NSObjectProtocol {
 	var Name: String { get }
-	func Prepare() -> (Prepared, String)
-	var Parent: Topic { get }
+	func Prepare() throws -> Prepared
+	var Parent: Topic? { get }
 	var Children: [Topic] { get }
 	var Source: HelpSource { get }
 	func Less(t: Topic) -> Bool
@@ -24,6 +24,10 @@ class Prepared : NSObject {
 	var CSSBaseDir: String = ""
 }
 
+enum LibraryError : ErrorType {
+	case HasDuplicates
+}
+
 var Library: [Topic] = []
 
 func SortBooks(books: [Topic]) -> [Topic] {
@@ -32,18 +36,11 @@ func SortBooks(books: [Topic]) -> [Topic] {
 	})
 }
 
-func LoadLibraries() {
-	var installedOSXDocs: NSString
-	var add: [Topic]
-	var err: String
+func LoadLibraries() throws {
+	var installedOSXDocs: String
 
-	installedOSXDocs = "~/Library/Developer/Shared/Documentation/DocSets/com.apple.adc.documentation.OSX.docset/"
-	installedOSXDocs = installedOSXDocs.stringByExpandingTildeInPath
-	if NSFileManager.defaultManager().fileExistsAtPath(installedOSXDocs as String) {
-		(add, err) = LoadAppleLibraries(installedOSXDocs as String)
-		if err != "" {
-			fatalError(err)
-		}
-		Library.appendContentsOf(add)
+	installedOSXDocs = ("~/Library/Developer/Shared/Documentation/DocSets/com.apple.adc.documentation.OSX.docset/" as NSString).stringByExpandingTildeInPath
+	if NSFileManager.defaultManager().fileExistsAtPath(installedOSXDocs) {
+		Library.appendContentsOf((try Apple.Open(installedOSXDocs)).Books)
 	}
 }

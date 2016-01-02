@@ -28,6 +28,7 @@
 		9A44C1881C371DCF0009B565 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		9A578E3C1C37204A00478339 /* Library.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Library.swift; sourceTree = "<group>"; };
 		9A578E3E1C3731D300478339 /* Apple.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Apple.swift; sourceTree = "<group>"; };
+		9AF1E0751C37438C009B4007 /* Bridging.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Bridging.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +72,7 @@
 				9A44C17D1C370B0F0009B565 /* Assets.xcassets */,
 				9A44C17F1C370B0F0009B565 /* MainMenu.xib */,
 				9A44C1821C370B0F0009B565 /* Info.plist */,
+				9AF1E0751C37438C009B4007 /* Bridging.h */,
 			);
 			path = ohv;
 			sourceTree = "<group>";
@@ -323,6 +325,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.andlabs.ohv;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = ohv/Bridging.h;
 			};
 			name = Debug;
 		};
@@ -336,6 +339,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.andlabs.ohv;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = ohv/Bridging.h;
 			};
 			name = Release;
 		};

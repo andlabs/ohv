@@ -10,7 +10,11 @@ class AppDelegate : NSObject, NSApplicationDelegate {
 	@IBOutlet weak var webview: WebView!
 
 	func applicationDidFinishLaunching(note: NSNotification) {
-		LoadLibraries()
+		do {
+			try LoadLibraries()
+		} catch let err {
+			fatalError("\(err)")
+		}
 		navtree.reloadData()
 	}
 
