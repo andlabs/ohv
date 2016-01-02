@@ -78,6 +78,8 @@ void layoutWindow(goid window, goid search, goid navtree, goid browser)
 	[leftside addSubview:sv];
 
 	splitView = [[NSSplitView alloc] initWithFrame:NSZeroRect];
+	// TODO this causes the splitter position to be completely ignored, even in the call below, and even if placed below
+//	[splitView setDividerStyle:NSSplitViewDividerStyleThin];
 	// TODO configure like Interface Builder
 	[splitView setVertical:YES];		// this is the direction the splitter itself is parallel to
 	[splitView addSubview:leftside];
