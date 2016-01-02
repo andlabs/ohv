@@ -82,3 +82,8 @@ func navtreePathTo(t Topic) C.indexArray {
 	}
 	return ia
 }
+
+//export navtreeSelected
+func navtreeSelected(ov C.goid, ia C.indexArray) {
+	navigate(ov, navtreeTopic(ia))
+}

@@ -32,5 +32,6 @@ extern void layoutWindow(goid, goid, goid, goid);
 
 // webkit.m
 extern goid newWebView(void);
+extern void webviewNavigate(goid, char *);
 
 #endif

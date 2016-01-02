@@ -66,7 +66,7 @@ void layoutWindow(goid window, goid search, goid navtree, goid browser)
 	NSWindow *w = (NSWindow *) window;
 	NSSearchField *sf = (NSSearchField *) search;
 	NSScrollView *sv = (NSScrollView *) navtree;
-	NSScrollView *page = (NSScrollView *) browser;
+	NSView *page = (NSView *) browser;
 	NSView *contentView;
 	NSDictionary *views;
 	NSSplitView *splitView;

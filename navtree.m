@@ -93,7 +93,13 @@ void indexArrayPrepend(indexArray ia, intmax_t index)
 
 - (void)outlineViewSelectionDidChange:(NSNotification *)note
 {
+	NSOutlineView *ov;
+	indexArray ia;
+
+	ov = (NSOutlineView *) [note object];
+	ia = (indexArray) [ov itemAtRow:[ov selectedRow]];
 	// TODO
+	navtreeSelected([[ov superview] superview], ia);
 }
 
 @end

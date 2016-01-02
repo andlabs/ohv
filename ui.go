@@ -57,8 +57,9 @@ func uiOnWindowClosing(win C.goid) C.int {
 /* TODO
 //export mainWindowDoNavigateTo
 func mainWindowDoNavigateTo(data unsafe.Pointer, model *C.GtkTreeModel, iter *C.GtkTreeIter) {
-	m := (*MainWindow)(data)
-	t := navtreeTopic(C.gtk_tree_model_get_path(model, iter))
+*/
+func navigate(ov C.goid, t Topic) {
+	m := goids[ov]
 	m.current = t
 	prepared, err := m.current.Prepare()
 	if err != nil {
@@ -66,11 +67,9 @@ func mainWindowDoNavigateTo(data unsafe.Pointer, model *C.GtkTreeModel, iter *C.
 		println(err)
 		return
 	}
-	// path must be a valid URI
-	// TODO urlencode
-	s := "file://" + prepared.Path
-	cs := (*C.gchar)(unsafe.Pointer(C.CString(s)))
-	defer C.free(unsafe.Pointer(cs))
+	cs := C.CString(prepared.Path)
+	// freed on the C side
+/* TODO
 	group := C.webkit_web_view_get_group(m.mw.browser)
 	C.webkit_web_view_group_remove_all_user_style_sheets(group)
 	if prepared.CSSPath != "" {
@@ -93,8 +92,9 @@ func mainWindowDoNavigateTo(data unsafe.Pointer, model *C.GtkTreeModel, iter *C.
 		C.webkit_web_view_group_add_user_style_sheet(group, ccss, cbasedir, nil, nil, C.WEBKIT_INJECTED_CONTENT_FRAMES_ALL)
 	}
 	C.webkit_web_view_load_uri(m.mw.browser, cs)
-}
 */
+	C.webviewNavigate(m.browser, cs)
+}
 
 /* TODO
 //export mainWindowDoFollowLink
