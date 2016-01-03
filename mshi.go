@@ -11,8 +11,10 @@ import (
 	"archive/zip"
 	"compress/flate"
 	"bytes"
+
 	"github.com/andlabs/ohv/mshi"
 	"golang.org/x/net/html"
+	"github.com/andlabs/ohv/internal/ui"
 )
 
 type MSHI struct {
@@ -263,4 +265,20 @@ func (m *MSHITopic) Source() HelpSource {
 func (m *MSHITopic) Less(t Topic) bool {
 	tt := t.(*MSHITopic)
 	return m.asset.Order < tt.asset.Order
+}
+
+func (m *MSHITopic) TreeNodeText() string {
+	return m.Name()
+}
+
+// TODO somehow integrate this and the one in apple.go with the rest of Topic
+func (m *MSHITopic) TreeNodeChildren() []ui.TreeNode {
+	if len(m.children) == 0 {
+		return nil
+	}
+	c := make([]ui.TreeNode, len(m.children))
+	for i, n := range m.children {
+		c[i] = n
+	}
+	return c
 }

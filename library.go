@@ -5,6 +5,8 @@ import (
 	"net/url"
 	"os"
 	"path/filepath"
+
+	"github.com/andlabs/ohv/internal/ui"
 )
 
 type HelpSource interface {
@@ -16,6 +18,7 @@ type HelpSource interface {
 }
 
 type Topic interface {
+	ui.TreeNode
 	Name() string
 	Prepare() (*Prepared, error)
 	Parent() Topic
@@ -36,7 +39,42 @@ func (t TopicSorter) Len() int { return len(t) }
 func (t TopicSorter) Less(i, j int) bool { return t[i].Less(t[j]) }
 func (t TopicSorter) Swap(i, j int) { t[i], t[j] = t[j], t[i] }
 
-var Library []Topic
+type LibraryModel struct {
+	library	[]Topic
+	model	*ui.TreeModel
+}
+
+var Library LibraryModel
+
+func (l *LibraryModel) Append(topic Topic) {
+	l.library = append(l.library, topic)
+	l.nodes = append(l.nodes, topic)
+	if l.model != nil {
+		l.model.RowInserted(topic, nil, len(l.library) - 1)
+	}
+}
+
+func (l *LibraryModel) RootNodes() []ui.TreeNode {
+	if len(l.library) == 0 {
+		return nil
+	}
+	c := make([]ui.TreeNode, len(l.library))
+	for i, n := range l.library {
+		c[i] = n
+	}
+	return c
+}
+
+func (l *LibraryModel) MakeModel() {
+	l.model = ui.NewTreeModel(l)
+	for i, topic := range l.library {
+		l.model.RowInserted(topic, nil, i)
+	}
+}
+
+func (l *LibraryModel) Model() *ui.TreeModel {
+	return l.model
+}
 
 func LoadMSHILibrary(dir string) {
 	m, err := OpenMSHI(filepath.Join(dir, "mshi"))
@@ -45,7 +83,7 @@ func LoadMSHILibrary(dir string) {
 		panic(err)
 	}
 	for _, b := range m.Books() {
-		Library = append(Library, b)
+		Library.Append(b)
 	}
 }
 
@@ -64,7 +102,7 @@ func LoadAppleLibraries(dir string) {
 			return err
 		}
 		for _, b := range a.Books() {
-			Library = append(Library, b)
+			Library.Append(b)
 		}
 		return filepath.SkipDir
 	})

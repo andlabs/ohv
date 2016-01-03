@@ -37,7 +37,7 @@ func NewWindow() *Window {
 //	w.w.Move(100, 100)
 	w.w.Center()
 
-	w.navtree.SetModel(LibraryModel)
+	w.navtree.SetModel(Library.Model())
 
 	w.w.OnClosing(w.onClosing)
 	w.navtree.OnSelected(w.navigate)

@@ -8,6 +8,7 @@ import (
 func main() {
 	LoadLibraries()
 	err := ui.Main(func() {
+		Library.MakeModel()
 		NewWindow()
 	})
 	if err != nil {

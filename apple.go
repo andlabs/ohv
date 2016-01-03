@@ -6,8 +6,10 @@ import (
 	"net/url"
 	"strings"
 	"sort"
+
 	"github.com/jmoiron/sqlx"
 	_ "github.com/mattn/go-sqlite3"
+	"github.com/andlabs/ohv/internal/ui"
 )
 
 // TODO see if selecting the count and preallocating makes things faster
@@ -171,4 +173,19 @@ func (a *AppleTopic) Source() HelpSource {
 func (a *AppleTopic) Less(t Topic) bool {
 	tt := t.(*AppleTopic)
 	return a.order < tt.order
+}
+
+func (a *AppleTopic) TreeNodeText() string {
+	return a.Name()
+}
+
+func (a *AppleTopic) TreeNodeChildren() []ui.TreeNode {
+	if len(a.children) == 0 {
+		return nil
+	}
+	c := make([]ui.TreeNode, len(a.children))
+	for i, n := range a.children {
+		c[i] = n
+	}
+	return c
 }
