@@ -7,6 +7,7 @@ import "C"
 type Tree struct {
 	id		C.id
 	ov		C.id
+	model	*TreeModel
 }
 
 var trees = make(map[C.id]*Tree)
@@ -21,6 +22,7 @@ func NewTree() *Tree {
 }
 
 func (t *Tree) Destroy() {
+	t.SetModel(nil)
 	delete(trees, t.id)
 	delete(trees, t.ov)
 	C.treeDestroy(t.id)
@@ -28,4 +30,16 @@ func (t *Tree) Destroy() {
 
 func (t *Tree) Handle() uintptr {
 	return touintptr(t.id)
+}
+
+func (t *Tree) SetModel(model *TreeModel) {
+	if t.model != nil {
+		delete(t.model.trees, t)
+	}
+	t.model = model
+	if t.model != nil {
+		C.treeSetModel(t.id, t.model.id)
+	} else {
+		C.treeSetModel(t.id, nil)
+	}
 }
