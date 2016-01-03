@@ -1,6 +1,18 @@
 // 2 january 2016
 #import "uipriv.h"
 
+@interface webViewFrameLoadDelegate : NSObject<WebFrameLoadDelegate>
+@end
+
+@implementation webViewFrameLoadDelegate
+
+- (void)webView:(WebView *)wv didFailProvisionalLoadWithError:(NSError *)err forFrame:(WebFrame *)frame
+{
+	NSLog(@"got here %@", err);
+}
+
+@end
+
 id newWebView(void)
 {
 	WebView *wv;
@@ -8,6 +20,8 @@ id newWebView(void)
 	wv = [[WebView alloc] initWithFrame:NSZeroRect];
 
 	// TODO set up like Interface Builder
+
+	[wv setFrameLoadDelegate:[webViewFrameLoadDelegate new]];
 
 	[wv setTranslatesAutoresizingMaskIntoConstraints:NO];
 
@@ -17,6 +31,11 @@ id newWebView(void)
 void webViewDestroy(id w)
 {
 	WebView *wv = (WebView *) w;
+	webViewFrameLoadDelegate *fld;
+
+	fld = (webViewFrameLoadDelegate *) [wv frameLoadDelegate];
+	[wv setFrameLoadDelegate:nil];
+	[fld release];
 
 	[wv release];
 }

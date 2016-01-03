@@ -18,7 +18,7 @@ func TestIt(t *testing.T) {
 		w.SetChild(wv)
 		w.Show()
 		QueueMain(func() {
-			u, _ := url.Parse("http://google.com/")
+			u, _ := url.Parse("http://aphsrguphgpihpbtdnb.com/")
 			wv.Navigate(u)
 		})
 	})
