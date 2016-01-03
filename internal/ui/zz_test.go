@@ -14,6 +14,23 @@ func TestIt(t *testing.T) {
 			return true
 		})
 		w.Move(100, 100)
+		w.SetChild(wv)
+		w.Show()
+	})
+	if err != nil {
+		t.Fatalf("%v", err)
+	}
+}
+
+/*
+func TestIt(t *testing.T) {
+	err := Main(func() {
+		w := NewWindow("Test", 640, 480)
+		w.OnClosing(func() bool {
+			Quit()
+			return true
+		})
+		w.Move(100, 100)
 		wv := NewWebView()
 		wv.OnLoadFailed(func(sysError uintptr) {
 			w.MsgBoxSysError(sysError)
@@ -29,3 +46,4 @@ func TestIt(t *testing.T) {
 		t.Fatalf("%v", err)
 	}
 }
+*/
