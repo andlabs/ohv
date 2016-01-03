@@ -34,6 +34,7 @@ func (t *Tree) SetModel(model *TreeModel) {
 	}
 	t.model = model
 	if t.model != nil {
+		t.model.trees[t] = struct{}{}
 		C.treeSetModel(t.id, t.model.id)
 	} else {
 		C.treeSetModel(t.id, nil)

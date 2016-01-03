@@ -66,6 +66,7 @@ func (m *TreeModel) NodeChanged(node TreeNode) {
 	}
 }
 
+// TODO should this be called before or after the node is updated?
 func (m *TreeModel) RowDeleted(node TreeNode, parent TreeNode, index int) {
 	id := m.nodeObjects[node]
 	delete(m.nodeObjects, node)
