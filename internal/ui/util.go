@@ -2,6 +2,10 @@
 
 package ui
 
+import (
+	"net/url"
+)
+
 // #include "ui.h"
 // static inline uintptr_t fromid(id x)
 // {
@@ -24,10 +28,21 @@ func frombool(b bool) C.int {
 	return 0
 }
 
-func toid(id uintptr) C.id {
+func touintptr(id C.id) uintptr {
+	return uintptr(C.fromid(id))
+}
+
+func fromuintptr(id uintptr) C.id {
 	return C.toid(C.uintptr_t(id))
 }
 
-func fromid(id C.id) uintptr {
-	return uintptr(C.fromid(id))
+func fromURL(u *url.URL) C.id {
+	s := u.String()
+	cs := C.CString(s)			// freed on the C side
+	return C.toNSURL(cs)
+}
+
+func fromFileURL(path string) C.id {
+	cpath := C.CString(path)		// freed on the C side
+	return C.toFileNSURL(cpath)
 }

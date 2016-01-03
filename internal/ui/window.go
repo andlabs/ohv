@@ -31,7 +31,7 @@ func (w *Window) Destroy() {
 }
 
 func (w *Window) Handle() uintptr {
-	return fromid(w.id)
+	return touintptr(w.id)
 }
 
 func (w *Window) Move(x int, y int) {
@@ -48,11 +48,11 @@ func (w *Window) Show() {
 
 func (w *Window) SetChild(c Control) {
 	if w.child != nil {
-		C.windowUnsetChild(w.id, toid(w.child.Handle()))
+		C.windowUnsetChild(w.id, fromuintptr(w.child.Handle()))
 	}
 	w.child = c
 	if w.child != nil {
-		C.windowSetChild(w.id, toid(w.child.Handle()))
+		C.windowSetChild(w.id, fromuintptr(w.child.Handle()))
 	}
 }
 

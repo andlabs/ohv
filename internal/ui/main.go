@@ -90,8 +90,5 @@ func shouldQuit() C.int {
 	if shouldQuitFunc == nil {
 		return 0
 	}
-	if shouldQuitFunc() {
-		return 1
-	}
-	return 0
+	return frombool(shouldQuitFunc())
 }
