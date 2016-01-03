@@ -159,7 +159,7 @@ void treeUpdateNode(id tree, id node)
 	[ov reloadItem:node];
 }
 
-void treeDeleteNode(id tree, id parent, intmax_t index)
+void treeDeleteRow(id tree, id parent, intmax_t index)
 {
 	NSScrollView *sv = (NSScrollView *) tree;
 	NSOutlineView *ov;

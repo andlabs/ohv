@@ -1,5 +1,5 @@
 // 2 january 2016
-package main
+package ui
 
 // #include "ui.h"
 import "C"
@@ -99,10 +99,10 @@ func treeModelChild(mm C.id, index C.intmax_t, nodeobj C.id) C.id {
 func treeModelChildCount(mm C.id, nodeobj C.id) C.intmax_t {
 	m := treeModels[mm]
 	if nodeobj == nil {
-		return len(m.root.RootNodes())
+		return C.intmax_t(len(m.root.RootNodes()))
 	}
 	node := m.objectNodes[nodeobj]
-	return len(node.TreeNodeChildren())
+	return C.intmax_t(len(node.TreeNodeChildren()))
 }
 
 //export treeModelNodeText
