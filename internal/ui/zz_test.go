@@ -15,6 +15,9 @@ func TestIt(t *testing.T) {
 		})
 		w.Move(100, 100)
 		wv := NewWebView()
+		wv.OnLoadFailed(func(sysError uintptr) {
+			w.MsgBoxSysError(sysError)
+		})
 		w.SetChild(wv)
 		w.Show()
 		QueueMain(func() {

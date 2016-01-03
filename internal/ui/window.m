@@ -82,3 +82,16 @@ void windowUnsetChild(id ww, id cc)
 	[contentView removeConstraints:[contentView constraints]];
 	[c removeFromSuperview];
 }
+
+void windowMsgBoxSysError(id ww, id ee)
+{
+	NSWindow *w = (NSWindow *) ww;
+	NSError *err = (NSError *) ee;
+	NSAlert *alert;
+
+	alert = [NSAlert alertWithError:err];
+	[alert beginSheetModalForWindow:w completionHandler:^(NSModalResponse returnCode) {
+		[[alert window] orderOut:nil];
+		[alert release];
+	}];
+}

@@ -9,7 +9,8 @@ import (
 import "C"
 
 type WebView struct {
-	id	C.id
+	id				C.id
+	onLoadFailed		func(sysError uintptr)
 }
 
 var webviews = make(map[C.id]*WebView)
@@ -33,4 +34,16 @@ func (w *WebView) Handle() uintptr {
 func (w *WebView) Navigate(to *url.URL) {
 	nsurl := fromURL(to)
 	C.webViewNavigate(w.id, nsurl)
+}
+
+func (w *WebView) OnLoadFailed(f func(sysError uintptr)) {
+	w.onLoadFailed = f
+}
+
+//export doWebViewLoadFailed
+func doWebViewLoadFailed(ww C.id, sysError C.id) {
+	w := webviews[ww]
+	if w.onLoadFailed != nil {
+		w.onLoadFailed(touintptr(sysError))
+	}
 }

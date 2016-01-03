@@ -68,3 +68,7 @@ func doWindowClosing(id C.id) C.int {
 	}
 	return frombool(w.onClosing())
 }
+
+func (w *Window) MsgBoxSysError(sysError uintptr) {
+	C.windowMsgBoxSysError(w.id, fromuintptr(sysError))
+}

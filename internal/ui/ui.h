@@ -25,6 +25,7 @@ extern void windowCenter(id);
 extern void windowShow(id);
 extern void windowSetChild(id, id);
 extern void windowUnsetChild(id, id);
+extern void windowMsgBoxSysError(id, id);
 
 // webview.m
 extern id newWebView(void);

@@ -8,7 +8,7 @@
 
 - (void)webView:(WebView *)wv didFailProvisionalLoadWithError:(NSError *)err forFrame:(WebFrame *)frame
 {
-	NSLog(@"got here %@", err);
+	doWebViewLoadFailed(wv, err);
 }
 
 @end
