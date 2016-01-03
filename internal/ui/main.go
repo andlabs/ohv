@@ -42,13 +42,6 @@ var (
 	qmlock sync.Mutex
 )
 
-// QueueMain queues f to be executed on the GUI thread when
-// next possible. It returns immediately; that is, it does not wait
-// for the function to actually be executed. QueueMain is the only
-// function that can be called from other goroutines, and its
-// primary purpose is to allow communication between other
-// goroutines and the GUI thread. Calling QueueMain after Quit
-// has been called results in undefined behavior.
 func QueueMain(f func()) {
 	qmlock.Lock()
 	defer qmlock.Unlock()
