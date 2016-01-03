@@ -14,7 +14,7 @@ import (
 
 type Window struct {
 	w		*ui.Window
-	search	*ui.SearchField
+	search	*ui.SearchEntry
 	navtree	*ui.Tree
 	page		*ui.WebView
 	current	Topic
@@ -25,14 +25,14 @@ type Window struct {
 func NewWindow() *Window {
 	w := new(Window)
 	w.w = ui.NewWindow("ohv", 1095, 546)
-	w.search = ui.NewSearchField()
-	w.navtree = ui.NewNavtree()
+	w.search = ui.NewSearchEntry()
+	w.navtree = ui.NewTree()
 	w.page = ui.NewWebView()
 
 	margin := ui.NewMargin(w.search)
 	box := ui.NewBox(margin, w.navtree)
 	splitter := ui.NewSplitter(box, w.page)
-	w.SetChild(splitter)
+	w.w.SetChild(splitter)
 	splitter.SetPosition(250)
 //	w.w.Move(100, 100)
 	w.w.Center()
@@ -58,8 +58,8 @@ func (w *Window) navigate() {
 	if node == nil {
 		return
 	}
-	m.current = node.(Topic)
-	prepared, err := m.current.Prepare()
+	w.current = node.(Topic)
+	prepared, err := w.current.Prepare()
 	if err != nil {
 		// TODO
 		println(err)

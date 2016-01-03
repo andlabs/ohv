@@ -48,7 +48,6 @@ var Library LibraryModel
 
 func (l *LibraryModel) Append(topic Topic) {
 	l.library = append(l.library, topic)
-	l.nodes = append(l.nodes, topic)
 	if l.model != nil {
 		l.model.RowInserted(topic, nil, len(l.library) - 1)
 	}
