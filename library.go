@@ -119,5 +119,6 @@ func LoadLibraries() {
 		panic(err)
 	}
 	LoadMSHILibrary(dir)
+	// TODO load from system installation path
 	LoadAppleLibraries(dir)
 }
