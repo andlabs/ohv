@@ -32,4 +32,9 @@ extern id newWebView(void);
 extern void webViewDestroy(id);
 extern void webViewNavigate(id, id);
 
+// tree.m
+extern id newTree(void);
+extern void treeDestroy(id);
+extern id treeOutlineView(id);
+
 #endif

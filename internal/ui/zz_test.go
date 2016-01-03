@@ -2,7 +2,7 @@
 package ui
 
 import (
-	"net/url"
+//	"net/url"
 	"testing"
 )
 
@@ -14,7 +14,8 @@ func TestIt(t *testing.T) {
 			return true
 		})
 		w.Move(100, 100)
-		w.SetChild(wv)
+		t := NewTree()
+		w.SetChild(t)
 		w.Show()
 	})
 	if err != nil {
