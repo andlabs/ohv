@@ -89,11 +89,10 @@ func TestIt(t *testing.T) {
 		wv.OnLoadFailed(func(sysError uintptr) {
 			w.MsgBoxSysError(sysError)
 		})
-		split := NewSplitter(t, wv)
-		split.SetPosition(20)
-//		w.SetChild(split)
 		se := NewSearchEntry()
-		w.SetChild(NewMargin(se))
+		split := NewSplitter(NewBox(NewMargin(se), t), wv)
+		split.SetPosition(20)
+		w.SetChild(split)
 		se.OnChanged(func() {
 			println(se.Text())
 		})

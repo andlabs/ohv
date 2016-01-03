@@ -59,4 +59,8 @@ extern char *searchEntryText(id);
 extern id newMargin(id);
 extern void marginDestroy(id);
 
+// box.m
+extern id newBox(id, id);
+extern void boxDestroy(id);
+
 #endif
