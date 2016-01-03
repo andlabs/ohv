@@ -2,8 +2,8 @@
 package ui
 
 import (
-//	"net/url"
-	"time"
+	"net/url"
+//	"time"
 	"testing"
 )
 
@@ -51,7 +51,6 @@ func newRoot(text string) *node {
 }
 
 func populate() {
-	time.Sleep(3 * time.Second)
 	QueueMain(func() {
 		n := newRoot("Root 1")
 			n2 := n.AddChild("Child 1")
@@ -76,32 +75,17 @@ func TestIt(t *testing.T) {
 		tm := NewTreeModel(roots)
 		roots.model = tm
 		t.SetModel(tm)
-		w.SetChild(t)
-		w.Show()
-		go populate()
-	})
-	if err != nil {
-		t.Fatalf("%v", err)
-	}
-}
-
-/*
-func TestIt(t *testing.T) {
-	err := Main(func() {
-		w := NewWindow("Test", 640, 480)
-		w.OnClosing(func() bool {
-			Quit()
-			return true
-		})
-		w.Move(100, 100)
 		wv := NewWebView()
 		wv.OnLoadFailed(func(sysError uintptr) {
 			w.MsgBoxSysError(sysError)
 		})
-		w.SetChild(wv)
+		split := NewSplitter(t, wv)
+		split.SetPosition(20)
+		w.SetChild(split)
 		w.Show()
+		go populate()
 		QueueMain(func() {
-			u, _ := url.Parse("http://aphsrguphgpihpbtdnb.com/")
+			u, _ := url.Parse("http://google.com/")
 			wv.Navigate(u)
 		})
 	})
@@ -109,4 +93,3 @@ func TestIt(t *testing.T) {
 		t.Fatalf("%v", err)
 	}
 }
-*/

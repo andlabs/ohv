@@ -92,6 +92,6 @@ void windowMsgBoxSysError(id ww, id ee)
 	alert = [NSAlert alertWithError:err];
 	[alert beginSheetModalForWindow:w completionHandler:^(NSModalResponse returnCode) {
 		[[alert window] orderOut:nil];
-		[alert release];
 	}];
+	// alert is autoreleased
 }

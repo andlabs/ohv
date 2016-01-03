@@ -18,7 +18,6 @@ id newWebView(void)
 	WebView *wv;
 
 	wv = [[WebView alloc] initWithFrame:NSZeroRect];
-
 	// TODO set up like Interface Builder
 
 	[wv setFrameLoadDelegate:[webViewFrameLoadDelegate new]];
