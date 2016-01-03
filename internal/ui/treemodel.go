@@ -45,10 +45,30 @@ func (m *TreeModel) Destroy() {
 	C.treeModelDestroy(m.id)
 }
 
-func (m *TreeModel) RowInserted(node TreeNode, parent TreeNode, index int) {
+func (m *TreeModel) establishNodes(node TreeNode) {
 	id := C.newTreeNode()
 	m.nodeObjects[node] = id
 	m.objectNodes[id] = node
+	children := node.TreeNodeChildren()
+	for _, c := range children {
+		m.establishNodes(c)
+	}
+}
+
+func (m *TreeModel) destroyNodes(node TreeNode) {
+	id := m.nodeObjects[node]
+	delete(m.nodeObjects, node)
+	delete(m.objectNodes, id)
+	C.treeNodeDestroy(id)
+	children := node.TreeNodeChildren()
+	for _, c := range children {
+		m.destroyNodes(c)
+	}
+}
+
+// TODO for this and RowDeleted, wrap the whole thing in one big beginUpdates/endUpdates block
+func (m *TreeModel) RowInserted(node TreeNode, parent TreeNode, index int) {
+	m.establishNodes(node)
 
 	parentid := C.id(nil)
 	if parent != nil {
@@ -68,10 +88,7 @@ func (m *TreeModel) NodeChanged(node TreeNode) {
 
 // TODO should this be called before or after the node is updated?
 func (m *TreeModel) RowDeleted(node TreeNode, parent TreeNode, index int) {
-	id := m.nodeObjects[node]
-	delete(m.nodeObjects, node)
-	delete(m.objectNodes, id)
-	C.treeNodeDestroy(id)
+	m.destroyNodes(node)
 
 	parentid := C.id(nil)
 	if parent != nil {

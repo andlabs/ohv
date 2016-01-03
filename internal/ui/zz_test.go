@@ -60,6 +60,16 @@ func populate() {
 		n = newRoot("Root 2")
 		n = newRoot("Root 3")
 			n2 = n.AddChild("Only One Child")
+
+		n = new(node)
+		n.text = "A"
+		n.model = n2.model
+		n2 = new(node)
+		n2.text = "B"
+		n2.model = n.model
+		n.children = append(n.children, n2)
+		roots.nodes = append(roots.nodes, n)
+		n.model.RowInserted(n, nil, len(roots.nodes) - 1)
 	})
 }
 
