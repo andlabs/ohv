@@ -10,7 +10,7 @@ type TreeModelRootNodes interface {
 
 type TreeNode interface {
 	TreeNodeText() string
-	TreeNodeParent() TreeNode
+	// TODO readd TreeNodeParent()?
 	TreeNodeChildren() []TreeNode
 }
 
@@ -55,14 +55,14 @@ func (m *TreeModel) RowInserted(node TreeNode, parent TreeNode, index int) {
 		parentid = m.nodeObjects[parent]
 	}
 	for t, _ := range m.trees {
-		C.treeOutlineInsertRow(t.ov, parentid, C.intmax_t(index))
+		C.treeInsertRow(t.id, parentid, C.intmax_t(index))
 	}
 }
 
 func (m *TreeModel) NodeChanged(node TreeNode) {
 	id := m.nodeObjects[node]
 	for t, _ := range m.trees {
-		C.treeOutlineUpdateNode(t.ov, id)
+		C.treeUpdateNode(t.id, id)
 	}
 }
 
@@ -77,6 +77,37 @@ func (m *TreeModel) RowDeleted(node TreeNode, parent TreeNode, index int) {
 		parentid = m.nodeObjects[parent]
 	}
 	for t, _ := range m.trees {
-		C.treeOutlineRemoveRow(t.ov, parentid, C.intmax_t(index))
+		C.treeDeleteRow(t.id, parentid, C.intmax_t(index))
 	}
+}
+
+//export treeModelChild
+func treeModelChild(mm C.id, index C.intmax_t, nodeobj C.id) C.id {
+	var child TreeNode
+
+	m := treeModels[mm]
+	if nodeobj == nil {
+		child = m.root.RootNodes()[index]
+	} else {
+		node := m.objectNodes[nodeobj]
+		child = node.TreeNodeChildren()[index]
+	}
+	return m.nodeObjects[child]
+}
+
+//export treeModelChildCount
+func treeModelChildCount(mm C.id, nodeobj C.id) C.intmax_t {
+	m := treeModels[mm]
+	if nodeobj == nil {
+		return len(m.root.RootNodes())
+	}
+	node := m.objectNodes[nodeobj]
+	return len(node.TreeNodeChildren())
+}
+
+//export treeModelNodeText
+func treeModelNodeText(mm C.id, nodeobj C.id) *C.char {
+	m := treeModels[mm]
+	node := m.objectNodes[nodeobj]
+	return C.CString(node.TreeNodeText())		// freed on the C side
 }

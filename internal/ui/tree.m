@@ -80,3 +80,112 @@ id treeOutlineView(id tree)
 
 	return [sv documentView];
 }
+
+@interface treeDataSource : NSObject<NSOutlineViewDataSource>
+@end
+
+@implementation treeDataSource
+
+- (id)outlineView:(NSOutlineView *)outlineView child:(NSInteger)index ofItem:(id)item
+{
+	return treeModelChild(self, (intmax_t) index, item);
+}
+
+- (BOOL)outlineView:(NSOutlineView *)outlineView isItemExpandable:(id)item
+{
+	return treeModelChildCount(self, item) != 0;
+}
+
+- (NSInteger)outlineView:(NSOutlineView *)outlineView numberOfChildrenOfItem:(id)item
+{
+	return (NSInteger) treeModelChildCount(self, item);
+}
+
+- (id)outlineView:(NSOutlineView *)outlineView objectValueForTableColumn:(NSTableColumn *)tableColumn byItem:(id)item
+{
+	char *str;
+	NSString *s;
+
+	str = treeModelNodeText(self, item);
+	s = [NSString stringWithUTF8String:str];
+	free(str);
+	return s;
+}
+
+@end
+
+id newTreeModel(void)
+{
+	return [treeDataSource new];
+}
+
+void treeModelDestroy(id model)
+{
+	treeDataSource *tds = (treeDataSource *) model;
+
+	[tds release];
+}
+
+void treeSetModel(id tree, id model)
+{
+	NSScrollView *sv = (NSScrollView *) tree;
+	NSOutlineView *ov;
+	treeDataSource *tds = (treeDataSource *) model;
+
+	ov = (NSOutlineView *) [sv documentView];
+	[ov setDataSource:model];
+	[ov reloadData];
+}
+
+void treeInsertRow(id tree, id parent, intmax_t index)
+{
+	NSScrollView *sv = (NSScrollView *) tree;
+	NSOutlineView *ov;
+	NSIndexSet *indexSet;
+
+	ov = (NSOutlineView *) [sv documentView];
+	indexSet = [NSIndexSet indexSetWithIndex:((NSUInteger) index)];
+	[ov beginUpdates];
+	[ov insertItemsAtIndexes:indexSet inParent:parent withAnimation:NSTableViewAnimationEffectNone];
+	[ov endUpdates];
+}
+
+void treeUpdateNode(id tree, id node)
+{
+	NSScrollView *sv = (NSScrollView *) tree;
+	NSOutlineView *ov;
+
+	ov = (NSOutlineView *) [sv documentView];
+	[ov reloadItem:node];
+}
+
+void treeDeleteNode(id tree, id parent, intmax_t index)
+{
+	NSScrollView *sv = (NSScrollView *) tree;
+	NSOutlineView *ov;
+	NSIndexSet *indexSet;
+
+	ov = (NSOutlineView *) [sv documentView];
+	indexSet = [NSIndexSet indexSetWithIndex:((NSUInteger) index)];
+	[ov beginUpdates];
+	[ov removeItemsAtIndexes:indexSet inParent:parent withAnimation:NSTableViewAnimationEffectNone];
+	[ov endUpdates];
+}
+
+@interface treeNodeObject : NSObject
+@end
+
+@implementation treeNodeObject
+@end
+
+id newTreeNode(void)
+{
+	return [treeNodeObject new];
+}
+
+void treeNodeDestroy(id node)
+{
+	treeNodeObject *obj = (treeNodeObject *) node;
+
+	[obj release];
+}

@@ -36,5 +36,13 @@ extern void webViewNavigate(id, id);
 extern id newTree(void);
 extern void treeDestroy(id);
 extern id treeOutlineView(id);
+extern id newTreeModel(void);
+extern void treeModelDestroy(id);
+extern void treeSetModel(id, id);
+extern void treeInsertRow(id, id, intmax_t);
+extern void treeUpdateNode(id, id);
+extern void treeDeleteRow(id, id, intmax_t);
+extern id newTreeNode(void);
+extern void treeNodeDestroy(id);
 
 #endif
