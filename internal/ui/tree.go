@@ -1,6 +1,9 @@
 // 2 january 2016
 package ui
 
+// TODO
+// - tree should horizontally scroll if cells aren't wide enough
+
 // #include "ui.h"
 import "C"
 
