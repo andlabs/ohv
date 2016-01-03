@@ -36,6 +36,11 @@ func (w *WebView) Navigate(to *url.URL) {
 	C.webViewNavigate(w.id, nsurl)
 }
 
+func (w *WebView) NavigateFile(to string) {
+	nsurl := fromFileURL(to)
+	C.webViewNavigate(w.id, nsurl)
+}
+
 func (w *WebView) OnLoadFailed(f func(sysError uintptr)) {
 	w.onLoadFailed = f
 }

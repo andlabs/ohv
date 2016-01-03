@@ -20,25 +20,30 @@ type Window struct {
 	current	Topic
 }
 
+// the default sizes and positions here are from my devhelp config
+
 func NewWindow() *Window {
 	w := new(Window)
-	w.w = ui.NewWindow("ohv", xxx, xxx)
+	w.w = ui.NewWindow("ohv", 1095, 546)
 	w.search = ui.NewSearchField()
 	w.navtree = ui.NewNavtree()
 	w.page = ui.NewWebView()
-
-	w.w.OnClosing(w.onClosing)
 
 	margin := ui.NewMargin(w.search)
 	box := ui.NewBox(margin, w.navtree)
 	splitter := ui.NewSplitter(box, w.page)
 	w.SetChild(splitter)
-	splitter.SetPosition(xxx)
+	splitter.SetPosition(250)
+//	w.w.Move(100, 100)
+	w.w.Center()
 
 	w.navtree.SetModel(LibraryModel)
 
-	w.w.Show()
+	w.w.OnClosing(w.onClosing)
 	w.navtree.OnSelected(w.navigate)
+	w.page.OnLoadFailed(w.loadFailed)
+
+	w.w.Show()
 
 	return w
 }
@@ -111,3 +116,7 @@ func mainWindowDoFollowLink(data unsafe.Pointer, curl *C.char) {
 	C.gtk_tree_selection_select_path(m.mw.navsel, path)
 }
 */
+
+func (w *Window) loadFailed(sysError uintptr) {
+	w.w.MsgBoxSysError(sysError)
+}
