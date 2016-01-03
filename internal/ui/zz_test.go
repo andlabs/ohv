@@ -91,7 +91,12 @@ func TestIt(t *testing.T) {
 		})
 		split := NewSplitter(t, wv)
 		split.SetPosition(20)
-		w.SetChild(split)
+//		w.SetChild(split)
+		se := NewSearchEntry()
+		w.SetChild(se)
+		se.OnChanged(func() {
+			println(se.Text())
+		})
 		w.Show()
 		go populate()
 		QueueMain(func() {

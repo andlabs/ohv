@@ -50,4 +50,9 @@ extern id newSplitter(id, id);
 extern void splitterDestroy(id);
 extern void splitterSetPosition(id, intmax_t);
 
+// searchentry.m
+extern id newSearchEntry(void);
+extern void searchEntryDestroy(id);
+extern char *searchEntryText(id);
+
 #endif
