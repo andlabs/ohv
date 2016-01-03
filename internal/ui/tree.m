@@ -133,7 +133,7 @@ void treeSetModel(id tree, id model)
 	treeDataSource *tds = (treeDataSource *) model;
 
 	ov = (NSOutlineView *) [sv documentView];
-	[ov setDataSource:model];
+	[ov setDataSource:tds];
 	[ov reloadData];
 }
 
