@@ -7,8 +7,8 @@ import (
 	"sync"
 )
 
-// #cgo CFLAGS: -mmacosx-version-min=10.7 -DMACOSX_DEPLOYMENT_TARGET=10.7
-// #cgo LDFLAGS: -mmacosx-version-min=10.7 -lobjc -framework Foundation -framework AppKit -framework WebKit -lpthread
+// #cgo CFLAGS: -mmacosx-version-min=10.11 -DMACOSX_DEPLOYMENT_TARGET=10.11
+// #cgo LDFLAGS: -mmacosx-version-min=10.11 -lobjc -framework Foundation -framework AppKit -framework WebKit -lpthread
 // #include "ui.h"
 import "C"
 

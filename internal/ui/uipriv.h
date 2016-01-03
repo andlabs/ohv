@@ -1,4 +1,6 @@
 // 2 january 2016
+#define MAC_OS_X_VERSION_MIN_REQUIRED MAC_OS_X_VERSION_10_11
+#define MAC_OS_X_VERSION_MAX_ALLOWED MAC_OS_X_VERSION_10_11
 #import <Cocoa/Cocoa.h>
 #import <WebKit/WebKit.h>
 #import <pthread.h>
