@@ -1,74 +1,65 @@
 // 5 october 2014
 package main
 
-/* TODO
 import (
+/* TODO
 	"os"
 	"io/ioutil"
 	"net/url"
 	"unsafe"
-)
 */
 
-// #cgo CFLAGS: -mmacosx-version-min=10.7 -DMACOSX_DEPLOYMENT_TARGET=10.7
-// #cgo LDFLAGS: -mmacosx-version-min=10.7 -lobjc -framework Foundation -framework AppKit -framework WebKit -lpthread
-// #include "cocoa_darwin.h"
-import "C"
+	"github.com/andlabs/ohv/internal/ui"
+)
 
 type Window struct {
-	w		C.goid
-	sf		C.goid
-	navtree	C.goid
-	browser	C.goid
+	w		*ui.Window
+	search	*ui.SearchField
+	navtree	*ui.Tree
+	page		*ui.WebView
 	current	Topic
 }
 
-var goids = make(map[C.goid]*Window)
-
 func NewWindow() *Window {
 	w := new(Window)
-	w.w = C.newWindow()
-	w.sf = C.newSearchField()
-	w.navtree = C.newNavtree()
-	w.browser = C.newWebView()
+	w.w = ui.NewWindow("ohv", xxx, xxx)
+	w.search = ui.NewSearchField()
+	w.navtree = ui.NewNavtree()
+	w.page = ui.NewWebView()
 
-	C.layoutWindow(w.w, w.sf, w.navtree, w.browser)
+	w.w.OnClosing(w.onClosing)
 
-	goids[w.w] = w
-	goids[w.sf] = w
-	goids[w.navtree] = w
-	goids[w.browser] = w
+	margin := ui.NewMargin(w.search)
+	box := ui.NewBox(margin, w.navtree)
+	splitter := ui.NewSplitter(box, w.page)
+	w.SetChild(splitter)
+	splitter.SetPosition(xxx)
 
-	C.navtreeBegin(w.navtree)
+	w.navtree.SetModel(LibraryModel)
+
+	w.w.Show()
+	w.navtree.OnSelected(w.navigate)
 
 	return w
 }
 
-func (w *Window) Show() {
-	C.windowShow(w.w)
+func (w *Window) onClosing() bool {
+	ui.Quit()
+	return true
 }
 
-//export uiOnWindowClosing
-func uiOnWindowClosing(win C.goid) C.int {
-	C.stopUIThread()
-	return 1
-}
-
-/* TODO
-//export mainWindowDoNavigateTo
-func mainWindowDoNavigateTo(data unsafe.Pointer, model *C.GtkTreeModel, iter *C.GtkTreeIter) {
-*/
-func navigate(ov C.goid, t Topic) {
-	m := goids[ov]
-	m.current = t
+func (w *Window) navigate() {
+	node := w.navtree.Selected()
+	if node == nil {
+		return
+	}
+	m.current = node.(Topic)
 	prepared, err := m.current.Prepare()
 	if err != nil {
 		// TODO
 		println(err)
 		return
 	}
-	cs := C.CString(prepared.Path)
-	// freed on the C side
 /* TODO
 	group := C.webkit_web_view_get_group(m.mw.browser)
 	C.webkit_web_view_group_remove_all_user_style_sheets(group)
@@ -93,7 +84,7 @@ func navigate(ov C.goid, t Topic) {
 	}
 	C.webkit_web_view_load_uri(m.mw.browser, cs)
 */
-	C.webviewNavigate(m.browser, cs)
+	w.page.NavigateFile(prepared.Path)
 }
 
 /* TODO
