@@ -45,7 +45,10 @@ id newTree(void)
 
 	sv = [[NSScrollView alloc] initWithFrame:NSZeroRect];
 	[sv setDrawsBackground:NO];
-	[sv setBorderType:NSBezelBorder];
+//	[sv setBorderType:NSBezelBorder];
+	// TODO the above is for general use
+	// this is for our use
+	[sv setBorderType:NSNoBorder];
 	[sv setHasHorizontalScroller:YES];
 	[sv setHasVerticalScroller:YES];
 	[sv setAutohidesScrollers:YES];

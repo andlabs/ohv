@@ -1,13 +1,20 @@
 // 3 january 2016
 #import "uipriv.h"
 
+// TODO this uses NSVisualEffectView because wrapping it around the NSStackView didn't work
+// TODO does NSVisualEffectView have its own border?
+
 id newMargin(id child)
 {
-	NSView *view;
+	NSVisualEffectView *view;
 	NSDictionary *views;
 	NSString *constraint;
 
-	view = [[NSView alloc] initWithFrame:NSZeroRect];
+	view = [[NSVisualEffectView alloc] initWithFrame:NSZeroRect];
+	// TODO interface builder?
+	[view setMaterial:NSVisualEffectMaterialSidebar];
+	[view setBlendingMode:NSVisualEffectBlendingModeBehindWindow];
+	// TODO state?
 
 	[view addSubview:child];
 
