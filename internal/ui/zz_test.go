@@ -93,7 +93,7 @@ func TestIt(t *testing.T) {
 		split.SetPosition(20)
 //		w.SetChild(split)
 		se := NewSearchEntry()
-		w.SetChild(se)
+		w.SetChild(NewMargin(se))
 		se.OnChanged(func() {
 			println(se.Text())
 		})

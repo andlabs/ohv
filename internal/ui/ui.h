@@ -55,4 +55,8 @@ extern id newSearchEntry(void);
 extern void searchEntryDestroy(id);
 extern char *searchEntryText(id);
 
+// margin.m
+extern id newMargin(id);
+extern void marginDestroy(id);
+
 #endif
