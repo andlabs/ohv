@@ -1,6 +1,18 @@
 // 2 january 2016
 #import "uipriv.h"
 
+@interface treeDelegate : NSObject<NSOutlineViewDelegate>
+@end
+
+@implementation treeDelegate
+
+- (void)outlineViewSelectionDidChange:(NSNotification *)note
+{
+	doTreeSelected([note object]);
+}
+
+@end
+
 id newTree(void)
 {
 	NSScrollView *sv;
@@ -65,6 +77,8 @@ id newTree(void)
 
 	[sv setDocumentView:ov];
 
+	[ov setDelegate:[treeDelegate new]];
+
 	[sv setTranslatesAutoresizingMaskIntoConstraints:NO];
 
 	return sv;
@@ -73,7 +87,13 @@ id newTree(void)
 void treeDestroy(id tree)
 {
 	NSScrollView *sv = (NSScrollView *) tree;
+	NSOutlineView *ov;
+	treeDelegate *delegate;
 
+	ov = (NSOutlineView *) [sv documentView];
+	delegate = (treeDelegate *) [ov delegate];
+	[ov setDelegate:nil];
+	[delegate release];
 	[sv release];
 }
 
@@ -191,4 +211,13 @@ void treeNodeDestroy(id node)
 	treeNodeObject *obj = (treeNodeObject *) node;
 
 	[obj release];
+}
+
+id treeSelected(id tree)
+{
+	NSScrollView *sv = (NSScrollView *) tree;
+	NSOutlineView *ov;
+
+	ov = (NSOutlineView *) [sv documentView];
+	return [ov itemAtRow:[ov selectedRow]];
 }

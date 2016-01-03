@@ -44,6 +44,7 @@ extern void treeUpdateNode(id, id);
 extern void treeDeleteRow(id, id, intmax_t);
 extern id newTreeNode(void);
 extern void treeNodeDestroy(id);
+extern id treeSelected(id);
 
 // splitter.m
 extern id newSplitter(id, id);
