@@ -221,3 +221,17 @@ id treeSelected(id tree)
 	ov = (NSOutlineView *) [sv documentView];
 	return [ov itemAtRow:[ov selectedRow]];
 }
+
+// TODO handle nil
+void treeSetSelected(id tree, id item)
+{
+	NSScrollView *sv = (NSScrollView *) tree;
+	NSOutlineView *ov;
+	NSInteger row;
+
+	ov = (NSOutlineView *) [sv documentView];
+	[ov expandItem:item];
+	row = [ov rowForItem:item];
+	[ov scrollRowToVisible:row];
+	[ov selectRowIndexes:[NSIndexSet indexSetWithIndex:row] byExtendingSelection:NO];
+}

@@ -93,34 +93,10 @@ func (w *Window) navigate() {
 }
 
 func (w *Window) linkClicked(target *url.URL) bool {
-	println(target.String())
+	t := w.current.Source().Lookup(target)
+	w.navtree.SetSelected(t)
 	return false
 }
-
-/* TODO
-//export mainWindowDoFollowLink
-func mainWindowDoFollowLink(data unsafe.Pointer, curl *C.char) {
-	m := (*MainWindow)(data)
-	u, err := url.Parse(C.GoString(curl))
-	if err != nil {
-		// TODO
-		panic(err)
-	}
-	t := m.current.Source().Lookup(u)
-	// TODO change this call to return the last index separately for the below
-	path := navtreePathTo(t)
-	defer C.gtk_tree_path_free(path)
-	// without the following line, the selection change won't work (this has always been the case :/ )
-	C.gtk_tree_view_expand_to_path((*C.GtkTreeView)(unsafe.Pointer(m.mw.navtree)), path)
-	// but don't expand the row itself
-	C.gtk_tree_view_collapse_row((*C.GtkTreeView)(unsafe.Pointer(m.mw.navtree)), path)
-	// and we need to scroll there too
-	C.gtk_tree_view_scroll_to_cell((*C.GtkTreeView)(unsafe.Pointer(m.mw.navtree)), path, nil,
-		C.FALSE, 0, 0)		// TODO change to TRUE?
-	// and FINALLY make the change
-	C.gtk_tree_selection_select_path(m.mw.navsel, path)
-}
-*/
 
 func (w *Window) loadFailed(sysError uintptr) {
 	w.w.MsgBoxSysError(sysError)

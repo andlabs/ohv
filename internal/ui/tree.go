@@ -56,6 +56,12 @@ func (t *Tree) Selected() TreeNode {
 	return t.model.objectNodes[nodeobj]
 }
 
+// TODO handle nil
+func (t *Tree) SetSelected(node TreeNode) {
+	nodeobj := t.model.nodeObjects[node]
+	C.treeSetSelected(t.id, nodeobj)
+}
+
 func (t *Tree) OnSelected(f func()) {
 	t.onSelected = f
 }
