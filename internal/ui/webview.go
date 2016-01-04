@@ -11,6 +11,7 @@ import "C"
 type WebView struct {
 	id				C.id
 	onLoadFailed		func(sysError uintptr)
+	onLinkClicked		func(target *url.URL) bool
 }
 
 var webviews = make(map[C.id]*WebView)
@@ -51,4 +52,18 @@ func doWebViewLoadFailed(ww C.id, sysError C.id) {
 	if w.onLoadFailed != nil {
 		w.onLoadFailed(touintptr(sysError))
 	}
+}
+
+func (w *WebView) OnLinkClicked(f func(target *url.URL) bool) {
+	w.onLinkClicked = f
+}
+
+//export doWebViewLinkClicked
+func doWebViewLinkClicked(ww C.id, nsurl C.id) C.int {
+	// TODO rename webViews
+	w := webviews[ww]
+	if w.onLinkClicked == nil {
+		return 0
+	}
+	return frombool(w.onLinkClicked(toURL(nsurl)))
 }

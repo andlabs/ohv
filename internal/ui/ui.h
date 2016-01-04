@@ -14,6 +14,7 @@ extern void stopUIThread(void);
 extern void queueUIThread(uintptr_t);
 
 // util.m
+extern char *fromNSURL(id);
 extern id toNSURL(char *);
 extern id toFileNSURL(char *);
 

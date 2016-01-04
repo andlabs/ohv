@@ -5,9 +5,8 @@ import (
 /* TODO
 	"os"
 	"io/ioutil"
-	"net/url"
-	"unsafe"
 */
+	"net/url"
 
 	"github.com/andlabs/ohv/internal/ui"
 )
@@ -42,6 +41,7 @@ func NewWindow() *Window {
 	w.w.OnClosing(w.onClosing)
 	w.navtree.OnSelected(w.navigate)
 	w.page.OnLoadFailed(w.loadFailed)
+	w.page.OnLinkClicked(w.linkClicked)
 
 	w.w.Show()
 
@@ -90,6 +90,11 @@ func (w *Window) navigate() {
 	C.webkit_web_view_load_uri(m.mw.browser, cs)
 */
 	w.page.NavigateFile(prepared.Path)
+}
+
+func (w *Window) linkClicked(target *url.URL) bool {
+	println(target.String())
+	return false
 }
 
 /* TODO

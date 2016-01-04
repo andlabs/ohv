@@ -15,6 +15,10 @@ import (
 // {
 // 	return (id) x;
 // }
+// static inline void freestr(char *s)
+// {
+// 	free(s);
+// }
 import "C"
 
 func tobool(b C.int) bool {
@@ -34,6 +38,17 @@ func touintptr(id C.id) uintptr {
 
 func fromuintptr(id uintptr) C.id {
 	return C.toid(C.uintptr_t(id))
+}
+
+func toURL(nsurl C.id) *url.URL {
+	cs := C.fromNSURL(nsurl)
+	u, err := url.Parse(C.GoString(cs))
+	if err != nil {
+		// TODO shouldn't happen
+		panic(err)
+	}
+	C.freestr(cs)
+	return u
 }
 
 func fromURL(u *url.URL) C.id {
