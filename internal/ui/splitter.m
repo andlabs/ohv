@@ -31,5 +31,11 @@ void splitterSetPosition(id ss, intmax_t pos)
 {
 	NSSplitView *sv = (NSSplitView *) ss;
 
+	// NSSplitView is fickle; under some circumstances this method will not take effect
+	// see http://stackoverflow.com/questions/34574478/how-can-i-set-the-position-of-a-nssplitview-nowadays-setpositionofdivideratind for some details
+	// stal in irc.freenode.net/#macdev suggested trying doing this first, and it works, so... thanks to him
+	[sv setNeedsLayout:YES];
+	[sv layoutSubtreeIfNeeded];
+
 	[sv setPosition:pos ofDividerAtIndex:0];
 }
