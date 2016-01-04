@@ -114,9 +114,9 @@ func newDevhelpTopic(name string, link string, children []*devhelpSub, dir strin
 }
 
 func (d *DevhelpTopic) Prepare() (*Prepared, error) {
-	// TODO anchors
 	return &Prepared{
 		Path:			filepath.Join(d.dir, d.path),
+		Anchor:		d.anchor,
 	}, nil
 }
 

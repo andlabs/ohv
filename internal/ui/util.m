@@ -17,18 +17,23 @@ id toNSURL(char *str)
 	return [NSURL URLWithString:s];
 }
 
+// thanks to mikeash in irc.freenode.net/#macdev
+// TODO requires 10.9; if we export this it needs to change
 id toFileNSURL(char *str, char *anchor)
 {
 	NSString *s;
-	NSMutableURL *url;
+	NSURL *url;
+	NSURLComponents *c;
 
 	s = [NSString stringWithUTF8String:str];
 	free(str);
-	url = [NSMutableURL fileURLWithPath:s];
+	url = [NSURL fileURLWithPath:s];
+	// TODO pass YES instead?
+	c = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:NO];
 	if (anchor != NULL) {
 		s = [NSString stringWithUTF8String:anchor];
 		free(anchor);
-		[url setFragment:s];
+		[c setFragment:s];
 	}
-	return url;
+	return [c URL];
 }

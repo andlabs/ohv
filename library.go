@@ -29,6 +29,7 @@ type Topic interface {
 
 type Prepared struct {
 	Path			string
+	Anchor		string
 	CSSPath		string
 	CSSBaseDir	string
 }

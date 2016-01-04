@@ -89,7 +89,7 @@ func (w *Window) navigate() {
 	}
 	C.webkit_web_view_load_uri(m.mw.browser, cs)
 */
-	w.page.NavigateFile(prepared.Path, "")
+	w.page.NavigateFile(prepared.Path, prepared.Anchor)
 }
 
 func (w *Window) linkClicked(target *url.URL) bool {
