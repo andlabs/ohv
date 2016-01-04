@@ -156,6 +156,7 @@ func (m *MSHITopic) Name() string {
 	return m.asset.Title
 }
 
+// TODO anchors
 // TODO adorn errors
 func (m *MSHITopic) Prepare() (*Prepared, error) {
 	var r io.Reader
