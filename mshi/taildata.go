@@ -38,7 +38,6 @@ type CLS struct {
 	StartPos	uint32
 }
 
-// TODO adorn error messages?
 func (f *File) readTailData() (td *TailData) {
 	td = new(TailData)
 	f.seekfull(-8, 2)

@@ -25,7 +25,6 @@ type AssetData struct {
 	F1KeywordCount		uint32
 }
 
-// TODO adorn errors
 func (f *File) readAssetData(index int) (a *AssetData) {
 	a = new(AssetData)
 	f.readSkip()
@@ -66,7 +65,6 @@ func (f *File) readAssetData(index int) (a *AssetData) {
 }
 
 // TODO isolate core?
-// TODO adorn errors?
 func (f *File) ReadAssetDatas() (a []*AssetData) {
 	list := f.readOffsetArray(f.TailData.AssetDataOffset, f.TailData.AssetDataData)
 	if f.err != nil {

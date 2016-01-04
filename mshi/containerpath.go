@@ -8,7 +8,6 @@ type ContainerPath struct {
 	Vendor	string
 }
 
-// TODO adorn errors
 func (f *File) readContainerPath(index int) (c *ContainerPath) {
 	c = new(ContainerPath)
 	f.readSkip()
@@ -26,7 +25,6 @@ func (f *File) readContainerPath(index int) (c *ContainerPath) {
 }
 
 // TODO isolate core?
-// TODO adorn errors?
 func (f *File) ReadContainerPaths() (c []*ContainerPath) {
 	list := f.readOffsetArray(f.TailData.ContainerPathOffset, f.TailData.ContainerPathData)
 	if f.err != nil {

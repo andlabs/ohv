@@ -46,7 +46,6 @@ func (m *MSHI) Lookup(url *url.URL) Topic {
 	return m.topics[id]
 }
 
-// TODO adorn errors
 func OpenMSHI(dir string) (*MSHI, error) {
 	m := new(MSHI)
 	m.dir = dir
@@ -157,7 +156,6 @@ func (m *MSHITopic) Name() string {
 }
 
 // TODO anchors - does the help viewer guess the anchor? because I don't see anything in the HTML to suggest that (unless x/net/html is stripping it?)
-// TODO adorn errors
 func (m *MSHITopic) Prepare() (*Prepared, error) {
 	var r io.Reader
 

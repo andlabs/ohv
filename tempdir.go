@@ -11,7 +11,6 @@ import (
 var tempdir string
 var tempfiles []string
 
-// TODO adorn errors
 func StartTempDir() (string, error) {
 	if tempdir != "" {
 		for _, f := range tempfiles {
@@ -32,7 +31,6 @@ func StartTempDir() (string, error) {
 	return tempdir, nil
 }
 
-// TODO adorn errors
 func TempFile(name string, r io.Reader) (string, error) {
 	name = filepath.Join(tempdir, name)
 	f, err := os.Create(name)

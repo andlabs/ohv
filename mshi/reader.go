@@ -9,8 +9,6 @@ import (
 	"strconv"
 )
 
-// TODO adorn io.ErrUnexpectedEOF?
-
 type File struct {
 	TailData	*TailData
 
@@ -182,7 +180,6 @@ func (f *File) versionGreaterEqual(against string) bool {
 	for i, v := range vparts {
 		vints[i], err = strconv.Atoi(v)
 		if err != nil {
-			// TODO adorn error message
 			f.err = err
 			return false
 		}
@@ -191,7 +188,6 @@ func (f *File) versionGreaterEqual(against string) bool {
 	for i, a := range vparts {
 		aints[i], err = strconv.Atoi(a)
 		if err != nil {
-			// TODO adorn error message
 			f.err = err
 			return false
 		}
@@ -212,7 +208,6 @@ func (f *File) versionGreaterEqual(against string) bool {
 	return true
 }
 
-// TODO adorn error messages?
 func (f *File) readOffsetArray(offset CLS, data CLS) []uint32 {
 	if f.err != nil {
 		return nil

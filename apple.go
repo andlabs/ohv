@@ -59,7 +59,6 @@ func (a *Apple) Lookup(url *url.URL) Topic {
 	return nil
 }
 
-// TODO adorn errors
 func OpenApple(dir string) (*Apple, error) {
 	a := new(Apple)
 	a.dir = dir
