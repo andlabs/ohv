@@ -40,6 +40,11 @@
 	return NSTerminateCancel;
 }
 
+- (BOOL)applicationShouldTerminateAfterLastWindowClosed:(NSApplication *)app
+{
+	return NO;
+}
+
 @end
 
 static ohvApplication *app;
