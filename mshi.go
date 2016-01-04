@@ -156,7 +156,7 @@ func (m *MSHITopic) Name() string {
 	return m.asset.Title
 }
 
-// TODO anchors
+// TODO anchors - does the help viewer guess the anchor? because I don't see anything in the HTML to suggest that (unless x/net/html is stripping it?)
 // TODO adorn errors
 func (m *MSHITopic) Prepare() (*Prepared, error) {
 	var r io.Reader
