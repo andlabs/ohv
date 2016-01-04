@@ -37,8 +37,8 @@ func (w *WebView) Navigate(to *url.URL) {
 	C.webViewNavigate(w.id, nsurl)
 }
 
-func (w *WebView) NavigateFile(to string) {
-	nsurl := fromFileURL(to)
+func (w *WebView) NavigateFile(to string, anchor string) {
+	nsurl := fromFileURL(to, anchor)
 	C.webViewNavigate(w.id, nsurl)
 }
 

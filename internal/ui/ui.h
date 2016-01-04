@@ -16,7 +16,7 @@ extern void queueUIThread(uintptr_t);
 // util.m
 extern char *fromNSURL(id);
 extern id toNSURL(char *);
-extern id toFileNSURL(char *);
+extern id toFileNSURL(char *, char *);
 
 // window.m
 extern id newWindow(char *, int, int);

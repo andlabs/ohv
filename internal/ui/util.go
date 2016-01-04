@@ -57,7 +57,12 @@ func fromURL(u *url.URL) C.id {
 	return C.toNSURL(cs)
 }
 
-func fromFileURL(path string) C.id {
-	cpath := C.CString(path)		// freed on the C side
-	return C.toFileNSURL(cpath)
+func fromFileURL(path string, anchor string) C.id {
+	var canchor *C.char
+
+	cpath := C.CString(path)		// both are freed on the C side
+	if anchor != "" {
+		canchor = C.CString(anchor)
+	}
+	return C.toFileNSURL(cpath, canchor)
 }

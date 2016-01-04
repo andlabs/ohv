@@ -17,11 +17,18 @@ id toNSURL(char *str)
 	return [NSURL URLWithString:s];
 }
 
-id toFileNSURL(char *str)
+id toFileNSURL(char *str, char *anchor)
 {
 	NSString *s;
+	NSMutableURL *url;
 
 	s = [NSString stringWithUTF8String:str];
 	free(str);
-	return [NSURL fileURLWithPath:s];
+	url = [NSMutableURL fileURLWithPath:s];
+	if (anchor != NULL) {
+		s = [NSString stringWithUTF8String:anchor];
+		free(anchor);
+		[url setFragment:s];
+	}
+	return url;
 }
