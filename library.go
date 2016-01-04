@@ -17,6 +17,8 @@ type HelpSource interface {
 	Lookup(url *url.URL) Topic
 }
 
+var HelpSources []HelpSource
+
 type Topic interface {
 	ui.TreeNode
 	Name() string
@@ -82,6 +84,7 @@ func LoadMSHILibrary(dir string) {
 		// TODO
 		panic(err)
 	}
+	HelpSources = append(HelpSources, m)
 	for _, b := range m.Books() {
 		Library.Append(b)
 	}
@@ -101,6 +104,7 @@ func LoadAppleLibraries(dir string) {
 		if err != nil {
 			return err
 		}
+		HelpSources = append(HelpSources, a)
 		for _, b := range a.Books() {
 			Library.Append(b)
 		}
@@ -129,6 +133,7 @@ func LoadDevhelpLibraries(dir string) {
 		if err != nil {
 			return err
 		}
+		HelpSources = append(HelpSources, d)
 		for _, b := range d.Books() {
 			Library.Append(b)
 		}
