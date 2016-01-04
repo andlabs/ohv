@@ -111,6 +111,34 @@ func LoadAppleLibraries(dir string) {
 	}
 }
 
+func LoadDevhelpLibraries(dir string) {
+	dir = filepath.Join(dir, "devhelp")
+	err := filepath.Walk(dir, func(path string, info os.FileInfo, err error) error {
+		if err != nil {
+			return err
+		}
+		// TODO better check
+		if path == dir {
+			return nil
+		}
+		if !info.IsDir() {			// skip .tar.gz files
+			return nil
+		}
+		d, err := OpenDevhelp(path)
+		if err != nil {
+			return err
+		}
+		for _, b := range d.Books() {
+			Library.Append(b)
+		}
+		return filepath.SkipDir
+	})
+	if err != nil {
+		// TODO
+		panic(err)
+	}
+}
+
 func LoadLibraries() {
 	// all directories /must/ be absolute
 	dir, err := filepath.Abs(os.Args[1])
@@ -121,4 +149,5 @@ func LoadLibraries() {
 	LoadMSHILibrary(dir)
 	// TODO load from system installation path
 	LoadAppleLibraries(dir)
+	LoadDevhelpLibraries(dir)
 }
