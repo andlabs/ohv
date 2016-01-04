@@ -17,7 +17,7 @@ import (
 	"github.com/andlabs/ohv/internal/ui"
 )
 
-const msxhelpURLScheme "ms-xhelp"
+const msxhelpURLScheme = "ms-xhelp"
 
 type MSHI struct {
 	dir			string
