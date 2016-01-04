@@ -10,6 +10,9 @@ import (
 "encoding/json"
 )
 
+// notes:
+// - devhelp splits filename from anchor with strchr(): https://git.gnome.org/browse/devhelp/tree/src/dh-assistant-view.c?id=b65a383b5f46908ac16ae4f55c7dcce26c891713#n228
+
 type devhelpSub struct {
 	Name	string			`xml:"name,attr"`
 	Link		string			`xml:"link,attr"`
