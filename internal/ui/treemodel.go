@@ -10,7 +10,7 @@ type TreeModelRootNodes interface {
 
 type TreeNode interface {
 	TreeNodeText() string
-	// TODO readd TreeNodeParent()?
+	TreeNodeParent() TreeNode
 	TreeNodeChildren() []TreeNode
 }
 

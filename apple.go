@@ -179,6 +179,10 @@ func (a *AppleTopic) TreeNodeText() string {
 	return a.Name()
 }
 
+func (a *AppleTopic) TreeNodeParent() ui.TreeNode {
+	return a.Parent()
+}
+
 func (a *AppleTopic) TreeNodeChildren() []ui.TreeNode {
 	if len(a.children) == 0 {
 		return nil

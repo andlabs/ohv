@@ -222,6 +222,7 @@ id treeSelected(id tree)
 	return [ov itemAtRow:[ov selectedRow]];
 }
 
+// prerequisite: node can be accessed (all its parents are expanded)
 // TODO handle nil
 void treeSetSelected(id tree, id item)
 {
@@ -230,8 +231,17 @@ void treeSetSelected(id tree, id item)
 	NSInteger row;
 
 	ov = (NSOutlineView *) [sv documentView];
-	[ov expandItem:item];
 	row = [ov rowForItem:item];
 	[ov scrollRowToVisible:row];
 	[ov selectRowIndexes:[NSIndexSet indexSetWithIndex:row] byExtendingSelection:NO];
+}
+
+void treeExpandItem(id tree, id item)
+{
+	NSScrollView *sv = (NSScrollView *) tree;
+	NSOutlineView *ov;
+	NSInteger row;
+
+	ov = (NSOutlineView *) [sv documentView];
+	[ov expandItem:item];
 }

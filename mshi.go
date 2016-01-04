@@ -271,6 +271,10 @@ func (m *MSHITopic) TreeNodeText() string {
 	return m.Name()
 }
 
+func (m *MSHITopic) TreeNodeParent() ui.TreeNode {
+	return m.Parent()
+}
+
 // TODO somehow integrate this and the one in apple.go with the rest of Topic
 func (m *MSHITopic) TreeNodeChildren() []ui.TreeNode {
 	if len(m.children) == 0 {

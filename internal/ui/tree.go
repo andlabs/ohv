@@ -56,8 +56,26 @@ func (t *Tree) Selected() TreeNode {
 	return t.model.objectNodes[nodeobj]
 }
 
+// in order to be able to access a node, its parent and all the parents leading up to the node must be open
+// there doesn't seem to be a way to do this in Cocoa so we have to do it ourselves
+// note that we do not expand node itself
+func (t *Tree) ensureCanAccessNode(node TreeNode) {
+	parent := node.TreeNodeParent()
+	if parent == nil {		// the root is always open
+		return
+	}
+	// first make sure the parent of the parent is expanded
+	t.ensureCanAccessNode(parent)
+	// and expand the parent
+	parentobj := t.model.nodeObjects[parent]
+	C.treeExpandItem(t.id, parentobj)
+}
+
 // TODO handle nil
 func (t *Tree) SetSelected(node TreeNode) {
+	// first we have to make sure the node can be accessed
+	t.ensureCanAccessNode(node)
+	// then we can select it
 	nodeobj := t.model.nodeObjects[node]
 	C.treeSetSelected(t.id, nodeobj)
 }

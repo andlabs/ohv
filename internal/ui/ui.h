@@ -47,6 +47,7 @@ extern id newTreeNode(void);
 extern void treeNodeDestroy(id);
 extern id treeSelected(id);
 extern void treeSetSelected(id, id);
+extern void treeExpandItem(id, id);
 
 // splitter.m
 extern id newSplitter(id, id);
