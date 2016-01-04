@@ -1,6 +1,9 @@
 // 2 january 2016
 #import "uipriv.h"
 
+// TODOs
+// - make sure the cache is well and truly disabled
+
 @interface webViewFrameLoadDelegate : NSObject<WebFrameLoadDelegate>
 @end
 
