@@ -38,6 +38,20 @@
 
 @end
 
+@interface webViewResourceLoadDelegate : NSObject<WebResourceLoadDelegate>
+@end
+
+@implementation webViewResourceLoadDelegate
+
+- (NSURLRequest *)webView:(WebView *)sender resource:(id)identifier willSendRequest:(NSURLRequest *)request redirectResponse:(NSURLResponse *)redirectResponse fromDataSource:(WebDataSource *)dataSource
+{
+	// TODO differentiate between the page asset and images
+	// TODO implement this
+	return request;
+}
+
+@end
+
 id newWebView(void)
 {
 	WebView *wv;
@@ -47,6 +61,7 @@ id newWebView(void)
 
 	[wv setFrameLoadDelegate:[webViewFrameLoadDelegate new]];
 	[wv setPolicyDelegate:[webViewPolicyDelegate new]];
+	[wv setResourceLoadDelegate:[webViewResourceLoadDelegate new]];
 
 	[wv setTranslatesAutoresizingMaskIntoConstraints:NO];
 
@@ -58,6 +73,11 @@ void webViewDestroy(id w)
 	WebView *wv = (WebView *) w;
 	webViewFrameLoadDelegate *fld;
 	webViewPolicyDelegate *pd;
+	webViewResourceLoadDelegate *rld;
+
+	rld = (webViewResourceLoadDelegate *) [wv resourceLoadDelegate];
+	[wv setResourceLoadDelegate:nil];
+	[rld release];
 
 	pd = (webViewPolicyDelegate *) [wv policyDelegate];
 	[wv setPolicyDelegate:nil];
