@@ -78,6 +78,7 @@ func (t *Tree) SetSelected(node TreeNode) {
 	// then we can select it
 	nodeobj := t.model.nodeObjects[node]
 	C.treeSetSelected(t.id, nodeobj)
+	// TODO avoid raising an OnSelected
 }
 
 func (t *Tree) OnSelected(f func()) {

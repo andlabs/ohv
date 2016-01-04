@@ -95,6 +95,7 @@ func (w *Window) navigate() {
 func (w *Window) linkClicked(target *url.URL) bool {
 	t := w.current.Source().Lookup(target)
 	w.navtree.SetSelected(t)
+	// TODO the above triggers a navigation for us
 	return false
 }
 
