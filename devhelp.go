@@ -16,24 +16,16 @@ type devhelpSub struct {
 	Subs		[]*devhelpSub		`xml:"sub"`
 }
 
-type devhelpChapters struct {
-	Subs		[]*devhelpSub		`xml:"sub"`
-}
-
 type devhelpKeyword struct {
 	Name	string		`xml:"name,attr"`
 	Link		string		`xml:"link,attr"`
 }
 
-type devhelpFunctions struct {
-	Keywords		[]*devhelpKeyword		`xml:"keyword"`
-}
-
 type devhelpBook struct {
 	Title			string			`xml:"title,attr"`
 	Link			string			`xml:"link,attr"`
-	Chapters		*devhelpChapters	`xml:"chapters"`
-	Functions		*devhelpFunctions	`xml:"functions"`
+	Chapters		[]*devhelpSub		`xml:"chapters>sub"`
+	Functions		[]*devhelpKeyword	`xml:"functions>keyword"`
 }
 
 func main() {
