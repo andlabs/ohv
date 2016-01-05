@@ -68,8 +68,46 @@ func OpenMSHI(dir string) (*MSHI, error) {
 	return m, nil
 }
 
+type mshiFileResult struct {
+	c	[]*mshi.ContainerPath
+	a	[]*mshi.AssetData
+	err	error
+}
+
+func (m *MSHI) readOneIndex(path string, res chan<- *mshiFileResult) {
+	r := new(mshiFileResult)
+	defer func() {
+		res <- r
+	}()
+	of, err := os.Open(path)
+	if err != nil {
+		r.err = err
+		return
+	}
+	defer of.Close()
+	f := mshi.Open(of)
+	if f.Err() != nil {
+		r.err = f.Err()
+		return
+	}
+	c := f.ReadContainerPaths()
+	if f.Err() != nil {
+		r.err = f.Err()
+		return
+	}
+	a := f.ReadAssetDatas()
+	if f.Err() != nil {
+		r.err = f.Err()
+		return
+	}
+	r.c = c
+	r.a = a
+}
+
 func (m *MSHI) readAllIndices() error {
-	return filepath.Walk(m.dir, func(path string, info os.FileInfo, err error) error {
+	n := 0
+	res := make(chan *mshiFileResult)
+	err := filepath.Walk(m.dir, func(path string, info os.FileInfo, err error) error {
 		if err != nil {
 			return err
 		}
@@ -77,27 +115,24 @@ func (m *MSHI) readAllIndices() error {
 		if strings.ToLower(filepath.Ext(path)) != ".mshi" {
 			return nil
 		}
-		of, err := os.Open(path)
-		if err != nil {
-			return err
-		}
-		f := mshi.Open(of)
-		if f.Err() != nil {
-			return f.Err()
-		}
-		c := f.ReadContainerPaths()
-		if f.Err() != nil {
-			return f.Err()
-		}
-		a := f.ReadAssetDatas()
-		if f.Err() != nil {
-			return f.Err()
-		}
-		of.Close()
-		m.containers = append(m.containers, c)
-		m.assets = append(m.assets, a)
+		go m.readOneIndex(path, res)
+		n++
 		return nil
 	})
+	if err != nil {
+		return err
+	}
+	for n != 0 {
+		r := <-res
+		if r.err != nil {
+			return r.err
+		}
+		m.containers = append(m.containers, r.c)
+		m.assets = append(m.assets, r.a)
+		n--
+	}
+	close(res)
+	return nil
 }
 
 func (m *MSHI) collectTopics() {
