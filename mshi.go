@@ -1,6 +1,8 @@
 // 5 october 2014
 package main
 
+// TODO load keywords so constants get their own search entries?
+
 import (
 	"net/url"
 	"os"
