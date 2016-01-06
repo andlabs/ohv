@@ -100,7 +100,8 @@ func (w *Window) navigate() {
 
 func (w *Window) linkClicked(target *url.URL) bool {
 	if w.results != nil {		// abandon search on link clicked
-		// TODO
+		// don't restore the current since the current is about to change
+		w.dismissSearch(false)
 	}
 	t := w.current.Source().Lookup(target)
 	w.navtree.SetSelected(t)
@@ -117,7 +118,8 @@ func (w *Window) searching() {
 
 	text := w.search.Text()
 	if text == "" {			// search cancelled
-		w.dismissSearch()
+		// restore the current so that whatever the last search item was is now selected
+		w.dismissSearch(true)
 		return
 	}
 	if w.results != nil {		// overwrite existing search
@@ -132,7 +134,7 @@ func (w *Window) searching() {
 	w.navtree.SetModel(w.results.Model())
 }
 
-func (w *Window) dismissSearch() {
+func (w *Window) dismissSearch(restoreCurrent bool) {
 	// TODO NSSearchField can send "" twice
 	if w.results == nil {
 		return
@@ -141,7 +143,7 @@ func (w *Window) dismissSearch() {
 	// TODO separate SetSelected from OnSelected so this won't need to be first
 	w.results.Dismiss()
 	w.results = nil
-	if w.current != nil {
+	if restoreCurrent && w.current != nil {
 		w.navtree.SetSelected(w.current)
 	}
 }
