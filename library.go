@@ -7,6 +7,8 @@ import (
 	"path/filepath"
 
 	"github.com/andlabs/ohv/internal/ui"
+
+"time"
 )
 
 type HelpSource interface {
@@ -78,6 +80,10 @@ func (l *LibraryModel) Model() *ui.TreeModel {
 	return l.model
 }
 
+func (l *LibraryModel) Topics() []Topic {
+	return l.library
+}
+
 func LoadMSHILibrary(dir string) {
 	m, err := OpenMSHI(filepath.Join(dir, "mshi"))
 	if err != nil {
@@ -145,6 +151,8 @@ func LoadDevhelpLibraries(dir string) {
 	}
 }
 
+var LibrarySearcher *Searcher
+
 func LoadLibraries() {
 	// all directories /must/ be absolute
 	dir, err := filepath.Abs(os.Args[1])
@@ -156,4 +164,17 @@ func LoadLibraries() {
 	// TODO load from system installation path
 	LoadAppleLibraries(dir)
 	LoadDevhelpLibraries(dir)
+
+	LibrarySearcher, err = NewSearcher()
+	if err != nil {
+		// TODO
+		panic(err)
+	}
+start := time.Now()
+	err = LibrarySearcher.Index()
+	if err != nil {
+		// TODO
+		panic(err)
+	}
+println(time.Now().Sub(start).String())
 }
