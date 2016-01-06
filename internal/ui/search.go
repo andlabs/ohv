@@ -1,6 +1,11 @@
 // 6 january 2016
 package ui
 
+import (
+	"strings"
+	"unicode"
+)
+
 // #include <CoreFoundation/CoreFoundation.h>
 // #include <CoreServices/CoreServices.h>
 // #include "ui.h"
@@ -112,8 +117,17 @@ type SearchResults struct {
 	done		bool
 }
 
-// TODO break searchFor apart for substring matches
 func (s *SearchIndex) Search(searchFor string) *SearchResults {
+	// SearchKit doesn't do substring matches
+	// the glossary of the programming guide says to fake it ourselves
+	fields := strings.FieldsFunc(searchFor, func(c rune) bool {
+		return !unicode.IsLetter(c) && !unicode.IsNumber(c)
+	})
+	for i, _ := range fields {
+		fields[i] = "*" + fields[i] + "*"
+	}
+	searchFor = strings.Join(fields, " ")
+
 	// must flush before searching
 	if C.SKIndexFlush(s.si) == C.false {
 		panic("error flushing search index before searching")
