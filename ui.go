@@ -39,6 +39,9 @@ func NewWindow() *Window {
 
 	w.navtree.SetModel(Library.Model())
 
+	ui.OnShouldQuit(func() bool {
+		return true
+	})
 	w.w.OnClosing(w.onClosing)
 	w.search.OnChanged(w.searching)
 	w.navtree.OnSelected(w.navigate)
