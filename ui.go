@@ -17,6 +17,7 @@ type Window struct {
 	navtree	*ui.Tree
 	page		*ui.WebView
 	current	Topic
+	results	*SearchResults
 }
 
 // the default sizes and positions here are from my devhelp config
@@ -39,6 +40,7 @@ func NewWindow() *Window {
 	w.navtree.SetModel(Library.Model())
 
 	w.w.OnClosing(w.onClosing)
+	w.search.OnChanged(w.searching)
 	w.navtree.OnSelected(w.navigate)
 	w.page.OnLoadFailed(w.loadFailed)
 	w.page.OnLinkClicked(w.linkClicked)
@@ -58,7 +60,11 @@ func (w *Window) navigate() {
 	if node == nil {
 		return
 	}
-	w.current = node.(Topic)
+	if w.results != nil {		// searching
+		w.current = w.results.Topic(node)
+	} else {				// navigating
+		w.current = node.(Topic)
+	}
 	prepared, err := w.current.Prepare()
 	if err != nil {
 		// TODO
@@ -93,6 +99,9 @@ func (w *Window) navigate() {
 }
 
 func (w *Window) linkClicked(target *url.URL) bool {
+	if w.results != nil {		// abandon search on link clicked
+		// TODO
+	}
 	t := w.current.Source().Lookup(target)
 	w.navtree.SetSelected(t)
 	// TODO the above triggers a navigation for us
@@ -101,4 +110,36 @@ func (w *Window) linkClicked(target *url.URL) bool {
 
 func (w *Window) loadFailed(sysError uintptr) {
 	w.w.MsgBoxSysError(sysError)
+}
+
+func (w *Window) searching() {
+	var err error
+
+	text := w.search.Text()
+	if text == "" {			// search cancelled
+		w.dismissSearch()
+		return
+	}
+	if w.results != nil {		// overwrite existing search
+		w.navtree.SetModel(nil)
+		w.results.Dismiss()
+	}
+	w.results, err = LibrarySearcher.Search(text)
+	if err != nil {
+		// TODO
+		return
+	}
+	w.navtree.SetModel(w.results.Model())
+}
+
+func (w *Window) dismissSearch() {
+	// TODO NSSearchField can send "" twice
+	if w.results == nil {
+		return
+	}
+	w.navtree.SetModel(Library.Model())
+	// TODO separate SetSelected from OnSelected so this won't need to be first
+	w.results.Dismiss()
+	w.results = nil
+	w.navtree.SetSelected(w.current)
 }
