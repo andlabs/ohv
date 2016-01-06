@@ -141,5 +141,7 @@ func (w *Window) dismissSearch() {
 	// TODO separate SetSelected from OnSelected so this won't need to be first
 	w.results.Dismiss()
 	w.results = nil
-	w.navtree.SetSelected(w.current)
+	if w.current != nil {
+		w.navtree.SetSelected(w.current)
+	}
 }
