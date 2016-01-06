@@ -1,6 +1,8 @@
 // 7 october 2014
 package main
 
+// TODO read other constant names since constants in a group are not listed individually
+
 import (
 	"path/filepath"
 	"net/url"
