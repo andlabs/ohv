@@ -4,6 +4,16 @@ package ui
 // #include <CoreFoundation/CoreFoundation.h>
 // #include <CoreServices/CoreServices.h>
 // #include "ui.h"
+// static inline CFDictionaryRef searchOptionsDictionary(void)
+// {
+// 	CFMutableDictionaryRef dict;
+// 
+// 	dict = CFDictionaryCreateMutable(NULL, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+// 	if (dict == NULL) /* TODO */;
+// 	/* TODO this doesn't actually work? */
+// 	CFDictionaryAddValue(dict, kSKProximityIndexing, kCFBooleanTrue);
+// 	return dict;
+// }
 // static inline CFStringRef toCFString(char *s)
 // {
 // 	CFStringRef cs;
@@ -70,8 +80,8 @@ func NewSearchIndex() *SearchIndex {
 	if s.data == nil {
 		panic("out of memory in NewSearchIndex()")
 	}
-	// TODO proximity indexing?
-	s.si = C.SKIndexCreateWithMutableData(s.data, nil, C.kSKIndexInverted, nil)
+	s.si = C.SKIndexCreateWithMutableData(s.data, nil, C.kSKIndexInverted, C.searchOptionsDictionary())
+	// TODO release the search options dictionary?
 	return s
 }
 
@@ -102,6 +112,7 @@ type SearchResults struct {
 	done		bool
 }
 
+// TODO break searchFor apart for substring matches
 func (s *SearchIndex) Search(searchFor string) *SearchResults {
 	// must flush before searching
 	if C.SKIndexFlush(s.si) == C.false {
