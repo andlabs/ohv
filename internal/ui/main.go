@@ -8,7 +8,7 @@ import (
 )
 
 // #cgo CFLAGS: -mmacosx-version-min=10.11 -DMACOSX_DEPLOYMENT_TARGET=10.11
-// #cgo LDFLAGS: -mmacosx-version-min=10.11 -lobjc -framework Foundation -framework AppKit -framework WebKit -lpthread
+// #cgo LDFLAGS: -mmacosx-version-min=10.11 -lobjc -framework Foundation -framework AppKit -framework WebKit -framework CoreServices -lpthread
 // #include "ui.h"
 import "C"
 
