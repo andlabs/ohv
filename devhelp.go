@@ -1,6 +1,7 @@
 // 4 january 2016
 package main
 
+// TODO add keywords to the TOC
 // TODO - ideally the keywords would be separate from the topic list, but I'm not sure how — or even if — devhelp maps them back to a topic in the contents
 
 import (
