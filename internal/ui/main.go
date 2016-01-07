@@ -1,6 +1,9 @@
 // 2 january 2016
 package ui
 
+// TODOs:
+// - make sure all object lifetimes are correct (alloc/init vs typeName)
+
 import (
 	"fmt"
 	"runtime"
